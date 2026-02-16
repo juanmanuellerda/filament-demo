@@ -143,17 +143,23 @@ class ProjectForm
                                     ->numeric()
                                     ->prefix('$')
                                     ->disabled()
-                                    ->dehydrated(),
+                                    ->dehydrated()
+                                    ->required()
+                                    ->default(0),
 
                                 TextInput::make('estimated_hours')
                                     ->numeric()
-                                    ->suffix('hours'),
+                                    ->suffix('hours')
+                                    ->required()
+                                    ->default(0),
 
                                 TextInput::make('actual_hours')
                                     ->numeric()
                                     ->suffix('hours')
                                     ->disabled()
-                                    ->dehydrated(),
+                                    ->dehydrated()
+                                    ->required()
+                                    ->default(0),
                             ]),
                     ])
                     ->columnSpanFull(),

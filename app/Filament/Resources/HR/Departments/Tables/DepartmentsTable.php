@@ -73,7 +73,7 @@ class DepartmentsTable
                         ->action(fn (Department $record) => $record->update(['is_active' => ! $record->is_active])),
                     ReplicateAction::make()
                         ->requiresConfirmation()
-                        ->excludeAttributes(['slug']),
+                        ->excludeAttributes(['id', 'slug', 'employees_count']),
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()

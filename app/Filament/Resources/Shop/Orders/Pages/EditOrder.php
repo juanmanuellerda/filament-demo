@@ -19,7 +19,7 @@ class EditOrder extends EditRecord
         return [
             ReplicateAction::make()
                 ->requiresConfirmation()
-                ->excludeAttributes(['number', 'status', 'created_at', 'updated_at', 'deleted_at'])
+                ->excludeAttributes(['id', 'number', 'status', 'created_at', 'updated_at', 'deleted_at'])
                 ->mutateRecordDataUsing(function (array $data): array {
                     $data['number'] = 'OR-' . now()->format('Ymd') . '-' . strtoupper(substr(uniqid(), -5));
                     $data['status'] = OrderStatus::New;

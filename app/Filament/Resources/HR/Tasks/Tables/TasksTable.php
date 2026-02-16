@@ -153,7 +153,7 @@ class TasksTable
                         ->action(fn (Task $record, array $data) => $record->update($data)),
                     ReplicateAction::make()
                         ->requiresConfirmation()
-                        ->excludeAttributes(['completed_at', 'actual_hours', 'sort']),
+                        ->excludeAttributes(['id', 'completed_at', 'actual_hours', 'sort']),
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
