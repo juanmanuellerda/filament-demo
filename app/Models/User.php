@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\TypeEnum;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -25,6 +27,17 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     use Notifiable;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'admin',
+        'type',
+    ];
+
+
+    /**
      * @var list<string>
      */
     protected $hidden = [
@@ -37,6 +50,9 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'admin' => 'boolean',
+        'type' => TypeEnum::class,
+
     ];
 
     public function canAccessPanel(Panel $panel): bool
@@ -47,6 +63,20 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     public function canAccessTenant(Model $tenant): bool
     {
         return true;
+    }
+
+    protected function isAdmin(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->admin,
+        );
+    }
+
+    protected function typeUser(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->type,
+        );
     }
 
     /** @return Collection<int,Team> */
