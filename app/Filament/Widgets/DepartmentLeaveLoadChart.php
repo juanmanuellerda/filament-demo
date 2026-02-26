@@ -12,6 +12,11 @@ class DepartmentLeaveLoadChart extends ChartWidget
 
     protected static ?int $sort = 9;
 
+    public function getHeading(): string
+    {
+        return __('Department Leave Load');
+    }
+
     protected function getType(): string
     {
         return 'bar';
@@ -34,7 +39,7 @@ class DepartmentLeaveLoadChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Leave Days',
+                    'label' => __('Leave Days'),
                     'data' => $byDepartment->values()->all(),
                     'backgroundColor' => '#8b5cf6',
                     'borderColor' => '#8b5cf6',

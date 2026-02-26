@@ -24,63 +24,72 @@ class EmployeeForm
     {
         return $schema
             ->components([
-                Tabs::make('Employee')
+                Tabs::make(__('Employee'))
                     ->schema([
-                        Tab::make('Personal')
+                        Tab::make(__('Personal'))
                             ->icon(Heroicon::User)
                             ->schema([
                                 TextInput::make('name')
+                                    ->label(__('Name'))
                                     ->required()
                                     ->maxLength(255),
 
                                 TextInput::make('email')
+                                    ->label(__('Email'))
                                     ->required()
                                     ->email()
                                     ->maxLength(255)
                                     ->unique(Employee::class, 'email', ignoreRecord: true),
 
                                 TextInput::make('phone')
+                                    ->label(__('Phone'))
                                     ->tel()
                                     ->mask('(999) 999-9999')
                                     ->maxLength(255),
 
                                 DatePicker::make('date_of_birth')
+                                    ->label(__('Date of birth'))
                                     ->maxDate(now()),
 
                                 ColorPicker::make('team_color')
+                                    ->label(__('Team color'))
                                     ->hex(),
 
                                 CheckboxList::make('skills')
+                                    ->label(__('Skills'))
                                     ->options([
-                                        'PHP' => 'PHP',
-                                        'Laravel' => 'Laravel',
-                                        'JavaScript' => 'JavaScript',
-                                        'TypeScript' => 'TypeScript',
-                                        'React' => 'React',
-                                        'Vue.js' => 'Vue.js',
-                                        'Python' => 'Python',
-                                        'SQL' => 'SQL',
-                                        'Docker' => 'Docker',
-                                        'AWS' => 'AWS',
+                                        'PHP' => __('PHP'),
+                                        'Laravel' => __('Laravel'),
+                                        'JavaScript' => __('JavaScript'),
+                                        'TypeScript' => __('TypeScript'),
+                                        'React' => __('React'),
+                                        'Vue.js' => __('Vue.js'),
+                                        'Python' => __('Python'),
+                                        'SQL' => __('SQL'),
+                                        'Docker' => __('Docker'),
+                                        'AWS' => __('AWS'),
                                     ])
                                     ->columns(5)
                                     ->columnSpanFull(),
                             ])
                             ->columns(2),
 
-                        Tab::make('Employment')
+                        Tab::make(__('Employment'))
                             ->icon(Heroicon::Briefcase)
                             ->schema([
                                 Select::make('department_id')
+                                    ->label(__('Department'))
                                     ->relationship('department', 'name')
                                     ->searchable()
                                     ->preload(),
 
                                 TextInput::make('job_title')
+                                    ->label(__('Job title'))
                                     ->required()
                                     ->maxLength(255),
 
                                 ToggleButtons::make('employment_type')
+                                    ->label(__('Employment type'))
                                     ->options(EmploymentType::class)
                                     ->inline()
                                     ->required()
@@ -89,10 +98,12 @@ class EmployeeForm
                                     ->columnSpanFull(),
 
                                 DatePicker::make('hire_date')
+                                    ->label(__('Hire date'))
                                     ->required()
                                     ->default(now()),
 
                                 TextInput::make('salary')
+                                    ->label(__('Salary'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -105,6 +116,7 @@ class EmployeeForm
                                     ])),
 
                                 TextInput::make('hourly_rate')
+                                    ->label(__('Hourly rate'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -117,18 +129,18 @@ class EmployeeForm
                                     ])),
 
                                 Toggle::make('is_active')
-                                    ->label('Active')
+                                    ->label(__('Active'))
                                     ->default(true)
                                     ->columnStart(1),
                             ])
                             ->columns(2),
 
-                        Tab::make('Documents & Metadata')
+                        Tab::make(__('Documents & Metadata'))
                             ->icon(Heroicon::DocumentText)
                             ->schema([
                                 KeyValue::make('metadata')
-                                    ->keyLabel('Property')
-                                    ->valueLabel('Value')
+                                    ->keyLabel(__('Property'))
+                                    ->valueLabel(__('Value'))
                                     ->reorderable()
                                     ->columnSpanFull(),
                             ]),

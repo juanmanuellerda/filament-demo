@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Enums\OrderStatus;
+use App\Enums\TypeEnum;
 use App\Filament\Widgets\CustomerGrowthChart;
 use App\Filament\Widgets\CustomerSegmentsChart;
 use App\Filament\Widgets\FlaggedOrders;
@@ -20,6 +21,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Facades\Auth;
 
 class ShopDashboard extends BaseDashboard
 {
@@ -29,9 +31,19 @@ class ShopDashboard extends BaseDashboard
 
     protected static ?string $title = 'Shop Dashboard';
 
+    public function getHeading(): string
+    {
+        return __('Shop Dashboard');
+    }
+
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedShoppingCart;
 
     protected static ?int $navigationSort = 2;
+
+   public static function shouldRegisterNavigation(): bool
+    {
+    return Auth::user()->typeUser == TypeEnum::EcommerceShop;
+    }
 
     public function filtersForm(Schema $schema): Schema
     {
@@ -40,17 +52,19 @@ class ShopDashboard extends BaseDashboard
                 Section::make()
                     ->schema([
                         DatePicker::make('startDate')
+                            ->label(__('Start date'))
                             ->maxDate(fn (Get $get) => $get('endDate') ?: now()),
                         DatePicker::make('endDate')
+                            ->label(__('End date'))
                             ->minDate(fn (Get $get) => $get('startDate') ?: now())
                             ->maxDate(now()),
                         Select::make('orderStatuses')
-                            ->label('Order status')
+                            ->label(__('Order status'))
                             ->options(OrderStatus::class)
                             ->multiple()
                             ->searchable(),
                         Select::make('productCategory')
-                            ->label('Product category')
+                            ->label(__('Product category'))
                             ->options(fn (): array => ProductCategory::pluck('name', 'id')->all())
                             ->searchable(),
                     ])

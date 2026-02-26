@@ -38,20 +38,20 @@ class WorkforceInsightsStats extends BaseWidget
             : 0;
 
         return [
-            Stat::make('Avg Tenure', $avgTenure . ' yrs')
-                ->description($totalActive . ' active employees')
+            Stat::make(__('Avg Tenure'), $avgTenure . ' ' . __('yrs'))
+                ->description($totalActive . ' ' . __('active employees'))
                 ->descriptionIcon(Heroicon::Clock)
                 ->color('primary'),
-            Stat::make('Turnover Rate', $turnoverRate . '%')
-                ->description($inactiveCount . ' departed of ' . $totalCount)
+            Stat::make(__('Turnover Rate'), $turnoverRate . '%')
+                ->description($inactiveCount . ' ' . __('departed of') . ' ' . $totalCount)
                 ->descriptionIcon(Heroicon::ArrowRightOnRectangle)
                 ->color($turnoverRate > 20 ? 'danger' : 'warning'),
-            Stat::make('Open Capacity', (string) $openCapacity)
-                ->description('Limit: ' . $headcountLimit . ', filled: ' . $totalActive)
+            Stat::make(__('Open Capacity'), (string) $openCapacity)
+                ->description(__('Limit:') . ' ' . $headcountLimit . ', ' . __('filled:') . ' ' . $totalActive)
                 ->descriptionIcon(Heroicon::UserPlus)
                 ->color($openCapacity > 0 ? 'success' : 'gray'),
-            Stat::make('Contractor Ratio', $contractorRatio . '%')
-                ->description($contractorCount . ' contractors')
+            Stat::make(__('Contractor Ratio'), $contractorRatio . '%')
+                ->description($contractorCount . ' ' . __('contractors'))
                 ->descriptionIcon(Heroicon::Briefcase)
                 ->color('info'),
         ];

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\HR\Employees;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\HR\Employees\Pages\CreateEmployee;
 use App\Filament\Resources\HR\Employees\Pages\EditEmployee;
 use App\Filament\Resources\HR\Employees\Pages\ListEmployees;
@@ -19,6 +20,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class EmployeeResource extends Resource
@@ -34,6 +36,11 @@ class EmployeeResource extends Resource
     protected static ?int $navigationSort = 0;
 
     protected static ?string $slug = 'hr/employees';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
+    }
 
     public static function form(Schema $schema): Schema
     {

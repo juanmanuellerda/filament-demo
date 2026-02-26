@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\HR\Timesheets;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\HR\Timesheets\Pages\CreateTimesheet;
 use App\Filament\Resources\HR\Timesheets\Pages\EditTimesheet;
 use App\Filament\Resources\HR\Timesheets\Pages\ListTimesheets;
@@ -14,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class TimesheetResource extends Resource
@@ -27,6 +29,11 @@ class TimesheetResource extends Resource
     protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'timesheets';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -31,12 +31,12 @@ class EmployeeStats extends BaseWidget
             ->avg(fn (mixed $date): float => Carbon::parse($date)->diffInDays(now()) / 365.25);
 
         return [
-            Stat::make('Total Employees', $totalEmployees),
-            Stat::make('Active Employees', $activeEmployees)
+            Stat::make(__('Total Employees'), $totalEmployees),
+            Stat::make(__('Active Employees'), $activeEmployees)
                 ->color('success'),
-            Stat::make('Avg Salary', '$' . number_format((float) $avgSalary, 0))
+            Stat::make(__('Avg Salary'), '$' . number_format((float) $avgSalary, 0))
                 ->color('info'),
-            Stat::make('Avg Tenure', number_format((float) $avgTenure, 1) . ' years')
+            Stat::make(__('Avg Tenure'), number_format((float) $avgTenure, 1) . ' ' . __('years'))
                 ->color('warning'),
         ];
     }

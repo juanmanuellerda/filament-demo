@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Enums\TypeEnum;
 use App\Filament\Widgets\BudgetBurnRateChart;
 use App\Filament\Widgets\DepartmentLeaveLoadChart;
 use App\Filament\Widgets\ProjectHealthChart;
@@ -10,6 +11,7 @@ use App\Filament\Widgets\WorkforceInsightsStats;
 use BackedEnum;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Facades\Auth;
 
 class HrDashboard extends BaseDashboard
 {
@@ -20,6 +22,11 @@ class HrDashboard extends BaseDashboard
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedBriefcase;
 
     protected static ?int $navigationSort = 3;
+
+     public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
+    }
 
     public function getWidgets(): array
     {

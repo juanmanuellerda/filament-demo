@@ -12,45 +12,54 @@ class LeaveRequestInfolist
     {
         return $schema
             ->components([
-                Section::make('Leave Details')
+                Section::make(__('Leave Details'))
                     ->columns(3)
                     ->columnSpanFull()
                     ->schema([
-                        TextEntry::make('employee.name'),
+                        TextEntry::make('employee.name')
+                            ->label(__('Employee')),
                         TextEntry::make('type')
+                            ->label(__('Type'))
                             ->badge(),
                         TextEntry::make('status')
+                            ->label(__('Status'))
                             ->badge(),
                         TextEntry::make('start_date')
+                            ->label(__('Start date'))
                             ->date(),
                         TextEntry::make('end_date')
+                            ->label(__('End date'))
                             ->date(),
                         TextEntry::make('days_requested')
-                            ->suffix(' days'),
+                            ->label(__('Days requested'))
+                            ->suffix(' ' . __('days')),
                         TextEntry::make('start_time')
-                            ->label('Start time (half days)')
+                            ->label(__('Start time (half days)'))
                             ->time('H:i')
-                            ->placeholder('N/A'),
+                            ->placeholder(__('N/A')),
                         TextEntry::make('end_time')
-                            ->label('End time (half days)')
+                            ->label(__('End time (half days)'))
                             ->time('H:i')
-                            ->placeholder('N/A'),
+                            ->placeholder(__('N/A')),
                         TextEntry::make('reason')
+                            ->label(__('Reason'))
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Review')
+                Section::make(__('Review'))
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
                         TextEntry::make('approver.name')
-                            ->placeholder('Not yet assigned'),
+                            ->label(__('Approver'))
+                            ->placeholder(__('Not yet assigned')),
                         TextEntry::make('reviewed_at')
-                            ->label('Reviewed at')
+                            ->label(__('Reviewed at'))
                             ->dateTime()
-                            ->placeholder('Not yet reviewed'),
+                            ->placeholder(__('Not yet reviewed')),
                         TextEntry::make('reviewer_notes')
-                            ->placeholder('No notes')
+                            ->label(__('Reviewer notes'))
+                            ->placeholder(__('No notes'))
                             ->columnSpanFull(),
                     ]),
             ]);

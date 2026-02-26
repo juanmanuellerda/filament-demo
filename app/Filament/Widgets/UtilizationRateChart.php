@@ -14,6 +14,11 @@ class UtilizationRateChart extends ChartWidget
 
     protected static ?int $sort = 11;
 
+    public function getHeading(): string
+    {
+        return __('Utilization Rate');
+    }
+
     protected function getType(): string
     {
         return 'line';
@@ -44,14 +49,14 @@ class UtilizationRateChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Utilization %',
+                    'label' => __('Utilization %'),
                     'data' => $weeks->pluck('utilization')->all(),
                     'borderColor' => '#8b5cf6',
                     'backgroundColor' => 'rgba(139, 92, 246, 0.1)',
                     'fill' => 'start',
                 ],
                 [
-                    'label' => 'Target (80%)',
+                    'label' => __('Target (80%)'),
                     'data' => array_fill(0, 12, 80),
                     'borderColor' => '#ef4444',
                     'borderDash' => [5, 5],

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\HR\Projects;
 
 use App\Enums\ProjectStatus;
+use App\Enums\TypeEnum;
 use App\Filament\Resources\HR\Projects\Pages\CreateProject;
 use App\Filament\Resources\HR\Projects\Pages\EditProject;
 use App\Filament\Resources\HR\Projects\Pages\ListProjects;
@@ -22,6 +23,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class ProjectResource extends Resource
@@ -37,6 +39,11 @@ class ProjectResource extends Resource
     protected static ?string $slug = 'projects';
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
+    }
 
     public static function form(Schema $schema): Schema
     {

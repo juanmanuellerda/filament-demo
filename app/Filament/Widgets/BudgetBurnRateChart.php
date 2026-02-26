@@ -15,6 +15,11 @@ class BudgetBurnRateChart extends ChartWidget
 
     protected static ?int $sort = 12;
 
+    public function getHeading(): string
+    {
+        return __('Budget Burn Rate');
+    }
+
     protected function getType(): string
     {
         return 'line';
@@ -50,14 +55,14 @@ class BudgetBurnRateChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Cumulative Expenses',
+                    'label' => __('Cumulative Expenses'),
                     'data' => $cumulativeData,
                     'borderColor' => '#ef4444',
                     'backgroundColor' => 'rgba(239, 68, 68, 0.1)',
                     'fill' => 'start',
                 ],
                 [
-                    'label' => 'Total Budget',
+                    'label' => __('Total Budget'),
                     'data' => $budgetLine,
                     'borderColor' => '#22c55e',
                     'borderDash' => [5, 5],

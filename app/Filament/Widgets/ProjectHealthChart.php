@@ -13,6 +13,11 @@ class ProjectHealthChart extends ChartWidget
 
     protected static ?int $sort = 10;
 
+    public function getHeading(): string
+    {
+        return __('Project Health');
+    }
+
     protected function getType(): string
     {
         return 'bar';
@@ -50,12 +55,12 @@ class ProjectHealthChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Budget Used %',
+                    'label' => __('Budget Used %'),
                     'data' => $budgetUsed,
                     'backgroundColor' => '#3b82f6',
                 ],
                 [
-                    'label' => 'Timeline Elapsed %',
+                    'label' => __('Timeline Elapsed %'),
                     'data' => $timelineElapsed,
                     'backgroundColor' => '#f59e0b',
                 ],

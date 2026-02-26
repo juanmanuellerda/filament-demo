@@ -34,56 +34,67 @@ class EmployeesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('email')
+                    ->label(__('Email'))
                     ->searchable()
                     ->sortable()
                     ->copyable(),
 
                 TextColumn::make('department.name')
+                    ->label(__('Department'))
                     ->searchable()
                     ->sortable()
                     ->toggleable()
-                    ->placeholder('No department'),
+                    ->placeholder(__('No department')),
 
                 TextColumn::make('job_title')
+                    ->label(__('Job title'))
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('employment_type')
+                    ->label(__('Employment type'))
                     ->badge(),
 
                 TextColumn::make('salary')
+                    ->label(__('Salary'))
                     ->money('usd')
                     ->sortable()
                     ->toggleable(),
 
                 ColorColumn::make('team_color')
+                    ->label(__('Team color'))
                     ->toggleable()
                     ->toggledHiddenByDefault(),
 
                 TextColumn::make('hire_date')
+                    ->label(__('Hire date'))
                     ->date()
                     ->sortable()
                     ->toggleable(),
 
                 IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->boolean()
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('employment_type')
+                    ->label(__('Employment type'))
                     ->options(EmploymentType::class),
 
                 SelectFilter::make('department')
+                    ->label(__('Department'))
                     ->relationship('department', 'name'),
 
-                TernaryFilter::make('is_active'),
+                TernaryFilter::make('is_active')
+                    ->label(__('Is active')),
 
                 TrashedFilter::make(),
             ])
@@ -94,26 +105,35 @@ class EmployeesTable
                         ->color('primary')
                         ->slideOver()
                         ->schema([
-                            TextEntry::make('name'),
-                            TextEntry::make('email'),
-                            TextEntry::make('phone'),
+                            TextEntry::make('name')
+                                ->label(__('Name')),
+                            TextEntry::make('email')
+                                ->label(__('Email')),
+                            TextEntry::make('phone')
+                                ->label(__('Phone')),
                             TextEntry::make('department.name')
-                                ->placeholder('No department'),
-                            TextEntry::make('job_title'),
+                                ->label(__('Department'))
+                                ->placeholder(__('No department')),
+                            TextEntry::make('job_title')
+                                ->label(__('Job title')),
                             TextEntry::make('employment_type')
+                                ->label(__('Employment type'))
                                 ->badge(),
                             TextEntry::make('salary')
+                                ->label(__('Salary'))
                                 ->money('usd'),
                             TextEntry::make('hire_date')
+                                ->label(__('Hire date'))
                                 ->date(),
                             IconEntry::make('is_active')
+                                ->label(__('Active'))
                                 ->boolean(),
                         ])
                         ->modalSubmitAction(false),
                     EditAction::make(),
                     Action::make('toggle_active')
                         ->icon(fn (Employee $record): Heroicon => $record->is_active ? Heroicon::XMark : Heroicon::Check)
-                        ->label(fn (Employee $record): string => $record->is_active ? 'Deactivate' : 'Activate')
+                        ->label(fn (Employee $record): string => $record->is_active ? __('Deactivate') : __('Activate'))
                         ->color(fn (Employee $record): string => $record->is_active ? 'danger' : 'success')
                         ->requiresConfirmation()
                         ->action(fn (Employee $record) => $record->update(['is_active' => ! $record->is_active])),
@@ -121,13 +141,14 @@ class EmployeesTable
                         ->icon(Heroicon::BuildingOffice2)
                         ->color('primary')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel('Save')
+                        ->modalSubmitActionLabel(__('Save'))
                         ->fillForm(fn (Employee $record): array => [
                             'department_id' => $record->department_id,
                         ])
                         ->schema([
                             Select::make('department_id')
                                 ->relationship('department', 'name')
+                                ->label(__('Department'))
                                 ->searchable()
                                 ->preload()
                                 ->required(),
@@ -136,7 +157,7 @@ class EmployeesTable
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
-                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                                 ->warning()
                                 ->send();
                         }),
@@ -163,8 +184,8 @@ class EmployeesTable
                     ->schema([
                         ToggleButtons::make('is_active')
                             ->options([
-                                '1' => 'Active',
-                                '0' => 'Inactive',
+                                '1' => __('Active'),
+                                '0' => __('Inactive'),
                             ])
                             ->inline()
                             ->required(),
@@ -176,7 +197,7 @@ class EmployeesTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

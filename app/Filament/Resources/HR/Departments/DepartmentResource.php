@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\HR\Departments;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\HR\Departments\Pages\ManageDepartments;
 use App\Filament\Resources\HR\Departments\RelationManagers\EmployeesRelationManager;
 use App\Filament\Resources\HR\Departments\Schemas\DepartmentForm;
@@ -12,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class DepartmentResource extends Resource
@@ -27,6 +29,11 @@ class DepartmentResource extends Resource
     protected static ?int $navigationSort = 1;
 
     protected static ?string $slug = 'hr/departments';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
+    }
 
     public static function form(Schema $schema): Schema
     {

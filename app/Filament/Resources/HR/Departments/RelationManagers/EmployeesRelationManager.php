@@ -19,21 +19,25 @@ class EmployeesRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('email')
+                    ->label(__('Email'))
                     ->searchable(),
 
                 TextColumn::make('job_title')
+                    ->label(__('Job title'))
                     ->sortable(),
 
                 TextColumn::make('employment_type')
+                    ->label(__('Employment type'))
                     ->badge(),
 
                 IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->boolean(),
             ]);
     }

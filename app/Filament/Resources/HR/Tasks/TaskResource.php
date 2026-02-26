@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\HR\Tasks;
 
 use App\Enums\TaskStatus;
+use App\Enums\TypeEnum;
 use App\Filament\Resources\HR\Tasks\Pages\CreateTask;
 use App\Filament\Resources\HR\Tasks\Pages\EditTask;
 use App\Filament\Resources\HR\Tasks\Pages\ListTasks;
@@ -15,6 +16,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class TaskResource extends Resource
@@ -30,6 +32,11 @@ class TaskResource extends Resource
     protected static ?string $slug = 'tasks';
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -23,7 +23,7 @@ class ListEmployees extends ListRecords
     {
         return [
             Action::make('leave_requests')
-                ->label('Leave Requests')
+                ->label(__('Leave Requests'))
                 ->color('gray')
                 ->icon(Heroicon::Calendar)
                 ->badge(LeaveRequest::query()->where('status', LeaveStatus::Pending)->count())
@@ -41,10 +41,10 @@ class ListEmployees extends ListRecords
     public function getTabs(): array
     {
         return [
-            null => Tab::make('All'),
-            'active' => Tab::make('Active')
+            null => Tab::make(__('All')),
+            'active' => Tab::make(__('Active'))
                 ->query(fn ($query) => $query->where('is_active', true)),
-            'inactive' => Tab::make('Inactive')
+            'inactive' => Tab::make(__('Inactive'))
                 ->query(fn ($query) => $query->where('is_active', false)),
         ];
     }

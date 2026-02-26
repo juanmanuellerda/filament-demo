@@ -17,22 +17,26 @@ class TimesheetsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('project.name')
+                    ->label(__('Project'))
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('date')
+                    ->label(__('Date'))
                     ->date()
                     ->sortable(),
 
                 TextColumn::make('hours')
+                    ->label(__('Hours'))
                     ->numeric(1)
                     ->sortable(),
 
                 IconColumn::make('is_billable')
-                    ->label('Billable')
+                    ->label(__('Billable'))
                     ->boolean(),
 
                 TextColumn::make('total_cost')
+                    ->label(__('Total cost'))
                     ->money('usd')
                     ->sortable(),
             ])

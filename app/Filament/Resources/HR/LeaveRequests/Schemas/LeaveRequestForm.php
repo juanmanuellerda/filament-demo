@@ -23,23 +23,26 @@ class LeaveRequestForm
     {
         return $schema
             ->components([
-                Section::make('Leave Details')
+                Section::make(__('Leave Details'))
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
                         Select::make('employee_id')
+                            ->label(__('Employee'))
                             ->relationship('employee', 'name')
                             ->searchable()
                             ->preload()
                             ->required(),
 
                         ToggleButtons::make('type')
+                            ->label(__('Type'))
                             ->options(LeaveType::class)
                             ->inline()
                             ->required()
                             ->columnSpanFull(),
 
                         DatePicker::make('start_date')
+                            ->label(__('Start date'))
                             ->required()
                             ->live()
                             ->afterStateUpdated(function (Get $get, Set $set): void {
@@ -47,6 +50,7 @@ class LeaveRequestForm
                             }),
 
                         DatePicker::make('end_date')
+                            ->label(__('End date'))
                             ->required()
                             ->minDate(fn (Get $get) => $get('start_date'))
                             ->live()
@@ -55,12 +59,12 @@ class LeaveRequestForm
                             }),
 
                         TimePicker::make('start_time')
-                            ->seconds(false)
-                            ->label('Start time (half days)'),
+                            ->label(__('Start time (half days)'))
+                            ->seconds(false),
 
                         TimePicker::make('end_time')
-                            ->seconds(false)
-                            ->label('End time (half days)'),
+                            ->label(__('End time (half days)'))
+                            ->seconds(false),
 
                         TextInput::make('days_requested')
                             ->numeric()
@@ -72,31 +76,35 @@ class LeaveRequestForm
                             ->required(),
 
                         Textarea::make('reason')
+                            ->label(__('Reason'))
                             ->required()
                             ->maxLength(65535)
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Review')
+                Section::make(__('Review'))
                     ->hiddenOn('create')
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
                         TextEntry::make('notice')
-                            ->state('Note: Approving this request will deduct days from the employee\'s leave balance.')
+                            ->state(__('Note: Approving this request will deduct days from the employee\'s leave balance.'))
                             ->columnSpanFull(),
 
                         ToggleButtons::make('status')
+                            ->label(__('Status'))
                             ->options(LeaveStatus::class)
                             ->inline()
                             ->required()
                             ->columnSpanFull(),
 
                         Select::make('approver_id')
+                            ->label(__('Approver'))
                             ->relationship('approver', 'name')
                             ->searchable(),
 
                         Textarea::make('reviewer_notes')
+                            ->label(__('Reviewer notes'))
                             ->maxLength(65535),
                     ]),
             ]);

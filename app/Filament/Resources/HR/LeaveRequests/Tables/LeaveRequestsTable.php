@@ -29,40 +29,48 @@ class LeaveRequestsTable
         return $table
             ->columns([
                 TextColumn::make('employee.name')
+                    ->label(__('Employee'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('type')
+                    ->label(__('Type'))
                     ->badge(),
 
                 SelectColumn::make('status')
+                    ->label(__('Status'))
                     ->options(LeaveStatus::class)
                     ->selectablePlaceholder(false)
                     ->rules(['required']),
 
                 TextColumn::make('start_date')
+                    ->label(__('Start date'))
                     ->date()
                     ->sortable(),
 
                 TextColumn::make('end_date')
+                    ->label(__('End date'))
                     ->date()
                     ->sortable(),
 
                 TextColumn::make('days_requested')
+                    ->label(__('Days requested'))
                     ->numeric(1)
                     ->sortable()
                     ->summarize(Sum::make()),
 
                 TextColumn::make('approver.name')
+                    ->label(__('Approver'))
                     ->toggleable()
                     ->toggledHiddenByDefault()
-                    ->placeholder('Not assigned'),
+                    ->placeholder(__('Not assigned')),
             ])
             ->defaultSort('start_date', 'desc')
             ->recordActions([
                 ActionGroup::make([
                     Action::make('approve')
+                        ->label(__('Approve'))
                         ->icon(Heroicon::Check)
                         ->color('success')
                         ->visible(fn (LeaveRequest $record): bool => $record->status === LeaveStatus::Pending)
@@ -74,19 +82,20 @@ class LeaveRequestsTable
                             ]);
 
                             Notification::make()
-                                ->title('Leave request approved')
+                                ->title(__('Leave request approved'))
                                 ->success()
                                 ->send();
                         }),
                     Action::make('reject')
+                        ->label(__('Reject'))
                         ->icon(Heroicon::XMark)
                         ->color('danger')
                         ->visible(fn (LeaveRequest $record): bool => $record->status === LeaveStatus::Pending)
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel('Reject')
+                        ->modalSubmitActionLabel(__('Reject'))
                         ->schema([
                             Textarea::make('reviewer_notes')
-                                ->label('Reason for rejection')
+                                ->label(__('Reason for rejection'))
                                 ->required(),
                         ])
                         ->action(function (LeaveRequest $record, array $data): void {
@@ -97,7 +106,7 @@ class LeaveRequestsTable
                             ]);
 
                             Notification::make()
-                                ->title('Leave request rejected')
+                                ->title(__('Leave request rejected'))
                                 ->danger()
                                 ->send();
                         }),
@@ -133,7 +142,7 @@ class LeaveRequestsTable
                     ->color('danger')
                     ->schema([
                         Textarea::make('reviewer_notes')
-                            ->label('Reason for rejection')
+                            ->label(__('Reason for rejection'))
                             ->required(),
                     ])
                     ->action(function (Collection $records, array $data): void {

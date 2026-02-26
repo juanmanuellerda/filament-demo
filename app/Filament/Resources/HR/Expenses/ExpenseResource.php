@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\HR\Expenses;
 
 use App\Enums\ExpenseStatus;
+use App\Enums\TypeEnum;
 use App\Filament\Resources\HR\Expenses\Pages\CreateExpense;
 use App\Filament\Resources\HR\Expenses\Pages\EditExpense;
 use App\Filament\Resources\HR\Expenses\Pages\ListExpenses;
@@ -18,6 +19,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class ExpenseResource extends Resource
@@ -33,6 +35,11 @@ class ExpenseResource extends Resource
     protected static ?int $navigationSort = 3;
 
     protected static ?string $slug = 'hr/expenses';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
+    }
 
     public static function form(Schema $schema): Schema
     {

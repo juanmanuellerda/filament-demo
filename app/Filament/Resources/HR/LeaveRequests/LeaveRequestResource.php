@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\HR\LeaveRequests;
 
 use App\Enums\LeaveStatus;
+use App\Enums\TypeEnum;
 use App\Filament\Resources\HR\LeaveRequests\Pages\CreateLeaveRequest;
 use App\Filament\Resources\HR\LeaveRequests\Pages\EditLeaveRequest;
 use App\Filament\Resources\HR\LeaveRequests\Pages\ListLeaveRequests;
@@ -17,6 +18,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class LeaveRequestResource extends Resource
@@ -30,6 +32,11 @@ class LeaveRequestResource extends Resource
     protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'hr/leave-requests';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
+    }
 
     public static function form(Schema $schema): Schema
     {

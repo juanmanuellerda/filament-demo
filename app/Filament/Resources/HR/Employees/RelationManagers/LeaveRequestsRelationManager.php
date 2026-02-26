@@ -16,24 +16,28 @@ class LeaveRequestsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('type')
+                    ->label(__('Type'))
                     ->badge()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
 
                 TextColumn::make('start_date')
+                    ->label(__('Start date'))
                     ->date()
                     ->sortable(),
 
                 TextColumn::make('end_date')
+                    ->label(__('End date'))
                     ->date()
                     ->sortable(),
 
                 TextColumn::make('days_requested')
+                    ->label(__('Days requested'))
                     ->numeric(1)
-                    ->sortable(),
-            ])
+                    ->sortable(),            ])
             ->defaultSort('start_date', 'desc');
     }
 }

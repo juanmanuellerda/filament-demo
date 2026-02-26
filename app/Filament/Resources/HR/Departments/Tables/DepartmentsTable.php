@@ -27,18 +27,21 @@ class DepartmentsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('parent.name')
-                    ->placeholder('Top Level'),
+                    ->label(__('Parent department'))
+                    ->placeholder(__('Top Level')),
 
                 TextColumn::make('employees_count')
-                    ->counts('employees')
-                    ->label('Headcount'),
+                    ->label(__('Headcount'))
+                    ->counts('employees'),
 
                 TextColumn::make('budget')
+                    ->label(__('Budget'))
                     ->money('usd')
                     ->sortable(),
 
@@ -46,22 +49,24 @@ class DepartmentsTable
                     ->toggleable(),
 
                 IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->boolean(),
             ])
             ->recordActions([
                 ActionGroup::make([
                     EditAction::make(),
                     Action::make('adjust_budget')
+                         ->label(__('Adjust budget'))
                         ->icon(Heroicon::Banknotes)
                         ->color('success')
                         ->modalWidth(Width::ExtraSmall)
-                        ->modalSubmitActionLabel('Save')
+                        ->modalSubmitActionLabel(__('Save'))
                         ->fillForm(fn (Department $record): array => [
                             'budget' => $record->budget,
                         ])
                         ->schema([
                             TextInput::make('budget')
+                                ->label(__('Budget'))
                                 ->numeric()
                                 ->prefix('$')
                                 ->minValue(0)
@@ -69,9 +74,10 @@ class DepartmentsTable
                                 ->required(),
                         ])
                         ->action(fn (Department $record, array $data) => $record->update($data)),
+
                     Action::make('toggle_active')
                         ->icon(fn (Department $record): Heroicon => $record->is_active ? Heroicon::XMark : Heroicon::Check)
-                        ->label(fn (Department $record): string => $record->is_active ? 'Deactivate' : 'Activate')
+                        ->label(fn (Department $record): string => $record->is_active ? __('Deactivate') : __('Activate'))
                         ->color(fn (Department $record): string => $record->is_active ? 'danger' : 'success')
                         ->action(fn (Department $record) => $record->update(['is_active' => ! $record->is_active])),
                     ReplicateAction::make()
@@ -83,7 +89,7 @@ class DepartmentsTable
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
-                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                                 ->warning()
                                 ->send();
                         }),
@@ -93,7 +99,7 @@ class DepartmentsTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

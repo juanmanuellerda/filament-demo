@@ -20,6 +20,7 @@ class DepartmentForm
             ->columns(2)
             ->components([
                 TextInput::make('name')
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -32,6 +33,7 @@ class DepartmentForm
                     }),
 
                 TextInput::make('slug')
+                    ->label(__('Slug'))
                     ->disabled()
                     ->dehydrated()
                     ->required()
@@ -39,18 +41,20 @@ class DepartmentForm
                     ->unique(Department::class, 'slug', ignoreRecord: true),
 
                 Select::make('parent_id')
-                    ->label('Parent department')
+                    ->label(__('Parent department'))
                     ->relationship('parent', 'name', fn ($query) => $query->whereNull('parent_id'))
                     ->searchable()
                     ->preload()
                     ->columnSpanFull(),
 
                 Textarea::make('description')
+                    ->label(__('Description'))
                     ->rows(3)
                     ->maxLength(65535)
                     ->columnSpanFull(),
 
                 TextInput::make('budget')
+                    ->label(__('Budget'))
                     ->required()
                     ->numeric()
                     ->prefix('$')
@@ -59,16 +63,18 @@ class DepartmentForm
                     ->default(0),
 
                 TextInput::make('headcount_limit')
+                    ->label(__('Headcount limit'))
                     ->required()
                     ->integer()
                     ->minValue(0)
                     ->maxValue(2147483647)
                     ->default(0),
 
-                ColorPicker::make('color'),
+                ColorPicker::make('color')
+                    ->label(__('Color')),
 
                 Toggle::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->default(true)
                     ->columnStart(1),
             ]);
