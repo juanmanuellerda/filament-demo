@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Shop\Orders;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\Shop\Orders\Pages\CreateOrder;
 use App\Filament\Resources\Shop\Orders\Pages\EditOrder;
 use App\Filament\Resources\Shop\Orders\Pages\ListOrders;
@@ -18,6 +19,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class OrderResource extends Resource
@@ -33,6 +35,11 @@ class OrderResource extends Resource
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedShoppingBag;
 
     protected static ?int $navigationSort = 1;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EcommerceShop;
+    }
 
     public static function form(Schema $schema): Schema
     {

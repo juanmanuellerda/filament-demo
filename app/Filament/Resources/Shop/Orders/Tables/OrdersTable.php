@@ -32,26 +32,31 @@ class OrdersTable
                 TextColumn::make('number')
                     ->searchable()
                     ->sortable()
-                    ->weight(FontWeight::Medium),
+                    ->weight(FontWeight::Medium)
+                    ->label(__('Orden')),
                 TextColumn::make('customer.name')
                     ->searchable()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable()
+                    ->label(__('Name')),
                 TextColumn::make('status')
-                    ->badge(),
+                    ->badge()
+                    ->label(__('Status')),
                 TextColumn::make('currency')
                     ->searchable()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable()
+                    ->label(__('Currency')),
                 TextColumn::make('total_price')
                     ->searchable()
                     ->sortable()
                     ->summarize([
                         Sum::make()
                             ->money(),
-                    ]),
+                    ])
+                    ->label(__('Total price')),
                 TextColumn::make('shipping_price')
-                    ->label('Shipping cost')
+                    ->label(__('Shipping cost'))
                     ->searchable()
                     ->sortable()
                     ->toggleable()
@@ -60,7 +65,7 @@ class OrdersTable
                             ->money(),
                     ]),
                 TextColumn::make('created_at')
-                    ->label('Order date')
+                    ->label(__('Order date'))
                     ->date()
                     ->toggleable(),
             ])
@@ -68,11 +73,12 @@ class OrdersTable
                 TrashedFilter::make(),
 
                 Filter::make('created_at')
-                    ->label('Order date')
                     ->schema([
                         DatePicker::make('created_from')
-                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
-                        DatePicker::make('created_until')
+                            ->placeholder(fn ($state): string => __('Dec 18, :year', ['year' => now()->subYear()->format('Y')]))
+                        ->label(__('Created from')),
+                            DatePicker::make('created_until')
+                        ->label(__('Created until'))
                             ->placeholder(fn ($state): string => now()->format('M d, Y')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
@@ -89,10 +95,10 @@ class OrdersTable
                     ->indicateUsing(function (array $data): array {
                         $indicators = [];
                         if ($data['created_from'] ?? null) {
-                            $indicators['created_from'] = 'Order from ' . Carbon::parse($data['created_from'])->toFormattedDateString();
+                            $indicators['created_from'] = __('Order from :date', ['date' => Carbon::parse($data['created_from'])->toFormattedDateString()]);
                         }
                         if ($data['created_until'] ?? null) {
-                            $indicators['created_until'] = 'Order until ' . Carbon::parse($data['created_until'])->toFormattedDateString();
+                            $indicators['created_until'] = __('Order until :date', ['date' => Carbon::parse($data['created_until'])->toFormattedDateString()]);
                         }
 
                         return $indicators;
@@ -101,6 +107,7 @@ class OrdersTable
             ->recordActions([
                 ActionGroup::make([
                     Action::make('process')
+                        ->label(__('Process'))
                         ->icon(Heroicon::ArrowPath)
                         ->color('warning')
                         ->visible(fn (Order $record): bool => $record->status === OrderStatus::New)
@@ -108,7 +115,7 @@ class OrdersTable
                             $record->update(['status' => OrderStatus::Processing]);
 
                             Notification::make()
-                                ->title('Order is now processing')
+                                ->title(__('Order is now processing'))
                                 ->success()
                                 ->send();
                         }),
@@ -117,15 +124,15 @@ class OrdersTable
                         ->color('success')
                         ->visible(fn (Order $record): bool => $record->status === OrderStatus::Processing)
                         ->slideOver()
-                        ->modalSubmitActionLabel('Ship')
+                        ->modalSubmitActionLabel(__('Ship'))
                         ->schema([
                             Textarea::make('notes')
-                                ->label('Shipping notes')
+                                ->label(__('Shipping notes'))
                                 ->rows(3),
                         ])
                         ->extraModalFooterActions([
                             Action::make('ship_and_notify')
-                                ->label('Ship & notify customer')
+                                ->label(__('Ship & notify customer'))
                                 ->color('info')
                                 ->action(function (Order $record, array $data): void {
                                     $record->update([
@@ -134,7 +141,7 @@ class OrdersTable
                                     ]);
 
                                     Notification::make()
-                                        ->title('Order shipped & customer notified')
+                                        ->title(__('Order shipped & customer notified'))
                                         ->success()
                                         ->send();
                                 }),
@@ -146,11 +153,12 @@ class OrdersTable
                             ]);
 
                             Notification::make()
-                                ->title('Order shipped')
+                                ->title(__('Order shipped'))
                                 ->success()
                                 ->send();
                         }),
                     Action::make('deliver')
+                        ->label(__('Deliver'))
                         ->icon(Heroicon::CheckBadge)
                         ->color('success')
                         ->visible(fn (Order $record): bool => $record->status === OrderStatus::Shipped)
@@ -159,12 +167,13 @@ class OrdersTable
                             $record->update(['status' => OrderStatus::Delivered]);
 
                             Notification::make()
-                                ->title('Order marked as delivered')
+                                ->title(__('Order marked as delivered'))
                                 ->success()
                                 ->send();
                         }),
                     EditAction::make(),
                     Action::make('cancel')
+                        ->label(__('Cancel'))
                         ->icon(Heroicon::XCircle)
                         ->color('danger')
                         ->visible(fn (Order $record): bool => ! in_array($record->status, [OrderStatus::Delivered, OrderStatus::Cancelled]))
@@ -174,14 +183,14 @@ class OrdersTable
                             $record->update(['status' => OrderStatus::Cancelled]);
 
                             Notification::make()
-                                ->title('Order cancelled')
+                                ->title(__('Order cancelled'))
                                 ->danger()
                                 ->send();
                         }),
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
-                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                                 ->warning()
                                 ->send();
                         }),
@@ -191,14 +200,14 @@ class OrdersTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),
             ])
             ->groups([
                 Group::make('created_at')
-                    ->label('Order date')
+                    ->label(__('Order date'))
                     ->date()
                     ->collapsible(),
             ]);
