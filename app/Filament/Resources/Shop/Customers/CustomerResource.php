@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Shop\Customers;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\Shop\Customers\Pages\CreateCustomer;
 use App\Filament\Resources\Shop\Customers\Pages\EditCustomer;
 use App\Filament\Resources\Shop\Customers\Pages\ListCustomers;
@@ -17,6 +18,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class CustomerResource extends Resource
@@ -32,6 +34,11 @@ class CustomerResource extends Resource
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedUserGroup;
 
     protected static ?int $navigationSort = 2;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EcommerceShop;
+    }
 
     public static function form(Schema $schema): Schema
     {

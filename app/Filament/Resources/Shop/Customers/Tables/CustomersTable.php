@@ -23,16 +23,19 @@ class CustomersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable(isIndividual: true)
                     ->sortable()
                     ->weight(FontWeight::Medium),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label(__('Email address'))
                     ->searchable(isIndividual: true, isGlobal: false)
                     ->sortable(),
                 TextColumn::make('country')
+                    ->label(__('Country'))
                     ->getStateUsing(fn ($record): ?string => $record->addresses->first()?->country?->getLabel()),
                 TextColumn::make('phone')
+                    ->label(__('Phone'))
                     ->searchable()
                     ->sortable(),
             ])
@@ -41,10 +44,11 @@ class CustomersTable
             ])
             ->recordActions([
                 Action::make('send_email')
+                    ->label(__('Send email'))
                     ->icon(Heroicon::Envelope)
                     ->color('info')
                     ->modalWidth(Width::Large)
-                    ->modalSubmitActionLabel('Send')
+                    ->modalSubmitActionLabel(__('Send'))
                     ->fillForm(fn (Customer $record): array => [
                         'to' => $record->email,
                     ])
@@ -61,7 +65,7 @@ class CustomersTable
                     ])
                     ->action(function (Customer $record): void {
                         Notification::make()
-                            ->title("Email sent to {$record->name}")
+                            ->title(__('Email sent to :name', ['name' => $record->name]))
                             ->success()
                             ->send();
                     }),
@@ -71,7 +75,7 @@ class CustomersTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

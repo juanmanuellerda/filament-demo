@@ -18,20 +18,23 @@ class CustomerForm
                 Section::make()
                     ->schema([
                         TextInput::make('name')
+                            ->label(__('Name'))
                             ->maxLength(255)
                             ->required(),
 
                         TextInput::make('email')
-                            ->label('Email address')
+                            ->label(__('Email address'))
                             ->required()
                             ->email()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
 
                         TextInput::make('phone')
+                            ->label(__('Phone'))
                             ->maxLength(255),
 
                         DatePicker::make('birthday')
+                            ->label(__('Birthday'))
                             ->maxDate('today'),
                     ])
                     ->columns(2)
@@ -40,10 +43,11 @@ class CustomerForm
                 Section::make()
                     ->schema([
                         TextEntry::make('created_at')
+                            ->label(__('Created at'))
                             ->state(fn (Customer $record): ?string => $record->created_at?->diffForHumans()),
 
                         TextEntry::make('updated_at')
-                            ->label('Last modified at')
+                            ->label(__('Last modified at'))
                             ->state(fn (Customer $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])

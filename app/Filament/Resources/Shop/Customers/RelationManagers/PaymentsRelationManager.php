@@ -32,6 +32,7 @@ class PaymentsRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('order_id')
+                    ->label(__('Order'))
                     ->relationship(
                         'order',
                         'number',
@@ -42,10 +43,12 @@ class PaymentsRelationManager extends RelationManager
                     ->required(),
 
                 TextInput::make('reference')
+                    ->label(__('Reference'))
                     ->columnSpan(fn (string $operation) => $operation === 'edit' ? 2 : 1)
                     ->required(),
 
                 TextInput::make('amount')
+                    ->label(__('Amount'))
                     ->numeric()
                     ->minValue(0)
                     ->maxValue(99999999.99)
@@ -53,20 +56,23 @@ class PaymentsRelationManager extends RelationManager
                     ->required(),
 
                 Select::make('currency')
+                    ->label(__('Currency'))
                     ->options(CurrencyCode::class)
                     ->searchable()
                     ->required(),
 
                 ToggleButtons::make('provider')
+                    ->label(__('Provider'))
                     ->inline()
                     ->grouped()
                     ->options([
-                        'stripe' => 'Stripe',
-                        'paypal' => 'PayPal',
+                        'stripe' => __('Stripe'),
+                        'paypal' => __('PayPal'),
                     ])
                     ->required(),
 
                 ToggleButtons::make('method')
+                    ->label(__('Method'))
                     ->inline()
                     ->options(PaymentMethod::class)
                     ->required(),
@@ -78,28 +84,33 @@ class PaymentsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('order.number')
+                    ->label(__('Order number'))
                     ->url(fn ($record) => OrderResource::getUrl('edit', [$record->order]))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
-                ColumnGroup::make('Details')
+                ColumnGroup::make(__('Details'))
                     ->columns([
                         TextColumn::make('reference')
+                            ->label(__('Reference'))
                             ->searchable(),
 
                         TextColumn::make('amount')
+                            ->label(__('Amount'))
                             ->sortable()
                             ->money(fn ($record) => $record->currency->value),
                     ]),
 
-                ColumnGroup::make('Context')
+                ColumnGroup::make(__('Context'))
                     ->columns([
                         TextColumn::make('provider')
+                            ->label(__('Provider'))
                             ->formatStateUsing(fn ($state) => Str::headline($state))
                             ->sortable(),
 
                         TextColumn::make('method')
+                            ->label(__('Method'))
                             ->formatStateUsing(fn ($state) => Str::headline($state))
                             ->sortable(),
                     ]),
