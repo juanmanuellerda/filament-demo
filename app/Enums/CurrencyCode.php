@@ -25,14 +25,14 @@ enum CurrencyCode: string implements HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Usd => 'US Dollar',
-            self::Eur => 'Euro',
-            self::Gbp => 'British Pound',
-            self::Cad => 'Canadian Dollar',
-            self::Aud => 'Australian Dollar',
-            self::Jpy => 'Japanese Yen',
-            self::Brl => 'Brazilian Real',
-            self::Inr => 'Indian Rupee',
+            self::Usd => __('US Dollar'),
+            self::Eur => __('Euro'),
+            self::Gbp => __('British Pound'),
+            self::Cad => __('Canadian Dollar'),
+            self::Aud => __('Australian Dollar'),
+            self::Jpy => __('Japanese Yen'),
+            self::Brl => __('Brazilian Real'),
+            self::Inr => __('Indian Rupee'),
         };
     }
 }

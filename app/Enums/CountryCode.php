@@ -29,16 +29,16 @@ enum CountryCode: string implements HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Us => 'United States',
-            self::Gb => 'United Kingdom',
-            self::De => 'Germany',
-            self::Fr => 'France',
-            self::Ca => 'Canada',
-            self::Au => 'Australia',
-            self::Nl => 'Netherlands',
-            self::Br => 'Brazil',
-            self::Jp => 'Japan',
-            self::In => 'India',
+            self::Us => __('United States'),
+            self::Gb => __('United Kingdom'),
+            self::De => __('Germany'),
+            self::Fr => __('France'),
+            self::Ca => __('Canada'),
+            self::Au => __('Australia'),
+            self::Nl => __('Netherlands'),
+            self::Br => __('Brazil'),
+            self::Jp => __('Japan'),
+            self::In => __('India'),
         };
     }
 }
