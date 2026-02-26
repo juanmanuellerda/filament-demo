@@ -112,25 +112,29 @@ class ShopKpisStats extends BaseWidget
 
         return [
             Stat::make('Repeat Customer Rate', $repeatRate . '%')
-                ->description($repeatCustomers . ' of ' . $totalCustomers . ' customers')
+                ->description(__(':repeatCustomers of :totalCustomers customers', ['repeatCustomers' => $repeatCustomers, 'totalCustomers' => $totalCustomers]))
                 ->descriptionIcon(Heroicon::ArrowPath)
                 ->chart($repeatChart)
-                ->color('success'),
+                ->color('success')
+                ->label(__('Repeat Customer Rate')),
             Stat::make('Avg Items / Order', (string) $avgItemsPerOrder)
-                ->description($totalItems . ' items, ' . $totalOrders . ' orders')
+                ->description(__(':totalItems items, :totalOrders orders', ['totalItems' => $totalItems, 'totalOrders' => $totalOrders]))
                 ->descriptionIcon(Heroicon::ShoppingCart)
                 ->chart($avgItemsChart)
-                ->color('info'),
+                ->color('info')
+                ->label(__('Avg Items / Order')),
             Stat::make('Cancellation Rate', $cancellationRate . '%')
-                ->description($cancelledOrders . ' cancelled orders')
+                ->description(__(':cancelledOrders cancelled orders', ['cancelledOrders' => $cancelledOrders]))
                 ->descriptionIcon(Heroicon::XCircle)
                 ->chart($cancellationChart)
-                ->color($cancellationRate > 10 ? 'danger' : 'warning'),
+                ->color($cancellationRate > 10 ? 'danger' : 'warning')
+                ->label(__('Cancellation Rate')),
             Stat::make('Revenue / Customer', '$' . number_format($revenuePerCustomer, 2))
-                ->description('$' . number_format($totalRevenue, 0) . ' total revenue')
+                ->description(__('$ :totalRevenue total revenue', ['totalRevenue' => number_format($totalRevenue, 0)]))
                 ->descriptionIcon(Heroicon::CurrencyDollar)
                 ->chart($revenueChart)
-                ->color('success'),
+                ->color('success')
+                ->label(__('Revenue / Customer')),
         ];
     }
 }

@@ -48,21 +48,23 @@ class AddressForm extends Field
             Grid::make()
                 ->schema([
                     Select::make('country')
+                        ->label(__('Country'))
                         ->options(CountryCode::class)
                         ->searchable(),
                 ]),
             TextInput::make('street')
-                ->label('Street address')
+                ->label(__('Street address'))
                 ->maxLength(255),
             Grid::make(3)
                 ->schema([
                     TextInput::make('city')
+                        ->label(__('City'))
                         ->maxLength(255),
                     TextInput::make('state')
-                        ->label('State / Province')
+                        ->label(__('State / Province'))
                         ->maxLength(255),
                     TextInput::make('zip')
-                        ->label('Zip / Postal code')
+                        ->label(__('Zip / Postal code'))
                         ->maxLength(255),
                 ]),
         ];

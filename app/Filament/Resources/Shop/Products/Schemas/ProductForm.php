@@ -28,6 +28,7 @@ class ProductForm
                         Section::make()
                             ->schema([
                                 TextInput::make('name')
+                                    ->label(__('Name'))
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
@@ -40,6 +41,7 @@ class ProductForm
                                     }),
 
                                 TextInput::make('slug')
+                                    ->label(__('Slug'))
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
@@ -47,13 +49,15 @@ class ProductForm
                                     ->unique(Product::class, 'slug', ignoreRecord: true),
 
                                 RichEditor::make('description')
+                                    ->label(__('Description'))
                                     ->columnSpan('full'),
                             ])
                             ->columns(2),
 
-                        Section::make('Images')
+                        Section::make(__('Images'))
                             ->schema([
                                 SpatieMediaLibraryFileUpload::make('media')
+                                    ->label(__('Images'))
                                     ->collection('product-images')
                                     ->multiple()
                                     ->maxFiles(5)
@@ -63,9 +67,10 @@ class ProductForm
                             ])
                             ->collapsible(),
 
-                        Section::make('Pricing')
+                        Section::make(__('Pricing'))
                             ->schema([
                                 TextInput::make('price')
+                                    ->label(__('Price'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->maxValue(99999999.99)
@@ -73,7 +78,7 @@ class ProductForm
                                     ->required(),
 
                                 TextInput::make('old_price')
-                                    ->label('Compare at price')
+                                    ->label(__('Compare at price'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->maxValue(99999999.99)
@@ -81,8 +86,8 @@ class ProductForm
                                     ->required(),
 
                                 TextInput::make('cost')
-                                    ->label('Cost per item')
-                                    ->helperText('Customers won\'t see this price.')
+                                    ->label(__('Cost per item'))
+                                    ->helperText(__('Customers won\'t see this price.'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->maxValue(99999999.99)
@@ -90,22 +95,22 @@ class ProductForm
                                     ->required(),
                             ])
                             ->columns(2),
-                        Section::make('Inventory')
+                        Section::make(__('Inventory'))
                             ->schema([
                                 TextInput::make('sku')
-                                    ->label('SKU (Stock Keeping Unit)')
+                                    ->label(__('SKU (Stock Keeping Unit)'))
                                     ->unique(Product::class, 'sku', ignoreRecord: true)
                                     ->maxLength(255)
                                     ->required(),
 
                                 TextInput::make('barcode')
-                                    ->label('Barcode (ISBN, UPC, GTIN, etc.)')
+                                    ->label(__('Barcode (ISBN, UPC, GTIN, etc.)'))
                                     ->unique(Product::class, 'barcode', ignoreRecord: true)
                                     ->maxLength(255)
                                     ->required(),
 
                                 TextInput::make('qty')
-                                    ->label('Quantity')
+                                    ->label(__('Quantity'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->maxValue(18446744073709551615)
@@ -113,7 +118,8 @@ class ProductForm
                                     ->required(),
 
                                 TextInput::make('security_stock')
-                                    ->helperText('The safety stock is the limit stock for your products which alerts you if the product stock will soon be out of stock.')
+                                    ->label(__('Security stock'))
+                                    ->helperText(__('The safety stock is the limit stock for your products which alerts you if the product stock will soon be out of stock.'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->maxValue(18446744073709551615)
@@ -122,13 +128,13 @@ class ProductForm
                             ])
                             ->columns(2),
 
-                        Section::make('Shipping')
+                        Section::make(__('Shipping'))
                             ->schema([
                                 Checkbox::make('backorder')
-                                    ->label('This product can be returned'),
+                                    ->label(__('This product can be returned')),
 
                                 Checkbox::make('requires_shipping')
-                                    ->label('This product will be shipped'),
+                                    ->label(__('This product will be shipped')),
                             ])
                             ->columns(2),
                     ])
@@ -136,27 +142,29 @@ class ProductForm
 
                 Group::make()
                     ->schema([
-                        Section::make('Status')
+                        Section::make(__('Status'))
                             ->schema([
                                 Toggle::make('is_visible')
-                                    ->label('Visibility')
-                                    ->helperText('This product will be hidden from all sales channels.')
+                                    ->label(__('Visibility'))
+                                    ->helperText(__('This product will be hidden from all sales channels.'))
                                     ->default(true),
 
                                 DatePicker::make('published_at')
-                                    ->label('Publishing date')
+                                    ->label(__('Publishing date'))
                                     ->default(now())
                                     ->required(),
                             ]),
 
-                        Section::make('Associations')
+                        Section::make(__('Associations'))
                             ->schema([
                                 Select::make('brand_id')
+                                    ->label(__('Brand'))
                                     ->relationship('brand', 'name')
                                     ->searchable()
                                     ->hiddenOn(ProductsRelationManager::class),
 
                                 Select::make('productCategories')
+                                    ->label(__('Product category'))
                                     ->relationship('productCategories', 'name')
                                     ->multiple()
                                     ->required(),

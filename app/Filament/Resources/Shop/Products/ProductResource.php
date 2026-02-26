@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Shop\Products;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\Shop\Products\Pages\CreateProduct;
 use App\Filament\Resources\Shop\Products\Pages\EditProduct;
 use App\Filament\Resources\Shop\Products\Pages\ListProducts;
@@ -10,6 +11,7 @@ use App\Filament\Resources\Shop\Products\Schemas\ProductForm;
 use App\Filament\Resources\Shop\Products\Tables\ProductsTable;
 use App\Filament\Resources\Shop\Products\Widgets\ProductStats;
 use App\Models\Shop\Product;
+use App\Models\User;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -17,6 +19,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class ProductResource extends Resource
@@ -32,6 +35,11 @@ class ProductResource extends Resource
     protected static ?int $navigationSort = 0;
 
     protected static ?string $slug = 'shop/products';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EcommerceShop;
+    }
 
     public static function form(Schema $schema): Schema
     {

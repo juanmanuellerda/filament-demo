@@ -35,18 +35,21 @@ class CommentsRelationManager extends RelationManager
             ->columns(1)
             ->components([
                 TextInput::make('title')
+                    ->label(__('Title'))
                     ->required(),
 
                 Select::make('customer_id')
+                    ->label(__('Customer'))
                     ->relationship('customer', 'name')
                     ->searchable()
                     ->required(),
 
                 Toggle::make('is_visible')
-                    ->label('Public visibility')
+                    ->label(__('Public visibility'))
                     ->default(true),
 
                 RichEditor::make('content')
+                    ->label(__('Content'))
                     ->required(),
             ]);
     }
@@ -57,14 +60,17 @@ class CommentsRelationManager extends RelationManager
             ->columns(1)
             ->components([
                 TextEntry::make('title')
-                    ->placeholder('Untitled'),
+                    ->label(__('Title'))
+                    ->placeholder(__('Untitled')),
                 TextEntry::make('customer.name')
-                    ->placeholder('No customer'),
+                    ->placeholder(__('No customer'))
+                    ->label(__('Name')),
                 IconEntry::make('is_visible')
-                    ->label('Public visibility'),
+                    ->label(__('Public visibility')),
                 TextEntry::make('content')
+                    ->label(__('Content'))
                     ->markdown()
-                    ->placeholder('No content'),
+                    ->placeholder(__('No content')),
             ]);
     }
 
@@ -73,16 +79,18 @@ class CommentsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label(__('Title'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('customer.name')
+                    ->label(__('Customer'))
                     ->searchable()
                     ->sortable(),
 
                 IconColumn::make('is_visible')
-                    ->label('Public visibility')
+                    ->label(__('Public visibility'))
                     ->sortable(),
             ])
             ->filters([
@@ -95,9 +103,9 @@ class CommentsRelationManager extends RelationManager
                         $user = auth()->user();
 
                         Notification::make()
-                            ->title('New comment')
+                            ->title(__('New comment'))
                             ->icon(Heroicon::ChatBubbleBottomCenterText)
-                            ->body("**{$record->customer->name} commented on product ({$record->commentable->name}).**")
+                            ->body(__('**:customer commented on product (:product).**', ['customer' => $record->customer->name, 'product' => $record->commentable->name]))
                             ->sendToDatabase($user);
                     }),
             ])
@@ -107,7 +115,7 @@ class CommentsRelationManager extends RelationManager
                 DeleteAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),
@@ -116,7 +124,7 @@ class CommentsRelationManager extends RelationManager
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),
