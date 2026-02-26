@@ -20,17 +20,19 @@ class BrandsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
                 TextColumn::make('website')
+                    ->label(__('Website'))
                     ->searchable()
                     ->sortable(),
                 IconColumn::make('is_visible')
-                    ->label('Visibility')
+                    ->label(__('Visibility'))
                     ->sortable(),
                 TextColumn::make('updated_at')
-                    ->label('Last modified at')
+                    ->label(__('Last modified at'))
                     ->date()
                     ->sortable(),
             ])
@@ -39,16 +41,18 @@ class BrandsTable
             ])
             ->recordActions([
                 Action::make('visit_website')
+                    ->label(__('Visit website'))
                     ->icon(Heroicon::ArrowTopRightOnSquare)
                     ->color('gray')
-                    ->tooltip('Open brand website')
+                    ->tooltip(__('Open brand website'))
                     ->url(fn (Brand $record): ?string => $record->website)
                     ->openUrlInNewTab()
                     ->hidden(fn (Brand $record): bool => blank($record->website)),
                 Action::make('toggle_visibility')
+                    ->label(__('Toggle visibility'))
                     ->icon(fn (Brand $record): Heroicon => $record->is_visible ? Heroicon::EyeSlash : Heroicon::Eye)
                     ->color('gray')
-                    ->tooltip(fn (Brand $record): string => $record->is_visible ? 'Hide brand' : 'Show brand')
+                    ->tooltip(fn (Brand $record): string => $record->is_visible ? __('Hide brand') : __('Show brand'))
                     ->action(fn (Brand $record) => $record->update(['is_visible' => ! $record->is_visible])),
                 EditAction::make(),
             ])
@@ -56,7 +60,7 @@ class BrandsTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

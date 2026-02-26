@@ -28,15 +28,20 @@ class AddressesRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                TextInput::make('street'),
+                TextInput::make('street')
+                    ->label(__('Street address')),
 
-                TextInput::make('zip'),
+                TextInput::make('zip')
+                    ->label(__('Zip / Postal code')),
 
-                TextInput::make('city'),
+                TextInput::make('city')
+                    ->label(__('City')),
 
-                TextInput::make('state'),
+                TextInput::make('state')
+                    ->label(__('State / Province')),
 
                 Select::make('country')
+                    ->label(__('Country'))
                     ->options(CountryCode::class)
                     ->searchable(),
             ]);
@@ -47,13 +52,17 @@ class AddressesRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('street')
+                    ->label(__('Street address'))
                     ->weight(FontWeight::Medium),
 
-                TextColumn::make('zip'),
+                TextColumn::make('zip')
+                    ->label(__('Zip / Postal code')),
 
-                TextColumn::make('city'),
+                TextColumn::make('city')
+                    ->label(__('City')),
 
-                TextColumn::make('country'),
+                TextColumn::make('country')
+                    ->label(__('Country')),
             ])
             ->filters([
                 //

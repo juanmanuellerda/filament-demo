@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Shop\Brands;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\Shop\Brands\Pages\CreateBrand;
 use App\Filament\Resources\Shop\Brands\Pages\EditBrand;
 use App\Filament\Resources\Shop\Brands\Pages\ListBrands;
@@ -15,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class BrandResource extends Resource
@@ -30,6 +32,11 @@ class BrandResource extends Resource
     protected static ?int $navigationSort = 3;
 
     protected static ?string $slug = 'shop/brands';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EcommerceShop;
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -24,12 +24,14 @@ class BrandForm
                         Grid::make()
                             ->schema([
                                 TextInput::make('name')
+                                    ->label(__('Name'))
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
 
                                 TextInput::make('slug')
+                                    ->label(__('Slug'))
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
@@ -37,24 +39,27 @@ class BrandForm
                                     ->unique(Brand::class, 'slug', ignoreRecord: true),
                             ]),
                         TextInput::make('website')
+                            ->label(__('Website'))
                             ->required()
                             ->maxLength(255)
                             ->url(),
 
                         Toggle::make('is_visible')
-                            ->label('Visibility')
+                            ->label(__('Visibility'))
                             ->default(true),
 
-                        RichEditor::make('description'),
+                        RichEditor::make('description')
+                            ->label(__('Description')),
                     ])
                     ->columnSpan(['lg' => fn (?Brand $record) => $record === null ? 3 : 2]),
                 Section::make()
                     ->schema([
                         TextEntry::make('created_at')
+                            ->label(__('Created at'))
                             ->state(fn (Brand $record): ?string => $record->created_at?->diffForHumans()),
 
                         TextEntry::make('updated_at')
-                            ->label('Last modified at')
+                            ->label(__('Last modified at'))
                             ->state(fn (Brand $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])

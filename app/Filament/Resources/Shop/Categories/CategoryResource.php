@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Shop\Categories;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\Shop\Categories\Pages\CreateCategory;
 use App\Filament\Resources\Shop\Categories\Pages\EditCategory;
 use App\Filament\Resources\Shop\Categories\Pages\ListCategories;
@@ -14,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class CategoryResource extends Resource
@@ -29,6 +31,11 @@ class CategoryResource extends Resource
     protected static ?int $navigationSort = 4;
 
     protected static ?string $slug = 'shop/categories';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::EcommerceShop;
+    }
 
     public static function form(Schema $schema): Schema
     {
