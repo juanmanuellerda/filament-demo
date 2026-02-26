@@ -20,17 +20,19 @@ class CategoriesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
                 TextColumn::make('parent.name')
+                    ->label(__('Parent category'))
                     ->searchable()
                     ->sortable(),
                 IconColumn::make('is_visible')
-                    ->label('Visibility')
+                    ->label(__('Visibility'))
                     ->sortable(),
                 TextColumn::make('updated_at')
-                    ->label('Last modified at')
+                    ->label(__('Last modified at'))
                     ->date()
                     ->sortable(),
             ])
@@ -42,7 +44,7 @@ class CategoriesTable
                     ->link()
                     ->icon(Heroicon::Eye)
                     ->color('gray')
-                    ->label(fn (ProductCategory $record): string => $record->is_visible ? 'Hide' : 'Show')
+                    ->label(fn (ProductCategory $record): string => $record->is_visible ? __('Hide') : __('Show'))
                     ->action(fn (ProductCategory $record) => $record->update(['is_visible' => ! $record->is_visible])),
                 EditAction::make(),
             ])
@@ -50,7 +52,7 @@ class CategoriesTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

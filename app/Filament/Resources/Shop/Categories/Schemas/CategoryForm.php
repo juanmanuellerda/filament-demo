@@ -26,12 +26,14 @@ class CategoryForm
                         Grid::make()
                             ->schema([
                                 TextInput::make('name')
+                                    ->label(__('Name'))
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
 
                                 TextInput::make('slug')
+                                    ->label(__('Slug'))
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
@@ -40,24 +42,27 @@ class CategoryForm
                             ]),
 
                         Select::make('parent_id')
+                            ->label(__('Parent category'))
                             ->relationship('parent', 'name', fn (Builder $query) => $query->where('parent_id', null))
                             ->searchable()
-                            ->placeholder('Select parent category'),
+                            ->placeholder(__('Select parent category')),
 
                         Toggle::make('is_visible')
-                            ->label('Visibility')
+                            ->label(__('Visibility'))
                             ->default(true),
 
-                        RichEditor::make('description'),
+                        RichEditor::make('description')
+                            ->label(__('Description')),
                     ])
                     ->columnSpan(['lg' => fn (?ProductCategory $record) => $record === null ? 3 : 2]),
                 Section::make()
                     ->schema([
                         TextEntry::make('created_at')
+                            ->label(__('Created at'))
                             ->state(fn (ProductCategory $record): ?string => $record->created_at?->diffForHumans()),
 
                         TextEntry::make('updated_at')
-                            ->label('Last modified at')
+                            ->label(__('Last modified at'))
                             ->state(fn (ProductCategory $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])

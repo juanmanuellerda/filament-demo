@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Blog\Categories;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\Blog\Categories\Pages\ManageCategories;
 use App\Filament\Resources\Blog\Categories\Schemas\CategoryForm;
 use App\Filament\Resources\Blog\Categories\Schemas\CategoryInfolist;
@@ -12,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class CategoryResource extends Resource
@@ -27,6 +29,11 @@ class CategoryResource extends Resource
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?int $navigationSort = 1;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::Blog;
+    }
 
     public static function form(Schema $schema): Schema
     {
