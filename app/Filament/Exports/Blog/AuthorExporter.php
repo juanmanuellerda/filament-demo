@@ -15,25 +15,34 @@ class AuthorExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
-            ExportColumn::make('name'),
+                ->label(__('ID')),
+            ExportColumn::make('name')
+                ->label(__('Name')),
             ExportColumn::make('email')
-                ->label('Email address'),
+                ->label(__('Email address')),
             ExportColumn::make('github_handle')
-                ->label('GitHub handle'),
-            ExportColumn::make('twitter_handle'),
-            ExportColumn::make('created_at'),
+                ->label(__('GitHub handle')),
+            ExportColumn::make('twitter_handle')
+                ->label(__('Twitter handle')),
+            ExportColumn::make('created_at')
+                ->label(__('Created at')),
             ExportColumn::make('updated_at')
-                ->label('Last modified at'),
+                ->label(__('Last modified at')),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your author export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $body = __('Your author export has completed and :count :rows exported.', [
+            'count' => number_format($export->successful_rows),
+            'rows' => str('row')->plural($export->successful_rows),
+        ]);
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';
+            $body .= ' ' . __(':count :rows failed to export.', [
+                'count' => number_format($failedRowsCount),
+                'rows' => str('row')->plural($failedRowsCount),
+            ]);
         }
 
         return $body;

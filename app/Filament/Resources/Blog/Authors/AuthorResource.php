@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Blog\Authors;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\Blog\Authors\Pages\ManageAuthors;
 use App\Filament\Resources\Blog\Authors\Schemas\AuthorForm;
 use App\Filament\Resources\Blog\Authors\Tables\AuthorsTable;
@@ -11,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class AuthorResource extends Resource
@@ -26,6 +28,11 @@ class AuthorResource extends Resource
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedUsers;
 
     protected static ?int $navigationSort = 2;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::Blog;
+    }
 
     public static function form(Schema $schema): Schema
     {

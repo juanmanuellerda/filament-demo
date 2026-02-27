@@ -12,14 +12,17 @@ class CategoryInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
-                TextEntry::make('slug'),
+                TextEntry::make('name')
+                    ->label(__('Name')),
+                TextEntry::make('slug')
+                    ->label(__('Slug')),
                 TextEntry::make('description')
-                    ->placeholder('No description'),
+                    ->label(__('Description'))
+                    ->placeholder(__('No description')),
                 IconEntry::make('is_visible')
-                    ->label('Visibility'),
+                    ->label(__('Visibility')),
                 TextEntry::make('updated_at')
-                    ->label('Last modified at')
+                    ->label(__('Last modified at'))
                     ->dateTime(),
             ])
             ->columns(1)

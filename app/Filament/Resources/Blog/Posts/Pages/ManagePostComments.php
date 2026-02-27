@@ -36,18 +36,21 @@ class ManagePostComments extends ManageRelatedRecords
         return $schema
             ->components([
                 TextInput::make('title')
+                    ->label(__('Title'))
                     ->required(),
 
                 Select::make('customer_id')
+                    ->label(__('Customer'))
                     ->relationship('customer', 'name')
                     ->searchable()
                     ->required(),
 
                 Toggle::make('is_visible')
-                    ->label('Public visibility')
+                    ->label(__('Public visibility'))
                     ->default(true),
 
                 RichEditor::make('content')
+                    ->label(__('Content'))
                     ->required(),
             ])
             ->columns(1);
@@ -59,14 +62,17 @@ class ManagePostComments extends ManageRelatedRecords
             ->columns(1)
             ->components([
                 TextEntry::make('title')
-                    ->placeholder('Untitled'),
+                    ->label(__('Title'))
+                    ->placeholder(__('Untitled')),
                 TextEntry::make('customer.name')
-                    ->placeholder('No customer'),
+                    ->label(__('Customer'))
+                    ->placeholder(__('No customer')),
                 IconEntry::make('is_visible')
-                    ->label('Public visibility'),
+                    ->label(__('Public visibility')),
                 TextEntry::make('content')
+                    ->label(__('Content'))
                     ->markdown()
-                    ->placeholder('No content'),
+                    ->placeholder(__('No content')),
             ]);
     }
 
@@ -76,15 +82,17 @@ class ManagePostComments extends ManageRelatedRecords
             ->recordTitleAttribute('title')
             ->columns([
                 TextColumn::make('title')
+                    ->label(__('Title'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('customer.name')
+                    ->label(__('Customer'))
                     ->searchable()
                     ->sortable(),
 
                 IconColumn::make('is_visible')
-                    ->label('Public visibility')
+                    ->label(__('Public visibility'))
                     ->sortable(),
             ])
             ->filters([
@@ -99,7 +107,7 @@ class ManagePostComments extends ManageRelatedRecords
                 DeleteAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),
@@ -108,7 +116,7 @@ class ManagePostComments extends ManageRelatedRecords
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

@@ -23,12 +23,14 @@ class PostForm
                 Section::make()
                     ->schema([
                         TextInput::make('title')
+                            ->label(__('Title'))
                             ->required()
                             ->live(onBlur: true)
                             ->maxLength(255)
                             ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
 
                         TextInput::make('slug')
+                            ->label(__('Slug'))
                             ->disabled()
                             ->dehydrated()
                             ->required()
@@ -36,27 +38,31 @@ class PostForm
                             ->unique(Post::class, 'slug', ignoreRecord: true),
 
                         RichEditor::make('content')
+                            ->label(__('Content'))
                             ->required()
                             ->columnSpan('full'),
 
                         Select::make('author_id')
+                            ->label(__('Author'))
                             ->relationship('author', 'name')
                             ->searchable()
                             ->required(),
 
                         Select::make('post_category_id')
+                            ->label(__('Category'))
                             ->relationship('postCategory', 'name')
                             ->searchable()
                             ->required(),
 
                         DatePicker::make('published_at')
-                            ->label('Publishing date'),
+                            ->label(__('Publishing date')),
 
-                        SpatieTagsInput::make('tags'),
+                        SpatieTagsInput::make('tags')
+                            ->label(__('Tags')),
                     ])
                     ->columns(2),
 
-                Section::make('Image')
+                Section::make(__('Image'))
                     ->schema([
                         SpatieMediaLibraryFileUpload::make('image')
                             ->collection('post-images')

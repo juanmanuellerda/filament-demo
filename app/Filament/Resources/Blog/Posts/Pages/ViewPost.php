@@ -27,6 +27,7 @@ class ViewPost extends ViewRecord
     {
         return [
             Action::make('quick_publish')
+                ->label(__('Publish'))
                 ->icon(Heroicon::RocketLaunch)
                 ->color('success')
                 ->keyBindings(['mod+shift+p'])
@@ -36,11 +37,12 @@ class ViewPost extends ViewRecord
                     $this->refreshFormData(['published_at']);
 
                     Notification::make()
-                        ->title('Post published')
+                        ->title(__('Post published'))
                         ->success()
                         ->send();
                 }),
             Action::make('unpublish')
+                ->label(__('Unpublish'))
                 ->icon(Heroicon::XCircle)
                 ->color('warning')
                 ->visible(fn (Post $record): bool => (bool) $record->published_at?->isPast())
@@ -49,7 +51,7 @@ class ViewPost extends ViewRecord
                     $this->refreshFormData(['published_at']);
 
                     Notification::make()
-                        ->title('Post unpublished')
+                        ->title(__('Post unpublished'))
                         ->warning()
                         ->send();
                 }),

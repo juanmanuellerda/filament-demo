@@ -27,46 +27,55 @@ class PostsTable
         return $table
             ->columns([
                 SpatieMediaLibraryImageColumn::make('image')
+                    ->label(__('Image'))
                     ->collection('post-images')
                     ->conversion('thumb'),
 
                 TextColumn::make('title')
+                    ->label(__('Title'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('slug')
+                    ->label(__('Slug'))
                     ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('author.name')
+                    ->label(__('Author'))
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge()
-                    ->getStateUsing(fn (Post $record): string => $record->published_at?->isPast() ? 'Published' : 'Draft')
+                    ->getStateUsing(fn (Post $record): string => $record->published_at?->isPast() ? __('Published') : __('Draft'))
                     ->colors([
-                        'success' => 'Published',
+                        'success' => __('Published'),
                     ]),
 
                 TextColumn::make('postCategory.name')
+                    ->label(__('Category'))
                     ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('published_at')
-                    ->label('Publishing date')
+                    ->label(__('Publishing date'))
                     ->date(),
             ])
             ->filters([
                 Filter::make('published_at')
+                    ->label(__('Publishing date'))
                     ->schema([
                         DatePicker::make('published_from')
+                            ->label(__('Published from'))
                             ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
                         DatePicker::make('published_until')
+                            ->label(__('Published until'))
                             ->placeholder(fn ($state): string => now()->format('M d, Y')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
@@ -83,10 +92,10 @@ class PostsTable
                     ->indicateUsing(function (array $data): array {
                         $indicators = [];
                         if ($data['published_from'] ?? null) {
-                            $indicators['published_from'] = 'Published from ' . Carbon::parse($data['published_from'])->toFormattedDateString();
+                            $indicators['published_from'] = __('Published from') . ' ' . Carbon::parse($data['published_from'])->toFormattedDateString();
                         }
                         if ($data['published_until'] ?? null) {
-                            $indicators['published_until'] = 'Published until ' . Carbon::parse($data['published_until'])->toFormattedDateString();
+                            $indicators['published_until'] = __('Published until') . ' ' . Carbon::parse($data['published_until'])->toFormattedDateString();
                         }
 
                         return $indicators;
@@ -96,7 +105,7 @@ class PostsTable
                 ActionGroup::make([
                     Action::make('toggle_publish')
                         ->icon(fn (Post $record): Heroicon => $record->published_at?->isPast() ? Heroicon::XCircle : Heroicon::RocketLaunch)
-                        ->label(fn (Post $record): string => $record->published_at?->isPast() ? 'Unpublish' : 'Publish')
+                        ->label(fn (Post $record): string => $record->published_at?->isPast() ? __('Unpublish') : __('Publish'))
                         ->color(fn (Post $record): string => $record->published_at?->isPast() ? 'warning' : 'success')
                         ->action(function (Post $record): void {
                             $record->update([
@@ -104,7 +113,7 @@ class PostsTable
                             ]);
 
                             Notification::make()
-                                ->title($record->published_at ? 'Post published' : 'Post unpublished')
+                                ->title($record->published_at ? __('Post published') : __('Post unpublished'))
                                 ->success()
                                 ->send();
                         }),
@@ -113,7 +122,7 @@ class PostsTable
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
-                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                                 ->warning()
                                 ->send();
                         }),
@@ -123,7 +132,7 @@ class PostsTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

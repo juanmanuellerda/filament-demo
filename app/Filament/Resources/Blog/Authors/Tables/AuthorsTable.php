@@ -24,13 +24,14 @@ class AuthorsTable
                 Split::make([
                     Stack::make([
                         TextColumn::make('name')
+                            ->label(__('Name'))
                             ->searchable()
                             ->sortable()
                             ->weight(FontWeight::Medium)
                             ->alignLeft(),
 
                         TextColumn::make('email')
-                            ->label('Email address')
+                            ->label(__('Email address'))
                             ->searchable()
                             ->sortable()
                             ->color('gray')
@@ -40,10 +41,11 @@ class AuthorsTable
                     Stack::make([
                         TextColumn::make('github_handle')
                             ->icon('icon-github')
-                            ->label('GitHub handle')
+                            ->label(__('GitHub handle'))
                             ->alignLeft(),
 
                         TextColumn::make('twitter_handle')
+                            ->label(__('Twitter handle'))
                             ->icon('icon-twitter')
                             ->alignLeft(),
                     ])->space(2),
@@ -55,14 +57,14 @@ class AuthorsTable
             ->recordActions([
                 ActionGroup::make([
                     Action::make('view_github')
-                        ->label('View GitHub')
+                        ->label(__('View GitHub'))
                         ->icon('icon-github')
                         ->color('gray')
                         ->url(fn (Author $record): string => "https://github.com/{$record->github_handle}")
                         ->openUrlInNewTab()
                         ->hidden(fn (Author $record): bool => blank($record->github_handle)),
                     Action::make('view_twitter')
-                        ->label('View Twitter')
+                        ->label(__('View Twitter'))
                         ->icon('icon-twitter')
                         ->color('gray')
                         ->url(fn (Author $record): string => "https://x.com/{$record->twitter_handle}")
@@ -72,7 +74,7 @@ class AuthorsTable
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
-                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                                 ->warning()
                                 ->send();
                         }),
@@ -82,7 +84,7 @@ class AuthorsTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

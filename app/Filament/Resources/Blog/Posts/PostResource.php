@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Blog\Posts;
 
+use App\Enums\TypeEnum;
 use App\Filament\Resources\Blog\Posts\Pages\CreatePost;
 use App\Filament\Resources\Blog\Posts\Pages\EditPost;
 use App\Filament\Resources\Blog\Posts\Pages\ListPosts;
@@ -20,6 +21,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class PostResource extends Resource
@@ -37,6 +39,11 @@ class PostResource extends Resource
     protected static ?int $navigationSort = 0;
 
     protected static ?SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->typeUser == TypeEnum::Blog;
+    }
 
     public static function form(Schema $schema): Schema
     {

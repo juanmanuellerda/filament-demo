@@ -15,27 +15,30 @@ class CategoryImporter extends Importer
     {
         return [
             ImportColumn::make('name')
+                ->label(__('Name'))
                 ->requiredMapping()
                 ->rules(['required', 'max:255'])
                 ->example('Category A'),
             ImportColumn::make('slug')
+                ->label(__('Slug'))
                 ->requiredMapping()
                 ->rules(['required', 'max:255'])
                 ->example('category-a'),
             ImportColumn::make('description')
+                ->label(__('Description'))
                 ->example('This is the description for Category A.'),
             ImportColumn::make('is_visible')
-                ->label('Visibility')
+                ->label(__('Visibility'))
                 ->requiredMapping()
                 ->boolean()
                 ->rules(['required', 'boolean'])
                 ->example('yes'),
             ImportColumn::make('seo_title')
-                ->label('SEO title')
+                ->label(__('SEO title'))
                 ->rules(['max:60'])
                 ->example('Awesome Category A'),
             ImportColumn::make('seo_description')
-                ->label('SEO description')
+                ->label(__('SEO description'))
                 ->rules(['max:160'])
                 ->example('Wow! It\'s just so amazing.'),
         ];
@@ -50,10 +53,16 @@ class CategoryImporter extends Importer
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your blog category import has completed and ' . number_format($import->successful_rows) . ' ' . str('row')->plural($import->successful_rows) . ' imported.';
+        $body = __('Your blog category import has completed and :count :rows imported.', [
+            'count' => number_format($import->successful_rows),
+            'rows' => str('row')->plural($import->successful_rows),
+        ]);
 
         if ($failedRowsCount = $import->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to import.';
+            $body .= ' ' . __(':count :rows failed to import.', [
+                'count' => number_format($failedRowsCount),
+                'rows' => str('row')->plural($failedRowsCount),
+            ]);
         }
 
         return $body;

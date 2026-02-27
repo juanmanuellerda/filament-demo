@@ -17,12 +17,14 @@ class CategoryForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
 
                 TextInput::make('slug')
+                    ->label(__('Slug'))
                     ->disabled()
                     ->dehydrated()
                     ->required()
@@ -30,10 +32,11 @@ class CategoryForm
                     ->unique(PostCategory::class, 'slug', ignoreRecord: true),
 
                 RichEditor::make('description')
+                    ->label(__('Description'))
                     ->columnSpan('full'),
 
                 Toggle::make('is_visible')
-                    ->label('Visibility')
+                    ->label(__('Visibility'))
                     ->default(true),
             ]);
     }

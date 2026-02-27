@@ -23,21 +23,26 @@ class PostInfolist
                             Grid::make(2)
                                 ->schema([
                                     Group::make([
-                                        TextEntry::make('title'),
-                                        TextEntry::make('slug'),
+                                        TextEntry::make('title')
+                                            ->label(__('Title')),
+                                        TextEntry::make('slug')
+                                            ->label(__('Slug')),
                                         TextEntry::make('published_at')
-                                            ->label('Publishing date')
+                                            ->label(__('Publishing date'))
                                             ->badge()
                                             ->date()
                                             ->color('success')
-                                            ->placeholder('Not published'),
+                                            ->placeholder(__('Not published')),
                                     ]),
                                     Group::make([
                                         TextEntry::make('author.name')
-                                            ->placeholder('No author'),
+                                            ->label(__('Author'))
+                                            ->placeholder(__('No author')),
                                         TextEntry::make('postCategory.name')
-                                            ->placeholder('Uncategorized'),
-                                        SpatieTagsEntry::make('tags'),
+                                            ->label(__('Category'))
+                                            ->placeholder(__('Uncategorized')),
+                                        SpatieTagsEntry::make('tags')
+                                            ->label(__('Tags')),
                                     ]),
                                 ]),
                             SpatieMediaLibraryImageEntry::make('image')
@@ -46,7 +51,7 @@ class PostInfolist
                                 ->grow(false),
                         ])->from('lg'),
                     ]),
-                Section::make('Content')
+                Section::make(__('Content'))
                     ->schema([
                         TextEntry::make('content')
                             ->prose()

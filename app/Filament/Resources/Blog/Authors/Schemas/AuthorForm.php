@@ -14,24 +14,27 @@ class AuthorForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255),
 
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label(__('Email address'))
                     ->required()
                     ->maxLength(255)
                     ->email()
                     ->unique(Author::class, 'email', ignoreRecord: true),
 
                 RichEditor::make('bio')
+                    ->label(__('Bio'))
                     ->columnSpan('full'),
 
                 TextInput::make('github_handle')
-                    ->label('GitHub handle')
+                    ->label(__('GitHub handle'))
                     ->maxLength(255),
 
                 TextInput::make('twitter_handle')
+                    ->label(__('Twitter handle'))
                     ->maxLength(255),
             ]);
     }

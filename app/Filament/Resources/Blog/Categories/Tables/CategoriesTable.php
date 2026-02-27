@@ -23,16 +23,18 @@ class CategoriesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
                 TextColumn::make('slug')
+                    ->label(__('Slug'))
                     ->searchable()
                     ->sortable(),
                 IconColumn::make('is_visible')
-                    ->label('Visibility'),
+                    ->label(__('Visibility')),
                 TextColumn::make('updated_at')
-                    ->label('Last modified at')
+                    ->label(__('Last modified at'))
                     ->date(),
             ])
             ->filters([
@@ -43,14 +45,14 @@ class CategoriesTable
                     Action::make('toggle_visibility')
                         ->icon(fn (PostCategory $record): Heroicon => $record->is_visible ? Heroicon::EyeSlash : Heroicon::Eye)
                         ->color('gray')
-                        ->label(fn (PostCategory $record): string => $record->is_visible ? 'Hide category' : 'Show category')
+                        ->label(fn (PostCategory $record): string => $record->is_visible ? __('Hide category') : __('Show category'))
                         ->action(fn (PostCategory $record) => $record->update(['is_visible' => ! $record->is_visible])),
                     ViewAction::make(),
                     EditAction::make(),
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
-                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                                 ->warning()
                                 ->send();
                         }),
@@ -60,7 +62,7 @@ class CategoriesTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),
