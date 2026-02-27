@@ -11,7 +11,6 @@ use App\Filament\Resources\Shop\Products\Schemas\ProductForm;
 use App\Filament\Resources\Shop\Products\Tables\ProductsTable;
 use App\Filament\Resources\Shop\Products\Widgets\ProductStats;
 use App\Models\Shop\Product;
-use App\Models\User;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

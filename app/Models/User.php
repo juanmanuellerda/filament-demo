@@ -36,7 +36,6 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
         'type',
     ];
 
-
     /**
      * @var list<string>
      */
@@ -68,14 +67,14 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     protected function isAdmin(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->admin,
+            get: fn () => $this->admin,
         );
     }
 
     protected function typeUser(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->type,
+            get: fn () => $this->type,
         );
     }
 

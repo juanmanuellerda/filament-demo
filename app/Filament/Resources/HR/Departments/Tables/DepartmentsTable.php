@@ -56,7 +56,7 @@ class DepartmentsTable
                 ActionGroup::make([
                     EditAction::make(),
                     Action::make('adjust_budget')
-                         ->label(__('Adjust budget'))
+                        ->label(__('Adjust budget'))
                         ->icon(Heroicon::Banknotes)
                         ->color('success')
                         ->modalWidth(Width::ExtraSmall)

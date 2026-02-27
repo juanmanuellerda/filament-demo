@@ -16,7 +16,7 @@ return new class extends Migration
             $table->after('id', function (Blueprint $table) {
                 $table->boolean('admin')->default(false);
                 $table->string('type')->nullable()->default(TypeEnum::EcommerceShop);
-                });
+            });
         });
     }
 

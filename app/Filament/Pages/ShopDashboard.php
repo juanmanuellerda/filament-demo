@@ -35,9 +35,9 @@ class ShopDashboard extends BaseDashboard
 
     protected static ?int $navigationSort = 2;
 
-   public static function shouldRegisterNavigation(): bool
+    public static function shouldRegisterNavigation(): bool
     {
-    return Auth::user()->typeUser == TypeEnum::EcommerceShop;
+        return Auth::user()->typeUser == TypeEnum::EcommerceShop;
     }
 
     public function filtersForm(Schema $schema): Schema

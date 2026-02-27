@@ -76,9 +76,9 @@ class OrdersTable
                     ->schema([
                         DatePicker::make('created_from')
                             ->placeholder(fn ($state): string => __('Dec 18, :year', ['year' => now()->subYear()->format('Y')]))
-                        ->label(__('Created from')),
-                            DatePicker::make('created_until')
-                        ->label(__('Created until'))
+                            ->label(__('Created from')),
+                        DatePicker::make('created_until')
+                            ->label(__('Created until'))
                             ->placeholder(fn ($state): string => now()->format('M d, Y')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {

@@ -39,7 +39,7 @@ class ProductsTable
                     ->conversion('thumb'),
 
                 TextColumn::make('name')
-                ->label(__('Name'))
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
@@ -73,7 +73,7 @@ class ProductsTable
                     ->toggleable(),
 
                 TextColumn::make('security_stock')
-                ->label(__('Security stock'))
+                    ->label(__('Security stock'))
                     ->searchable()
                     ->sortable()
                     ->toggleable()
@@ -131,13 +131,13 @@ class ProductsTable
                 ActionGroup::make([
                     EditAction::make(),
                     Action::make('toggle_visibility')
-                    ->label(__('Toggle visibility'))
+                        ->label(__('Toggle visibility'))
                         ->icon(fn (Product $record): Heroicon => $record->is_visible ? Heroicon::EyeSlash : Heroicon::Eye)
                         ->label(fn (Product $record): string => $record->is_visible ? __('Hide') : __('Show'))
                         ->color('gray')
                         ->action(fn (Product $record) => $record->update(['is_visible' => ! $record->is_visible])),
                     Action::make('adjust_price')
-                    ->label(__('Adjust price'))
+                        ->label(__('Adjust price'))
                         ->icon(Heroicon::CurrencyDollar)
                         ->color('warning')
                         ->modalWidth(Width::Medium)
@@ -165,7 +165,7 @@ class ProductsTable
                         ])
                         ->action(fn (Product $record, array $data) => $record->update($data)),
                     Action::make('adjust_stock')
-                     ->label(__('Adjust stock'))
+                        ->label(__('Adjust stock'))
                         ->icon(Heroicon::CubeTransparent)
                         ->color('info')
                         ->modalWidth(Width::Medium)
@@ -191,7 +191,7 @@ class ProductsTable
             ])
             ->groupedBulkActions([
                 BulkAction::make('toggle_visibility')
-                ->label(__('Toggle visibility'))
+                    ->label(__('Toggle visibility'))
                     ->icon(Heroicon::Eye)
                     ->color('gray')
                     ->schema([

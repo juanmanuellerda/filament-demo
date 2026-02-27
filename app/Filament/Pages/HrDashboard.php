@@ -23,7 +23,7 @@ class HrDashboard extends BaseDashboard
 
     protected static ?int $navigationSort = 3;
 
-     public static function shouldRegisterNavigation(): bool
+    public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
     }

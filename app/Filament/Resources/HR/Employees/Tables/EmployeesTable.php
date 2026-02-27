@@ -182,7 +182,7 @@ class EmployeesTable
                     })
                     ->deselectRecordsAfterCompletion(),
                 BulkAction::make('toggle_active')
-                     ->label('Toggle active')
+                    ->label('Toggle active')
                     ->icon(Heroicon::Power)
                     ->color('warning')
                     ->schema([
