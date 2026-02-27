@@ -18,26 +18,30 @@ class TimesheetsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('employee.name')
+                    ->label(__('Employee'))
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('date')
+                    ->label(__('Date'))
                     ->date()
                     ->sortable(),
 
                 TextColumn::make('hours')
+                    ->label(__('Hours'))
                     ->numeric(1)
                     ->sortable()
-                    ->summarize(Sum::make()->label('Total hours')),
+                    ->summarize(Sum::make()->label(__('Total hours'))),
 
                 IconColumn::make('is_billable')
-                    ->label('Billable')
+                    ->label(__('Billable'))
                     ->boolean(),
 
                 TextColumn::make('total_cost')
+                    ->label(__('Total cost'))
                     ->money('usd')
                     ->sortable()
-                    ->summarize(Sum::make()->money('usd')->label('Total cost')),
+                    ->summarize(Sum::make()->money('usd')->label(__('Total cost'))),
             ])
             ->defaultSort('date', 'desc');
     }

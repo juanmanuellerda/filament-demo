@@ -30,13 +30,14 @@ class ProjectForm
     {
         return $schema
             ->components([
-                Tabs::make('Project')
+                Tabs::make(__('Project'))
                     ->schema([
-                        Tab::make('Overview')
+                        Tab::make(__('Overview'))
                             ->icon(Heroicon::InformationCircle)
                             ->columns(2)
                             ->schema([
                                 TextInput::make('name')
+                                    ->label(__('Name'))
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
@@ -49,6 +50,7 @@ class ProjectForm
                                     }),
 
                                 TextInput::make('slug')
+                                    ->label(__('Slug'))
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
@@ -56,86 +58,104 @@ class ProjectForm
                                     ->unique(Project::class, 'slug', ignoreRecord: true),
 
                                 RichEditor::make('description')
+                                    ->label(__('Description'))
                                     ->columnSpanFull(),
 
                                 Select::make('department_id')
+                                    ->label(__('Department'))
                                     ->relationship('department', 'name')
                                     ->searchable()
                                     ->preload(),
 
                                 ToggleButtons::make('status')
+                                    ->label(__('Status'))
                                     ->options(ProjectStatus::class)
                                     ->inline()
                                     ->required()
                                     ->default(ProjectStatus::Planning),
 
                                 ToggleButtons::make('priority')
+                                    ->label(__('Priority'))
                                     ->options(TaskPriority::class)
                                     ->inline()
                                     ->required()
                                     ->default(TaskPriority::Medium),
 
-                                ColorPicker::make('color'),
+                                ColorPicker::make('color')
+                                    ->label(__('Color')),
 
                                 DatePicker::make('start_date')
+                                    ->label(__('Start Date'))
                                     ->required(),
 
                                 DatePicker::make('end_date')
+                                    ->label(__('End Date'))
                                     ->minDate(fn (Get $get) => $get('start_date')),
                             ]),
 
-                        Tab::make('Plan')
+                        Tab::make(__('Plan'))
                             ->icon(Heroicon::ClipboardDocumentList)
                             ->schema([
                                 Builder::make('plan')
                                     ->hiddenLabel()
                                     ->blocks([
                                         Block::make('milestone')
+                                            ->label(__('Milestone'))
                                             ->icon(Heroicon::Flag)
                                             ->schema([
                                                 TextInput::make('title')
+                                                    ->label(__('Title'))
                                                     ->required(),
                                                 DatePicker::make('target_date')
+                                                    ->label(__('Target Date'))
                                                     ->required(),
                                                 Textarea::make('description')
+                                                    ->label(__('Description'))
                                                     ->rows(2),
                                             ]),
 
                                         Block::make('task_group')
-                                            ->label('Task group')
+                                            ->label(__('Task Group'))
                                             ->icon(Heroicon::ListBullet)
                                             ->schema([
                                                 TextInput::make('title')
+                                                    ->label(__('Title'))
                                                     ->required(),
                                                 Select::make('assignee')
+                                                    ->label(__('Assignee'))
                                                     ->options(fn () => Employee::pluck('name', 'id')),
                                                 TagsInput::make('tasks')
-                                                    ->placeholder('Add tasks'),
+                                                    ->placeholder(__('Add tasks')),
                                             ]),
 
                                         Block::make('checkpoint')
+                                            ->label(__('Checkpoint'))
                                             ->icon(Heroicon::CheckCircle)
                                             ->schema([
                                                 TextInput::make('title')
+                                                    ->label(__('Title'))
                                                     ->required(),
                                                 DatePicker::make('date')
+                                                    ->label(__('Date'))
                                                     ->required(),
                                                 Select::make('status')
+                                                    ->label(__('Status'))
                                                     ->options([
-                                                        'pending' => 'Pending',
-                                                        'passed' => 'Passed',
-                                                        'failed' => 'Failed',
+                                                        'pending' => __('Pending'),
+                                                        'passed' => __('Passed'),
+                                                        'failed' => __('Failed'),
                                                     ]),
                                             ]),
                                     ])
                                     ->columnSpanFull(),
                             ]),
 
-                        Tab::make('Budget')
+                        Tab::make(__('Budget'))
                             ->icon(Heroicon::CurrencyDollar)
                             ->columns(2)
                             ->schema([
                                 TextInput::make('budget')
+                                    ->label(__('Budget'))
                                     ->required()
                                     ->numeric()
                                     ->prefix('$')
@@ -144,6 +164,7 @@ class ProjectForm
                                     ->default(0),
 
                                 TextInput::make('spent')
+                                    ->label(__('Spent'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -154,16 +175,18 @@ class ProjectForm
                                     ->default(0),
 
                                 TextInput::make('estimated_hours')
+                                    ->label(__('Estimated Hours'))
                                     ->numeric()
-                                    ->suffix('hours')
+                                    ->suffix(' ' . __('hours'))
                                     ->minValue(0)
                                     ->maxValue(9999999.9)
                                     ->required()
                                     ->default(0),
 
                                 TextInput::make('actual_hours')
+                                    ->label(__('Actual Hours'))
                                     ->numeric()
-                                    ->suffix('hours')
+                                    ->suffix(' ' . __('hours'))
                                     ->minValue(0)
                                     ->maxValue(9999999.9)
                                     ->disabled()

@@ -29,54 +29,66 @@ class ProjectsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
 
                 TextColumn::make('priority')
+                    ->label(__('Priority'))
                     ->badge(),
 
                 TextColumn::make('department.name')
+                    ->label(__('Department'))
                     ->sortable()
                     ->toggleable()
-                    ->placeholder('No department'),
+                    ->placeholder(__('No department')),
 
                 TextColumn::make('budget')
+                    ->label(__('Budget'))
                     ->money('usd')
                     ->sortable()
                     ->summarize(Sum::make()->money('usd')),
 
                 TextColumn::make('spent')
+                    ->label(__('Spent'))
                     ->money('usd')
                     ->sortable()
                     ->summarize(Sum::make()->money('usd')),
 
                 TextColumn::make('progress')
+                    ->label(__('Progress'))
                     ->state(fn (Project $record): string => $record->estimated_hours > 0
                         ? number_format(($record->actual_hours / $record->estimated_hours) * 100, 0) . '%'
                         : '0%'),
 
                 TextColumn::make('start_date')
+                    ->label(__('Start Date'))
                     ->date()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('end_date')
+                    ->label(__('End Date'))
                     ->date()
                     ->sortable()
                     ->toggleable(),
             ])
             ->filters([
                 SelectFilter::make('status')
+                    ->label(__('Status'))
                     ->options(ProjectStatus::class),
 
                 SelectFilter::make('priority')
+                    ->label(__('Priority'))
                     ->options(TaskPriority::class),
 
                 SelectFilter::make('department')
+                    ->label(__('Department'))
                     ->relationship('department', 'name'),
 
                 TrashedFilter::make(),
@@ -86,39 +98,43 @@ class ProjectsTable
                     ViewAction::make(),
                     EditAction::make(),
                     Action::make('change_status')
+                        ->label(__('Change Status'))
                         ->icon(Heroicon::ArrowPathRoundedSquare)
                         ->color('primary')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel('Save')
+                        ->modalSubmitActionLabel(__('Save'))
                         ->stickyModalFooter()
                         ->fillForm(fn (Project $record): array => [
                             'status' => $record->status,
                         ])
                         ->schema([
                             ToggleButtons::make('status')
+                                ->label(__('Status'))
                                 ->options(ProjectStatus::class)
                                 ->inline()
                                 ->required(),
                         ])
                         ->action(fn (Project $record, array $data) => $record->update($data)),
                     Action::make('put_on_hold')
+                        ->label(__('Put On Hold'))
                         ->icon(Heroicon::Pause)
                         ->color('warning')
                         ->visible(fn (Project $record): bool => $record->status === ProjectStatus::Active)
                         ->requiresConfirmation()
-                        ->modalHeading('Put Project On Hold')
-                        ->modalDescription('This will pause all work on this project.')
+                        ->modalHeading(__('Put Project On Hold'))
+                        ->modalDescription(__('This will pause all work on this project.'))
                         ->modalIcon(Heroicon::ExclamationTriangle)
                         ->modalIconColor('warning')
                         ->action(function (Project $record): void {
                             $record->update(['status' => ProjectStatus::OnHold]);
 
                             Notification::make()
-                                ->title('Project put on hold')
+                                ->title(__('Project put on hold'))
                                 ->warning()
                                 ->send();
                         }),
                     Action::make('resume')
+                        ->label(__('Resume'))
                         ->icon(Heroicon::Play)
                         ->color('success')
                         ->visible(fn (Project $record): bool => $record->status === ProjectStatus::OnHold)
@@ -126,11 +142,12 @@ class ProjectsTable
                             $record->update(['status' => ProjectStatus::Active]);
 
                             Notification::make()
-                                ->title('Project resumed')
+                                ->title(__('Project resumed'))
                                 ->success()
                                 ->send();
                         }),
                     Action::make('complete')
+                        ->label(__('Complete'))
                         ->icon(Heroicon::CheckCircle)
                         ->color('success')
                         ->visible(fn (Project $record): bool => in_array($record->status, [ProjectStatus::Active, ProjectStatus::OnHold]))
@@ -142,14 +159,14 @@ class ProjectsTable
                             ]);
 
                             Notification::make()
-                                ->title('Project completed')
+                                ->title(__('Project completed'))
                                 ->success()
                                 ->send();
                         }),
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
-                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                                 ->warning()
                                 ->send();
                         }),
@@ -159,7 +176,7 @@ class ProjectsTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

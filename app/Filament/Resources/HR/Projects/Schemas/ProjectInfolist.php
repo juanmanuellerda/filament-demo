@@ -15,49 +15,62 @@ class ProjectInfolist
     {
         return $schema
             ->components([
-                Tabs::make('Project')
+                Tabs::make(__('Project'))
                     ->schema([
-                        Tab::make('Overview')
+                        Tab::make(__('Overview'))
                             ->icon(Heroicon::InformationCircle)
                             ->columns(2)
                             ->schema([
-                                TextEntry::make('name'),
-                                TextEntry::make('slug'),
+                                TextEntry::make('name')
+                                    ->label(__('Name')),
+                                TextEntry::make('slug')
+                                    ->label(__('Slug')),
                                 TextEntry::make('department.name')
-                                    ->placeholder('No department'),
+                                    ->label(__('Department'))
+                                    ->placeholder(__('No department')),
                                 TextEntry::make('status')
+                                    ->label(__('Status'))
                                     ->badge(),
                                 TextEntry::make('priority')
+                                    ->label(__('Priority'))
                                     ->badge(),
                                 ColorEntry::make('color')
-                                    ->placeholder('No color'),
+                                    ->label(__('Color'))
+                                    ->placeholder(__('No color')),
                                 TextEntry::make('start_date')
+                                    ->label(__('Start date'))
                                     ->date(),
                                 TextEntry::make('end_date')
+                                    ->label(__('End date'))
                                     ->date()
-                                    ->placeholder('No end date'),
+                                    ->placeholder(__('No end date')),
                                 TextEntry::make('description')
+                                    ->label(__('Description'))
                                     ->prose()
                                     ->markdown()
                                     ->columnSpanFull()
-                                    ->placeholder('No description'),
+                                    ->placeholder(__('No description')),
                             ]),
 
-                        Tab::make('Budget')
+                        Tab::make(__('Budget'))
                             ->icon(Heroicon::CurrencyDollar)
                             ->columns(2)
                             ->schema([
                                 TextEntry::make('budget')
+                                    ->label(__('Budget'))
                                     ->money('usd')
                                     ->placeholder('$0.00'),
                                 TextEntry::make('spent')
+                                    ->label(__('Spent'))
                                     ->money('usd')
                                     ->placeholder('$0.00'),
                                 TextEntry::make('estimated_hours')
-                                    ->suffix(' hours')
+                                    ->label(__('Estimated hours'))
+                                    ->suffix(' ' . __('hours'))
                                     ->placeholder('0'),
                                 TextEntry::make('actual_hours')
-                                    ->suffix(' hours')
+                                    ->label(__('Actual hours'))
+                                    ->suffix(' ' . __('hours'))
                                     ->placeholder('0'),
                             ]),
                     ])

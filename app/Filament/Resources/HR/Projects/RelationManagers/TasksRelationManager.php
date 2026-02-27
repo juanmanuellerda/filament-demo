@@ -31,33 +31,39 @@ class TasksRelationManager extends RelationManager
             ->columns(2)
             ->components([
                 TextInput::make('title')
+                    ->label(__('Title'))
                     ->required(),
 
                 Select::make('assigned_to')
+                    ->label(__('Assigned To'))
                     ->relationship('assignee', 'name')
                     ->searchable()
                     ->preload(),
 
                 ToggleButtons::make('status')
+                    ->label(__('Status'))
                     ->options(TaskStatus::class)
                     ->inline()
                     ->required()
                     ->default(TaskStatus::Backlog),
 
                 ToggleButtons::make('priority')
+                    ->label(__('Priority'))
                     ->options(TaskPriority::class)
                     ->inline()
                     ->required()
                     ->default(TaskPriority::Medium),
 
                 TextInput::make('estimated_hours')
+                    ->label(__('Estimated Hours'))
                     ->numeric()
                     ->step(0.5)
                     ->minValue(0)
                     ->maxValue(99999.9)
-                    ->suffix('hours'),
+                    ->suffix(__('hours')),
 
-                DatePicker::make('due_date'),
+                DatePicker::make('due_date')
+                    ->label(__('Due date')),
             ]);
     }
 
@@ -66,25 +72,31 @@ class TasksRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label(__('Title'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('assignee.name')
-                    ->placeholder('Unassigned')
+                    ->label(__('Assigned To'))
+                    ->placeholder(__('Unassigned'))
                     ->sortable(),
 
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
 
                 TextColumn::make('priority')
+                    ->label(__('Priority'))
                     ->badge(),
 
                 TextColumn::make('estimated_hours')
+                    ->label(__('Estimated Hours'))
                     ->numeric(1)
                     ->sortable(),
 
                 TextColumn::make('due_date')
+                    ->label(__('Due date'))
                     ->date()
                     ->sortable(),
             ])
@@ -96,7 +108,7 @@ class TasksRelationManager extends RelationManager
                 DeleteAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),
@@ -105,7 +117,7 @@ class TasksRelationManager extends RelationManager
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

@@ -37,13 +37,13 @@ class ProjectStats extends BaseWidget
             ->avg();
 
         return [
-            Stat::make('Active Projects', $activeProjects)
+            Stat::make(__('Active Projects'), $activeProjects)
                 ->color('success'),
-            Stat::make('Total Budget', '$' . number_format((float) $totalBudget, 0))
+            Stat::make(__('Total Budget'), '$' . number_format((float) $totalBudget, 0))
                 ->color('info'),
-            Stat::make('Total Spent', '$' . number_format((float) $totalSpent, 0))
+            Stat::make(__('Total Spent'), '$' . number_format((float) $totalSpent, 0))
                 ->color('warning'),
-            Stat::make('Avg Completion', number_format((float) $completionData, 0) . '%')
+            Stat::make(__('Avg Completion'), number_format((float) $completionData, 0) . '%')
                 ->color('primary'),
         ];
     }
