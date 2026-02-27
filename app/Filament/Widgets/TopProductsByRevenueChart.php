@@ -53,7 +53,7 @@ class TopProductsByRevenueChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Revenue',
+                    'label' => __('Revenue'),
                     'data' => $products->pluck('revenue')->map(fn ($v) => round((float) $v, 2))->all(),
                     'backgroundColor' => '#3b82f6',
                 ],

@@ -36,6 +36,11 @@ class ExpenseResource extends Resource
 
     protected static ?string $slug = 'hr/expenses';
 
+    public static function getModelLabel(): string
+    {
+        return __('Expense');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EmployeeManagement;

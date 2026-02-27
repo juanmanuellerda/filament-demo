@@ -31,11 +31,6 @@ class ShopDashboard extends BaseDashboard
 
     protected static ?string $title = 'Shop Dashboard';
 
-    public function getHeading(): string
-    {
-        return __('Shop Dashboard');
-    }
-
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedShoppingCart;
 
     protected static ?int $navigationSort = 2;

@@ -40,6 +40,11 @@ class ProjectResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getModelLabel(): string
+    {
+        return __('Project');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EmployeeManagement;

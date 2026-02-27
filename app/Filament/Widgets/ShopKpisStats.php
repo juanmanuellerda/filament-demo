@@ -111,25 +111,25 @@ class ShopKpisStats extends BaseWidget
         }
 
         return [
-            Stat::make('Repeat Customer Rate', $repeatRate . '%')
+            Stat::make(__('Repeat Customer Rate'), $repeatRate . '%')
                 ->description(__(':repeatCustomers of :totalCustomers customers', ['repeatCustomers' => $repeatCustomers, 'totalCustomers' => $totalCustomers]))
                 ->descriptionIcon(Heroicon::ArrowPath)
                 ->chart($repeatChart)
                 ->color('success')
                 ->label(__('Repeat Customer Rate')),
-            Stat::make('Avg Items / Order', (string) $avgItemsPerOrder)
+            Stat::make(__('Avg Items / Order'), (string) $avgItemsPerOrder)
                 ->description(__(':totalItems items, :totalOrders orders', ['totalItems' => $totalItems, 'totalOrders' => $totalOrders]))
                 ->descriptionIcon(Heroicon::ShoppingCart)
                 ->chart($avgItemsChart)
                 ->color('info')
                 ->label(__('Avg Items / Order')),
-            Stat::make('Cancellation Rate', $cancellationRate . '%')
+            Stat::make(__('Cancellation Rate'), $cancellationRate . '%')
                 ->description(__(':cancelledOrders cancelled orders', ['cancelledOrders' => $cancelledOrders]))
                 ->descriptionIcon(Heroicon::XCircle)
                 ->chart($cancellationChart)
                 ->color($cancellationRate > 10 ? 'danger' : 'warning')
                 ->label(__('Cancellation Rate')),
-            Stat::make('Revenue / Customer', '$' . number_format($revenuePerCustomer, 2))
+            Stat::make(__('Revenue / Customer'), '$' . number_format($revenuePerCustomer, 2))
                 ->description(__('$ :totalRevenue total revenue', ['totalRevenue' => number_format($totalRevenue, 0)]))
                 ->descriptionIcon(Heroicon::CurrencyDollar)
                 ->chart($revenueChart)

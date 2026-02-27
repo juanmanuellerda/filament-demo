@@ -30,6 +30,11 @@ class DepartmentResource extends Resource
 
     protected static ?string $slug = 'hr/departments';
 
+    public static function getModelLabel(): string
+    {
+        return __('Department');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EmployeeManagement;

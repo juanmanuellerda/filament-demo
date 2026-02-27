@@ -30,6 +30,11 @@ class CategoryResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    public static function getModelLabel(): string
+    {
+        return __('Category');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::Blog;

@@ -33,6 +33,11 @@ class BrandResource extends Resource
 
     protected static ?string $slug = 'shop/brands';
 
+    public static function getModelLabel(): string
+    {
+        return __('Brand');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EcommerceShop;

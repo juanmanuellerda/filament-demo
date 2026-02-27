@@ -32,6 +32,11 @@ class CategoryResource extends Resource
 
     protected static ?string $slug = 'shop/categories';
 
+    public static function getModelLabel(): string
+    {
+        return __('Category');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EcommerceShop;

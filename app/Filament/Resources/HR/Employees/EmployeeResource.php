@@ -37,6 +37,11 @@ class EmployeeResource extends Resource
 
     protected static ?string $slug = 'hr/employees';
 
+    public static function getModelLabel(): string
+    {
+        return __('Employee');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EmployeeManagement;

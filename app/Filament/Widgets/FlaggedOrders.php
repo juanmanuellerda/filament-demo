@@ -36,25 +36,29 @@ class FlaggedOrders extends BaseWidget
             ->defaultSort('created_at', 'asc')
             ->columns([
                 TextColumn::make('number')
+                    ->label(__('Number'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
                 TextColumn::make('customer.name')
+                    ->label(__('Customer'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
                 TextColumn::make('total_price')
+                    ->label(__('Total price'))
                     ->money('USD')
                     ->sortable(),
                 TextColumn::make('days_old')
-                    ->label('Days Old')
+                    ->label(__('Days Old'))
                     ->state(fn (Order $record): int => (int) $record->created_at?->diffInDays(now()))
                     ->sortable(query: fn (Builder $query, string $direction): Builder => $query->orderBy('created_at', $direction === 'asc' ? 'desc' : 'asc'))
                     ->weight(FontWeight::Bold),
                 TextColumn::make('issue')
-                    ->label('Issue')
-                    ->state(fn (Order $record): string => $record->status === OrderStatus::New ? 'Awaiting processing' : 'Stuck in processing')
+                    ->label(__('Issue'))
+                    ->state(fn (Order $record): string => $record->status === OrderStatus::New ? __('Awaiting processing') : __('Stuck in processing'))
                     ->badge()
                     ->color(fn (Order $record): string => $record->status === OrderStatus::New ? 'warning' : 'danger'),
             ]);

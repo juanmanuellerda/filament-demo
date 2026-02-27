@@ -64,7 +64,7 @@ class CustomerSegmentsChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Customers',
+                    'label' => __('Customers'),
                     'data' => array_values($segments),
                     'backgroundColor' => [
                         '#9ca3af',

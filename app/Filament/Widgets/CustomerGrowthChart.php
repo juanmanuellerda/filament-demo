@@ -54,7 +54,7 @@ class CustomerGrowthChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'New Customers',
+                    'label' => __('New Customers'),
                     'data' => $data,
                     'fill' => 'start',
                     'borderColor' => '#22c55e',

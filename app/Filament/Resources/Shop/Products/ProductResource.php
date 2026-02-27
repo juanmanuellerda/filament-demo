@@ -36,6 +36,11 @@ class ProductResource extends Resource
 
     protected static ?string $slug = 'shop/products';
 
+    public static function getModelLabel(): string
+    {
+        return __('Shop');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EcommerceShop;

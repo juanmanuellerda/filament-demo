@@ -42,7 +42,7 @@ class ProductMarginAnalysisChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Products',
+                    'label' => __('Products'),
                     'showLine' => false,
                     'data' => $dataPoints,
                     'backgroundColor' => '#3b82f6',

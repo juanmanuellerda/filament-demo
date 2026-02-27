@@ -28,7 +28,10 @@ class AuthorResource extends Resource
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedUsers;
 
     protected static ?int $navigationSort = 2;
-
+    public static function getModelLabel(): string
+    {
+        return __('Author');
+    }
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::Blog;

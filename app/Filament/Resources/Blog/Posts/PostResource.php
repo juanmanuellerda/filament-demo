@@ -40,6 +40,11 @@ class PostResource extends Resource
 
     protected static ?SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
+    public static function getModelLabel(): string
+    {
+        return __('Post');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::Blog;

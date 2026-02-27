@@ -59,14 +59,14 @@ class OrdersYearOverYearChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Last 12 Months',
+                    'label' => __('Last 12 Months'),
                     'data' => $recentData,
                     'borderColor' => '#3b82f6',
                     'backgroundColor' => 'rgba(59, 130, 246, 0.1)',
                     'fill' => 'start',
                 ],
                 [
-                    'label' => 'Prior 12 Months',
+                    'label' => __('Prior 12 Months'),
                     'data' => $priorData,
                     'borderColor' => '#9ca3af',
                     'backgroundColor' => 'rgba(156, 163, 175, 0.05)',

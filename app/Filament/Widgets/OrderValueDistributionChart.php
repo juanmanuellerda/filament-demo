@@ -67,7 +67,7 @@ class OrderValueDistributionChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Orders',
+                    'label' => __('Orders'),
                     'data' => array_values($ranges),
                     'backgroundColor' => [
                         '#22c55e',

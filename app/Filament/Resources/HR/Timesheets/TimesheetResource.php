@@ -29,7 +29,10 @@ class TimesheetResource extends Resource
     protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'timesheets';
-
+    public static function getModelLabel(): string
+    {
+        return __('Timesheet');
+    }
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EmployeeManagement;

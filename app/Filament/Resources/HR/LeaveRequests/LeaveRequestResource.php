@@ -33,6 +33,11 @@ class LeaveRequestResource extends Resource
 
     protected static ?string $slug = 'hr/leave-requests';
 
+    public static function getModelLabel(): string
+    {
+        return __('Leave Request');
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->typeUser == TypeEnum::EmployeeManagement;
