@@ -22,11 +22,11 @@ enum LeaveStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Pending => 'Pending',
-            self::Approved => 'Approved',
-            self::Rejected => 'Rejected',
-            self::Taken => 'Taken',
-            self::Cancelled => 'Cancelled',
+            self::Pending => __('Pending'),
+            self::Approved => __('Approved'),
+            self::Rejected => __('Rejected'),
+            self::Taken => __('Taken'),
+            self::Cancelled => __('Cancelled'),
         };
     }
 

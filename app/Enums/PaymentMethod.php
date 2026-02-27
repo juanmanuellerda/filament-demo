@@ -19,11 +19,11 @@ enum PaymentMethod: string implements HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::CreditCard => 'Credit Card',
-            self::BankTransfer => 'Bank Transfer',
-            self::Paypal => 'PayPal',
-            self::ApplePay => 'Apple Pay',
-            self::GooglePay => 'Google Pay',
+            self::CreditCard => __('Credit Card'),
+            self::BankTransfer => __('Bank Transfer'),
+            self::Paypal => __('PayPal'),
+            self::ApplePay => __('Apple Pay'),
+            self::GooglePay => __('Google Pay'),
         };
     }
 }

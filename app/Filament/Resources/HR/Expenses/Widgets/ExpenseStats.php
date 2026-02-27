@@ -38,13 +38,13 @@ class ExpenseStats extends BaseWidget
             ->sum('total_amount');
 
         return [
-            Stat::make('Pending Approval', $pendingApproval)
+            Stat::make(__('Pending Approval'), $pendingApproval)
                 ->color('warning'),
-            Stat::make('Approved This Month', $approvedThisMonth)
+            Stat::make(__('Approved This Month'), $approvedThisMonth)
                 ->color('success'),
-            Stat::make('Avg Expense', '$' . number_format((float) $avgExpense, 0))
+            Stat::make(__('Avg Expense'), '$' . number_format((float) $avgExpense, 0))
                 ->color('info'),
-            Stat::make('Total Reimbursed', '$' . number_format((float) $totalReimbursed, 0))
+            Stat::make(__('Total Reimbursed'), '$' . number_format((float) $totalReimbursed, 0))
                 ->color('primary'),
         ];
     }

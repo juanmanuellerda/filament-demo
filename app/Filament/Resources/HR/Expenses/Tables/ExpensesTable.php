@@ -27,31 +27,38 @@ class ExpensesTable
         return $table
             ->columns([
                 TextColumn::make('expense_number')
+                    ->label(__('Expense Number'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium),
 
                 TextColumn::make('employee.name')
+                    ->label(__('Employee'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('category')
+                    ->label(__('Category'))
                     ->badge(),
 
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
 
                 TextColumn::make('total_amount')
+                    ->label(__('Total Amount'))
                     ->money('usd')
                     ->sortable()
                     ->summarize(Sum::make()->money('usd')),
 
                 TextColumn::make('project.name')
+                    ->label(__('Project'))
                     ->sortable()
                     ->toggleable()
-                    ->placeholder('No project'),
+                    ->placeholder(__('No project')),
 
                 TextColumn::make('submitted_at')
+                    ->label(__('Submitted At'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(),
@@ -74,7 +81,7 @@ class ExpensesTable
                             ]);
 
                             Notification::make()
-                                ->title('Expense approved')
+                                ->title(__('Expense approved'))
                                 ->success()
                                 ->send();
                         }),
@@ -83,11 +90,11 @@ class ExpensesTable
                         ->color('danger')
                         ->visible(fn (Expense $record): bool => $record->status === ExpenseStatus::Submitted)
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel('Reject')
+                        ->modalSubmitActionLabel(__('Reject'))
                         ->schema([
                             Textarea::make('rejection_reason')
                                 ->required()
-                                ->label('Reason for rejection'),
+                                ->label(__('Reason for rejection')),
                         ])
                         ->action(function (Expense $record, array $data): void {
                             $record->update([
@@ -96,7 +103,7 @@ class ExpensesTable
                             ]);
 
                             Notification::make()
-                                ->title('Expense rejected')
+                                ->title(__('Expense rejected'))
                                 ->danger()
                                 ->send();
                         }),
@@ -108,7 +115,7 @@ class ExpensesTable
                         ->before(function (Expense $record): void {
                             if ($record->total_amount <= 0) {
                                 Notification::make()
-                                    ->title('Cannot submit an expense with no amount')
+                                    ->title(__('Cannot submit an expense with no amount'))
                                     ->danger()
                                     ->send();
 
@@ -123,7 +130,7 @@ class ExpensesTable
                         })
                         ->after(function (Expense $record): void {
                             Notification::make()
-                                ->title("Expense {$record->expense_number} submitted for approval")
+                                ->title(__('Expense :number submitted for approval', ['number' => $record->expense_number]))
                                 ->success()
                                 ->send();
                         }),
@@ -136,7 +143,7 @@ class ExpensesTable
                             $record->update(['status' => ExpenseStatus::Reimbursed]);
 
                             Notification::make()
-                                ->title('Expense reimbursed')
+                                ->title(__('Expense reimbursed'))
                                 ->success()
                                 ->send();
                         }),
@@ -144,11 +151,11 @@ class ExpensesTable
                         ->icon(Heroicon::Flag)
                         ->color('warning')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel('Flag')
+                        ->modalSubmitActionLabel(__('Flag'))
                         ->schema([
                             Textarea::make('flag_reason')
                                 ->required()
-                                ->label('Reason for flagging'),
+                                ->label(__('Reason for flagging')),
                         ])
                         ->action(function (Expense $record, array $data): void {
                             $record->update([
@@ -157,14 +164,14 @@ class ExpensesTable
                             ]);
 
                             Notification::make()
-                                ->title('Expense flagged and returned to draft')
+                                ->title(__('Expense flagged and returned to draft'))
                                 ->warning()
                                 ->send();
                         }),
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
-                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                                 ->warning()
                                 ->send();
                         }),
@@ -174,7 +181,7 @@ class ExpensesTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

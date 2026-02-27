@@ -24,12 +24,12 @@ enum TaskStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Backlog => 'Backlog',
-            self::Todo => 'To Do',
-            self::InProgress => 'In Progress',
-            self::InReview => 'In Review',
-            self::Completed => 'Completed',
-            self::Cancelled => 'Cancelled',
+            self::Backlog => __('Backlog'),
+            self::Todo => __('To Do'),
+            self::InProgress => __('In Progress'),
+            self::InReview => __('In Review'),
+            self::Completed => __('Completed'),
+            self::Cancelled => __('Cancelled'),
         };
     }
 

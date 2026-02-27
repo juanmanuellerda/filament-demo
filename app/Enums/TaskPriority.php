@@ -20,10 +20,10 @@ enum TaskPriority: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Low => 'Low',
-            self::Medium => 'Medium',
-            self::High => 'High',
-            self::Critical => 'Critical',
+            self::Low => __('Low'),
+            self::Medium => __('Medium'),
+            self::High => __('High'),
+            self::Critical => __('Critical'),
         };
     }
 

@@ -123,6 +123,7 @@ class LeaveRequestsTable
             ])
             ->groupedBulkActions([
                 BulkAction::make('approve')
+                    ->label(__('approve'))
                     ->icon(Heroicon::Check)
                     ->color('success')
                     ->requiresConfirmation()
@@ -138,6 +139,7 @@ class LeaveRequestsTable
                     })
                     ->deselectRecordsAfterCompletion(),
                 BulkAction::make('reject')
+                    ->label(__('Reject'))
                     ->icon(Heroicon::XMark)
                     ->color('danger')
                     ->schema([

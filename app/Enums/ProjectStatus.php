@@ -22,11 +22,11 @@ enum ProjectStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Planning => 'Planning',
-            self::Active => 'Active',
-            self::OnHold => 'On Hold',
-            self::Completed => 'Completed',
-            self::Cancelled => 'Cancelled',
+            self::Planning => __('Planning'),
+            self::Active => __('Active'),
+            self::OnHold => __('On Hold'),
+            self::Completed => __('Completed'),
+            self::Cancelled => __('Cancelled'),
         };
     }
 

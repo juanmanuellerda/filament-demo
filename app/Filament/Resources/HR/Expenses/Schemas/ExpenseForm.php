@@ -23,7 +23,7 @@ class ExpenseForm
     {
         return $schema
             ->components([
-                Section::make('Details')
+                Section::make(__('Details'))
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
@@ -32,39 +32,45 @@ class ExpenseForm
                             ->disabled()
                             ->dehydrated()
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->label(__('Expense Number')),
 
                         Select::make('employee_id')
                             ->relationship('employee', 'name')
                             ->searchable()
                             ->preload()
+                            ->label(__('Employee'))
                             ->required(),
 
                         Select::make('project_id')
                             ->relationship('project', 'name')
                             ->searchable()
-                            ->preload(),
+                            ->preload()
+                            ->label(__('Project')),
 
                         ToggleButtons::make('category')
                             ->options(ExpenseCategory::class)
                             ->inline()
+                            ->label(__('Category'))
                             ->required()
                             ->columnSpanFull(),
 
                         ToggleButtons::make('status')
                             ->options(ExpenseStatus::class)
                             ->inline()
+                            ->label(__('Status'))
                             ->required()
                             ->default(ExpenseStatus::Draft)
                             ->columnSpanFull(),
 
                         Textarea::make('description')
+                            ->label(__('Description'))
                             ->required()
                             ->maxLength(65535)
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Line Items')
+                Section::make(__('Line Items'))
                     ->columnSpanFull()
                     ->schema([
                         Repeater::make('expenseLines')
@@ -72,22 +78,24 @@ class ExpenseForm
                             ->relationship()
                             ->defaultItems(1)
                             ->table([
-                                TableColumn::make('Description'),
-                                TableColumn::make('Quantity')
+                                TableColumn::make(__('Description')),
+                                TableColumn::make(__('Quantity'))
                                     ->width(100),
-                                TableColumn::make('Unit Price')
+                                TableColumn::make(__('Unit Price'))
                                     ->width(120),
-                                TableColumn::make('Amount')
+                                TableColumn::make(__('Amount'))
                                     ->width(120),
-                                TableColumn::make('Date')
+                                TableColumn::make(__('Date'))
                                     ->width(150),
                             ])
                             ->schema([
                                 TextInput::make('description')
+                                    ->label(__('Description'))
                                     ->required()
                                     ->maxLength(255),
 
                                 TextInput::make('quantity')
+                                    ->label(__('Quantity'))
                                     ->integer()
                                     ->minValue(1)
                                     ->maxValue(2147483647)
@@ -101,6 +109,7 @@ class ExpenseForm
                                     }),
 
                                 TextInput::make('unit_price')
+                                    ->label(__('Unit Price'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -114,6 +123,7 @@ class ExpenseForm
                                     }),
 
                                 TextInput::make('amount')
+                                    ->label(__('Amount'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -122,17 +132,19 @@ class ExpenseForm
                                     ->dehydrated(),
 
                                 DatePicker::make('date')
+                                    ->label(__('Date'))
                                     ->required()
                                     ->default(now()),
                             ])
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Summary')
+                Section::make(__('Summary'))
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
                         TextInput::make('total_amount')
+                            ->label(__('Total Amount'))
                             ->numeric()
                             ->prefix('$')
                             ->minValue(0)
@@ -141,6 +153,7 @@ class ExpenseForm
                             ->dehydrated(),
 
                         Select::make('currency')
+                            ->label(__('Currency'))
                             ->required()
                             ->options([
                                 'USD' => 'USD',
@@ -151,9 +164,11 @@ class ExpenseForm
                             ->default('USD'),
 
                         FileUpload::make('receipt_path')
+                            ->label(__('Receipt'))
                             ->directory('expense-receipts'),
 
                         Textarea::make('notes')
+                            ->label(__('Notes'))
                             ->maxLength(65535)
                             ->columnSpanFull(),
                     ]),

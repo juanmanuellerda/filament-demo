@@ -22,11 +22,11 @@ enum ExpenseStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Draft => 'Draft',
-            self::Submitted => 'Submitted',
-            self::Approved => 'Approved',
-            self::Rejected => 'Rejected',
-            self::Reimbursed => 'Reimbursed',
+            self::Draft => __('Draft'),
+            self::Submitted => __('Submitted'),
+            self::Approved => __('Approved'),
+            self::Rejected => __('Rejected'),
+            self::Reimbursed => __('Reimbursed'),
         };
     }
 

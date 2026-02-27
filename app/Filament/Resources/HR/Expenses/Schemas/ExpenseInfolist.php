@@ -14,52 +14,62 @@ class ExpenseInfolist
     {
         return $schema
             ->components([
-                Section::make('Expense Details')
+                Section::make(__('Expense Details'))
                     ->columns(3)
                     ->columnSpanFull()
                     ->schema([
-                        TextEntry::make('expense_number'),
-                        TextEntry::make('employee.name'),
+                        TextEntry::make('expense_number')
+                            ->label(__('Expense Number')),
+                        TextEntry::make('employee.name')
+                            ->label(__('Employee')),
                         TextEntry::make('category')
-                            ->badge(),
+                            ->badge()
+                            ->label(__('Category')),
                         TextEntry::make('status')
-                            ->badge(),
+                            ->badge()
+                            ->label(__('Status')),
                         TextEntry::make('total_amount')
-                            ->money('usd'),
-                        TextEntry::make('currency'),
+                            ->money('usd')
+                            ->label(__('Total Amount')),
+                        TextEntry::make('currency')
+                            ->label(__('Currency')),
                         TextEntry::make('project.name')
-                            ->placeholder('No project'),
+                            ->placeholder(__('No project'))
+                            ->label(__('Project')),
                         TextEntry::make('submitted_at')
                             ->dateTime()
-                            ->placeholder('Not submitted'),
+                            ->placeholder(__('Not submitted'))
+                            ->label(__('Submitted At')),
                         TextEntry::make('approved_at')
                             ->dateTime()
-                            ->placeholder('Not approved'),
+                            ->placeholder(__('Not approved'))
+                            ->label(__('Approved At')),
                         TextEntry::make('description')
                             ->columnSpanFull(),
                         TextEntry::make('notes')
-                            ->placeholder('No notes')
+                            ->label(__('Notes'))
+                            ->placeholder(__('No notes'))
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Line Items')
+                Section::make(__('Line Items'))
                     ->columnSpanFull()
                     ->schema([
                         RepeatableEntry::make('expenseLines')
                             ->hiddenLabel()
                             ->table([
-                                TableColumn::make('Description'),
-                                TableColumn::make('Quantity')
+                                TableColumn::make(__('Description')),
+                                TableColumn::make(__('Quantity'))
                                     ->width(100),
-                                TableColumn::make('Unit Price')
+                                TableColumn::make(__('Unit Price'))
                                     ->width(120),
-                                TableColumn::make('Amount')
+                                TableColumn::make(__('Amount'))
                                     ->width(120),
-                                TableColumn::make('Date')
+                                TableColumn::make(__('Date'))
                                     ->width(150),
                             ])
                             ->schema([
-                                TextEntry::make('description'),
+                                TextEntry::make(__('Description')),
                                 TextEntry::make('quantity'),
                                 TextEntry::make('unit_price')
                                     ->money('usd'),

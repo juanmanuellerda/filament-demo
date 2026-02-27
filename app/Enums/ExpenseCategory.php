@@ -24,12 +24,12 @@ enum ExpenseCategory: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Travel => 'Travel',
-            self::Meals => 'Meals',
-            self::Supplies => 'Supplies',
-            self::Equipment => 'Equipment',
-            self::Software => 'Software',
-            self::Other => 'Other',
+            self::Travel => __('Travel'),
+            self::Meals => __('Meals'),
+            self::Supplies => __('Supplies'),
+            self::Equipment => __('Equipment'),
+            self::Software => __('Software'),
+            self::Other => __('Other'),
         };
     }
 

@@ -20,10 +20,10 @@ enum EmploymentType: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::FullTime => 'Full Time',
-            self::PartTime => 'Part Time',
-            self::Contractor => 'Contractor',
-            self::Intern => 'Intern',
+            self::FullTime => __('Full Time'),
+            self::PartTime => __('Part Time'),
+            self::Contractor => __('Contractor'),
+            self::Intern => __('Intern'),
         };
     }
 

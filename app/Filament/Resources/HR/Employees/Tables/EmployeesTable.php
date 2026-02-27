@@ -101,6 +101,7 @@ class EmployeesTable
             ->recordActions([
                 ActionGroup::make([
                     Action::make('view_profile')
+                        ->label('View profile')
                         ->icon(Heroicon::Eye)
                         ->color('primary')
                         ->slideOver()
@@ -138,6 +139,7 @@ class EmployeesTable
                         ->requiresConfirmation()
                         ->action(fn (Employee $record) => $record->update(['is_active' => ! $record->is_active])),
                     Action::make('change_department')
+                        ->label('Change department')
                         ->icon(Heroicon::BuildingOffice2)
                         ->color('primary')
                         ->modalWidth(Width::Medium)
@@ -165,6 +167,7 @@ class EmployeesTable
             ])
             ->groupedBulkActions([
                 BulkAction::make('change_department')
+                    ->label('Change department')
                     ->icon(Heroicon::BuildingOffice2)
                     ->color('primary')
                     ->schema([
@@ -179,6 +182,7 @@ class EmployeesTable
                     })
                     ->deselectRecordsAfterCompletion(),
                 BulkAction::make('toggle_active')
+                     ->label('Toggle active')
                     ->icon(Heroicon::Power)
                     ->color('warning')
                     ->schema([

@@ -22,11 +22,11 @@ enum LeaveType: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Annual => 'Annual Leave',
-            self::Sick => 'Sick Leave',
-            self::Personal => 'Personal Leave',
-            self::Unpaid => 'Unpaid Leave',
-            self::Parental => 'Parental Leave',
+            self::Annual => __('Annual Leave'),
+            self::Sick => __('Sick Leave'),
+            self::Personal => __('Personal Leave'),
+            self::Unpaid => __('Unpaid Leave'),
+            self::Parental => __('Parental Leave'),
         };
     }
 
