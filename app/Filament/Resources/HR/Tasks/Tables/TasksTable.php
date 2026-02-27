@@ -31,52 +31,64 @@ class TasksTable
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label(__('Title'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium)
                     ->limit(40),
 
                 TextColumn::make('project.name')
+                    ->label(__('Project'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('assignee.name')
+                    ->label(__('Assigned To'))
                     ->searchable()
                     ->sortable()
-                    ->placeholder('Unassigned'),
+                    ->placeholder(__('Unassigned')),
 
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
 
                 TextColumn::make('priority')
+                    ->label(__('Priority'))
                     ->badge(),
 
                 TextColumn::make('estimated_hours')
+                    ->label(__('Estimated Hours'))
                     ->numeric(1)
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('due_date')
+                    ->label(__('Due date'))
                     ->date()
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('status')
+                    ->label(__('Status'))
                     ->options(TaskStatus::class),
 
                 SelectFilter::make('priority')
+                    ->label(__('Priority'))
                     ->options(TaskPriority::class),
 
                 SelectFilter::make('project')
+                    ->label(__('Project'))
                     ->relationship('project', 'name'),
 
                 SelectFilter::make('assignee')
+                    ->label(__('Assignee'))
                     ->relationship('assignee', 'name'),
             ])
             ->recordActions([
                 ActionGroup::make([
                     EditAction::make(),
                     Action::make('start')
+                        ->label(__('Start'))
                         ->icon(Heroicon::Play)
                         ->color('success')
                         ->visible(fn (Task $record): bool => in_array($record->status, [TaskStatus::Backlog, TaskStatus::Todo]))
@@ -84,11 +96,12 @@ class TasksTable
                             $record->update(['status' => TaskStatus::InProgress]);
 
                             Notification::make()
-                                ->title('Task started')
+                                ->title(__('Task started'))
                                 ->success()
                                 ->send();
                         }),
                     Action::make('send_to_review')
+                        ->label(__('Send to Review'))
                         ->icon(Heroicon::Eye)
                         ->color('primary')
                         ->visible(fn (Task $record): bool => $record->status === TaskStatus::InProgress)
@@ -96,26 +109,28 @@ class TasksTable
                             $record->update(['status' => TaskStatus::InReview]);
 
                             Notification::make()
-                                ->title('Task sent to review')
+                                ->title(__('Task sent to review'))
                                 ->success()
                                 ->send();
                         }),
                     Action::make('complete')
+                        ->label(__('Complete'))
                         ->icon(Heroicon::CheckCircle)
                         ->color('success')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel('Complete')
+                        ->modalSubmitActionLabel(__('Complete'))
                         ->visible(fn (Task $record): bool => in_array($record->status, [TaskStatus::InProgress, TaskStatus::InReview]))
                         ->fillForm(fn (Task $record): array => [
                             'actual_hours' => $record->actual_hours,
                         ])
                         ->schema([
                             TextInput::make('actual_hours')
+                                ->label(__('Actual Hours'))
                                 ->numeric()
                                 ->step(0.5)
                                 ->minValue(0)
                                 ->maxValue(99999.9)
-                                ->suffix('hours'),
+                                ->suffix(__('hours')),
                         ])
                         ->action(function (Task $record, array $data): void {
                             $record->update([
@@ -125,16 +140,18 @@ class TasksTable
                             ]);
 
                             Notification::make()
-                                ->title('Task completed')
+                                ->title(__('Task completed'))
                                 ->success()
                                 ->send();
                         }),
                     Action::make('assign')
+                        ->label(__('Assign'))
                         ->icon(Heroicon::UserPlus)
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel('Assign')
+                        ->modalSubmitActionLabel(__('Assign'))
                         ->schema([
                             Select::make('assigned_to')
+                                ->label(__('Assigned To'))
                                 ->relationship('assignee', 'name')
                                 ->searchable()
                                 ->preload()
@@ -142,12 +159,13 @@ class TasksTable
                         ])
                         ->action(fn (Task $record, array $data) => $record->update($data)),
                     Action::make('set_priority')
-                        ->label('Set priority')
+                        ->label(__('Set Priority'))
                         ->icon(Heroicon::Flag)
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel('Save')
+                        ->modalSubmitActionLabel(__('Save'))
                         ->schema([
                             ToggleButtons::make('priority')
+                                ->label(__('Priority'))
                                 ->options(TaskPriority::class)
                                 ->inline()
                                 ->required(),
@@ -159,7 +177,7 @@ class TasksTable
                     DeleteAction::make()
                         ->action(function (): void {
                             Notification::make()
-                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                                 ->warning()
                                 ->send();
                         }),
@@ -167,10 +185,12 @@ class TasksTable
             ])
             ->groupedBulkActions([
                 BulkAction::make('set_status')
+                    ->label(__('Set Status'))
                     ->icon(Heroicon::ArrowPathRoundedSquare)
                     ->color('primary')
                     ->schema([
                         ToggleButtons::make('status')
+                            ->label(__('Status'))
                             ->options(TaskStatus::class)
                             ->inline()
                             ->required(),
@@ -179,16 +199,18 @@ class TasksTable
                         $records->each(fn (Task $record) => $record->update($data));
 
                         Notification::make()
-                            ->title("Updated {$records->count()} tasks to {$data['status']->getLabel()}")
+                            ->title(__('Updated :count tasks to :status', ['count' => $records->count(), 'status' => $data['status']->getLabel()]))
                             ->success()
                             ->send();
                     })
                     ->deselectRecordsAfterCompletion(),
                 BulkAction::make('assign')
+                    ->label(__('Assign'))
                     ->icon(Heroicon::UserPlus)
                     ->color('info')
                     ->schema([
                         Select::make('assigned_to')
+                            ->label(__('Assigned To'))
                             ->relationship('assignee', 'name')
                             ->searchable()
                             ->preload()
@@ -201,7 +223,7 @@ class TasksTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

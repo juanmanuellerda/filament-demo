@@ -33,46 +33,53 @@ class TimesheetsTable
         return $table
             ->columns([
                 TextColumn::make('employee.name')
+                    ->label(__('Employee'))
                     ->searchable()
                     ->sortable()
                     ->weight(FontWeight::Medium)
                     ->summarize(Count::make()),
 
                 TextColumn::make('project.name')
+                    ->label(__('Project'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('task.title')
+                    ->label(__('Task'))
                     ->searchable()
                     ->limit(30)
                     ->toggleable()
-                    ->placeholder('No task'),
+                    ->placeholder(__('No task')),
 
                 TextColumn::make('date')
+                    ->label(__('Date'))
                     ->date()
                     ->sortable()
                     ->summarize(Range::make()->minimalDateTimeDifference()),
 
                 TextColumn::make('hours')
+                    ->label(__('Hours'))
                     ->numeric(1)
                     ->sortable()
                     ->summarize([
-                        Sum::make()->label('Total'),
-                        Average::make()->label('Avg'),
+                        Sum::make()->label(__('Total')),
+                        Average::make()->label(__('Avg')),
                     ]),
 
                 IconColumn::make('is_billable')
-                    ->label('Billable')
+                    ->label(__('Billable'))
                     ->boolean()
                     ->toggleable(),
 
                 TextColumn::make('hourly_rate')
+                    ->label(__('Hourly Rate'))
                     ->money('usd')
                     ->sortable()
                     ->toggleable()
                     ->copyable(),
 
                 TextColumn::make('total_cost')
+                    ->label(__('Total cost'))
                     ->money('usd')
                     ->sortable()
                     ->summarize(Sum::make()->money('usd')),
@@ -80,29 +87,35 @@ class TimesheetsTable
             ->defaultSort('date', 'desc')
             ->groups([
                 Group::make('employee.name')
-                    ->label('Employee')
+                    ->label(__('Employee'))
                     ->collapsible(),
                 Group::make('project.name')
-                    ->label('Project')
+                    ->label(__('Project'))
                     ->collapsible(),
                 Group::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->date()
                     ->collapsible(),
             ])
             ->filters([
                 SelectFilter::make('employee')
+                    ->label(__('Employee'))
                     ->relationship('employee', 'name'),
 
                 SelectFilter::make('project')
+                    ->label(__('Project'))
                     ->relationship('project', 'name'),
 
-                TernaryFilter::make('is_billable'),
+                TernaryFilter::make('is_billable')
+                    ->label(__('Billable')),
 
                 Filter::make('date_range')
+                    ->label(__('Date Range'))
                     ->schema([
-                        DatePicker::make('from'),
-                        DatePicker::make('until'),
+                        DatePicker::make('from')
+                            ->label(__('From')),
+                        DatePicker::make('until')
+                            ->label(__('Until')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
@@ -118,10 +131,10 @@ class TimesheetsTable
                     ->indicateUsing(function (array $data): array {
                         $indicators = [];
                         if ($data['from'] ?? null) {
-                            $indicators['from'] = 'From ' . Carbon::parse($data['from'])->toFormattedDateString();
+                            $indicators['from'] = __('From') . ' ' . Carbon::parse($data['from'])->toFormattedDateString();
                         }
                         if ($data['until'] ?? null) {
-                            $indicators['until'] = 'Until ' . Carbon::parse($data['until'])->toFormattedDateString();
+                            $indicators['until'] = __('Until') . ' ' . Carbon::parse($data['until'])->toFormattedDateString();
                         }
 
                         return $indicators;
@@ -138,6 +151,7 @@ class TimesheetsTable
             ])
             ->groupedBulkActions([
                 BulkAction::make('mark_billable')
+                    ->label(__('Mark Billable'))
                     ->icon(Heroicon::CurrencyDollar)
                     ->color('success')
                     ->requiresConfirmation()
@@ -146,6 +160,7 @@ class TimesheetsTable
                     })
                     ->deselectRecordsAfterCompletion(),
                 BulkAction::make('mark_non_billable')
+                    ->label(__('Mark Non-Billable'))
                     ->icon(Heroicon::NoSymbol)
                     ->color('gray')
                     ->requiresConfirmation()
@@ -156,7 +171,7 @@ class TimesheetsTable
                 DeleteBulkAction::make()
                     ->action(function (): void {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title(__('Now, now, don\'t be cheeky, leave some records for others to play with!'))
                             ->warning()
                             ->send();
                     }),

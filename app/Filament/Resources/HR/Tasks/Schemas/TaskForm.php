@@ -22,26 +22,30 @@ class TaskForm
     {
         return $schema
             ->components([
-                Section::make('Task Details')
+                Section::make(__('Task Details'))
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
                         TextInput::make('title')
+                            ->label(__('Title'))
                             ->required()
                             ->maxLength(255),
 
                         Select::make('project_id')
+                            ->label(__('Project'))
                             ->relationship('project', 'name')
                             ->searchable()
                             ->preload()
                             ->required(),
 
                         Select::make('assigned_to')
+                            ->label(__('Assigned To'))
                             ->relationship('assignee', 'name')
                             ->searchable()
                             ->preload(),
 
                         ToggleButtons::make('status')
+                            ->label(__('Status'))
                             ->options(TaskStatus::class)
                             ->inline()
                             ->required()
@@ -50,38 +54,44 @@ class TaskForm
                             ->columnSpanFull(),
 
                         Radio::make('priority')
+                            ->label(__('Priority'))
                             ->options(TaskPriority::class)
                             ->inline()
                             ->required()
                             ->default(TaskPriority::Medium),
 
                         TextInput::make('estimated_hours')
+                            ->label(__('Estimated Hours'))
                             ->numeric()
                             ->step(0.5)
                             ->minValue(0)
                             ->maxValue(99999.9)
-                            ->suffix('hours'),
+                            ->suffix(__('hours')),
 
-                        DatePicker::make('due_date'),
+                        DatePicker::make('due_date')
+                            ->label(__('Due date')),
 
                         RichEditor::make('description')
+                            ->label(__('Description'))
                             ->columnSpanFull(),
 
                         CheckboxList::make('labels')
+                            ->label(__('Labels'))
                             ->options([
-                                'bug' => 'Bug',
-                                'feature' => 'Feature',
-                                'enhancement' => 'Enhancement',
-                                'documentation' => 'Documentation',
-                                'design' => 'Design',
-                                'testing' => 'Testing',
-                                'refactor' => 'Refactor',
-                                'urgent' => 'Urgent',
+                                'bug' => __('Bug'),
+                                'feature' => __('Feature'),
+                                'enhancement' => __('Enhancement'),
+                                'documentation' => __('Documentation'),
+                                'design' => __('Design'),
+                                'testing' => __('Testing'),
+                                'refactor' => __('Refactor'),
+                                'urgent' => __('Urgent'),
                             ])
                             ->columns(4)
                             ->columnSpanFull(),
 
                         DateTimePicker::make('completed_at')
+                            ->label(__('Completed At'))
                             ->visible(fn (Get $get): bool => in_array($get('status'), [
                                 TaskStatus::Completed,
                                 TaskStatus::Completed->value,

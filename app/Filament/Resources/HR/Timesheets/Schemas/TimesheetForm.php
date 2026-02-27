@@ -19,11 +19,12 @@ class TimesheetForm
     {
         return $schema
             ->components([
-                Section::make('Timesheet Entry')
+                Section::make(__('Timesheet Entry'))
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
                         Select::make('employee_id')
+                            ->label(__('Employee'))
                             ->relationship('employee', 'name')
                             ->searchable()
                             ->preload()
@@ -39,6 +40,7 @@ class TimesheetForm
                             }),
 
                         Select::make('project_id')
+                            ->label(__('Project'))
                             ->relationship('project', 'name')
                             ->searchable()
                             ->preload()
@@ -46,6 +48,7 @@ class TimesheetForm
                             ->live(),
 
                         Select::make('task_id')
+                            ->label(__('Task'))
                             ->relationship('task', 'title', fn ($query, Get $get) => $query->when(
                                 $get('project_id'),
                                 fn ($q, $projectId) => $q->where('project_id', $projectId)
@@ -54,15 +57,17 @@ class TimesheetForm
                             ->preload(),
 
                         DatePicker::make('date')
+                            ->label(__('Date'))
                             ->required()
                             ->default(now()),
 
                         TextInput::make('hours')
+                            ->label(__('Hours'))
                             ->numeric()
                             ->step(0.5)
                             ->minValue(0)
                             ->maxValue(999.9)
-                            ->suffix('hours')
+                            ->suffix(__('hours'))
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(function (Get $get, Set $set): void {
@@ -70,20 +75,22 @@ class TimesheetForm
                             }),
 
                         TextInput::make('minutes')
+                            ->label(__('Minutes'))
                             ->required()
                             ->integer()
                             ->minValue(0)
                             ->maxValue(59)
                             ->mask('99')
-                            ->suffix('min')
+                            ->suffix(__('min'))
                             ->default(0),
 
                         Toggle::make('is_billable')
-                            ->label('Billable')
+                            ->label(__('Billable'))
                             ->default(true)
                             ->columnSpanFull(),
 
                         TextInput::make('hourly_rate')
+                            ->label(__('Hourly Rate'))
                             ->required()
                             ->numeric()
                             ->prefix('$')
@@ -95,6 +102,7 @@ class TimesheetForm
                             }),
 
                         TextInput::make('total_cost')
+                            ->label(__('Total cost'))
                             ->numeric()
                             ->prefix('$')
                             ->minValue(0)
@@ -103,6 +111,7 @@ class TimesheetForm
                             ->dehydrated(),
 
                         Textarea::make('description')
+                            ->label(__('Description'))
                             ->rows(2)
                             ->maxLength(65535)
                             ->columnSpanFull(),

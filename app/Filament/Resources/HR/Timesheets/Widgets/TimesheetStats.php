@@ -41,13 +41,13 @@ class TimesheetStats extends BaseWidget
         $totalCost = (clone $query)->sum('total_cost');
 
         return [
-            Stat::make('Hours This Week', number_format((float) $hoursThisWeek, 1))
+            Stat::make(__('Hours This Week'), number_format((float) $hoursThisWeek, 1))
                 ->color('success'),
-            Stat::make('Billable %', $billablePercent . '%')
+            Stat::make(__('Billable %'), $billablePercent . '%')
                 ->color('info'),
-            Stat::make('Total Entries', number_format($totalEntries))
+            Stat::make(__('Total entries'), number_format($totalEntries))
                 ->color('warning'),
-            Stat::make('Total Cost', '$' . number_format((float) $totalCost, 0))
+            Stat::make(__('Total cost'), '$' . number_format((float) $totalCost, 0))
                 ->color('primary'),
         ];
     }
