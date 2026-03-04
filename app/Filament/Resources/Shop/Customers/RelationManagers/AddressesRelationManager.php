@@ -76,7 +76,7 @@ class AddressesRelationManager extends RelationManager
             ->headerActions([
                 AttachAction::make(),
                 CreateAction::make()
-                ->label(__('Add address')),
+                    ->label(__('Add address')),
             ])
             ->recordActions([
                 EditAction::make(),

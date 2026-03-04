@@ -15,7 +15,7 @@ class ProductsRelationManager extends RelationManager
 {
     protected static string $relationship = 'products';
 
-      public static function getTitle(Model $ownerRecord, string $pageClass): string
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
         return __('Products');
     }
@@ -32,7 +32,7 @@ class ProductsRelationManager extends RelationManager
         return ProductResource::table($table)
             ->headerActions([
                 CreateAction::make()
-                ->label(__('Add product')),
+                    ->label(__('Add product')),
             ])
             ->recordActions([
                 DeleteAction::make(),

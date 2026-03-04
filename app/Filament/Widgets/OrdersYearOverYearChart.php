@@ -14,7 +14,7 @@ class OrdersYearOverYearChart extends ChartWidget
 
     protected ?string $heading = 'Orders Year-over-Year';
 
-    public function getHeading(): string|Htmlable|null
+    public function getHeading(): string | Htmlable | null
     {
         return __('Orders Year-over-Year');
     }

@@ -22,7 +22,6 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Contracts\Support\Htmlable;
 
 class ManagePostComments extends ManageRelatedRecords
 {
@@ -31,9 +30,9 @@ class ManagePostComments extends ManageRelatedRecords
     protected static string $relationship = 'comments';
 
     public static function getNavigationLabel(): string
-        {
-            return __('Comments');
-        }
+    {
+        return __('Comments');
+    }
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedChatBubbleLeftEllipsis;
 

@@ -20,9 +20,9 @@ class HrDashboard extends BaseDashboard
     protected static ?string $title = 'HR Dashboard';
 
     public function getTitle(): string
-{
-    return __('HR Dashboard');
-}
+    {
+        return __('HR Dashboard');
+    }
 
     public static function getNavigationLabel(): string
     {

@@ -126,7 +126,7 @@ class PaymentsRelationManager extends RelationManager
             ])
             ->headerActions([
                 CreateAction::make()
-                ->label(__('Add payment')),
+                    ->label(__('Add payment')),
             ])
             ->recordActions([
                 EditAction::make(),

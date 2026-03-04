@@ -79,7 +79,7 @@ class PaymentsRelationManager extends RelationManager
                 ColumnGroup::make(__('Details'))
                     ->columns([
                         TextColumn::make('reference')
-                             ->label(__('Reference'))
+                            ->label(__('Reference'))
                             ->searchable()
                             ->weight(FontWeight::Medium),
 
@@ -107,7 +107,7 @@ class PaymentsRelationManager extends RelationManager
             ])
             ->headerActions([
                 CreateAction::make()
-                ->label(__('Add payment')),
+                    ->label(__('Add payment')),
             ])
             ->recordActions([
                 EditAction::make(),

@@ -36,7 +36,7 @@ class DepartmentLeaveLoadChart extends ChartWidget
             ->map(fn ($group) => round((float) $group->sum('days_requested'), 1))
             ->sortDesc();
 
-            // dd($byDepartment);
+        // dd($byDepartment);
 
         return [
             'datasets' => [

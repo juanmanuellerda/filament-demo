@@ -12,7 +12,6 @@ class LeaveRequestsRelationManager extends RelationManager
 {
     protected static string $relationship = 'leaveRequests';
 
-
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
         return __('Leave Requests');
