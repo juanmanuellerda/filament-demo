@@ -12,6 +12,11 @@ class ProductMarginAnalysisChart extends ChartWidget
 
     protected ?string $heading = 'Product Margin Analysis';
 
+    public function getHeading(): string
+    {
+        return __('Product Margin Analysis');
+    }
+
     protected static ?int $sort = 7;
 
     protected function getType(): string

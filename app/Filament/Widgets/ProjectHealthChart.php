@@ -65,7 +65,7 @@ class ProjectHealthChart extends ChartWidget
                     'backgroundColor' => '#f59e0b',
                 ],
             ],
-            'labels' => $projects->pluck('name')->map(fn (string $name) => strlen($name) > 20 ? substr($name, 0, 20) . '...' : $name)->all(),
+            'labels' => $projects->pluck('name')->map(fn (string $name) => strlen(__($name)) > 20 ? substr(__($name), 0, 20) . '...' : __($name))->all(),
         ];
     }
 }

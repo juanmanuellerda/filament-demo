@@ -49,7 +49,7 @@ class BudgetBurnRateChart extends ChartWidget
             $cumulative += (float) $monthTotal;
             $cumulativeData[] = round($cumulative, 2);
             $budgetLine[] = round($totalBudget, 2);
-            $labels[] = $month->format('M Y');
+            $labels[] = $month->translatedFormat('M Y');
         }
 
         return [

@@ -19,11 +19,17 @@ use Filament\Tables\Columns\ColumnGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class PaymentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'payments';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Payments');
+    }
 
     protected static ?string $recordTitleAttribute = 'reference';
 
@@ -119,7 +125,8 @@ class PaymentsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                ->label(__('Add payment')),
             ])
             ->recordActions([
                 EditAction::make(),

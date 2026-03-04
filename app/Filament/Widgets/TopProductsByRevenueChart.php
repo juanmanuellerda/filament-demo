@@ -14,6 +14,11 @@ class TopProductsByRevenueChart extends ChartWidget
 
     protected ?string $heading = 'Top Products by Revenue';
 
+    public function getHeading(): string
+    {
+        return __('Top Products by Revenue');
+    }
+
     protected static ?int $sort = 4;
 
     protected function getType(): string

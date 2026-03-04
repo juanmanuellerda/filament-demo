@@ -7,10 +7,16 @@ use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class TimesheetsRelationManager extends RelationManager
 {
     protected static string $relationship = 'timesheets';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Timesheets');
+    }
 
     public function table(Table $table): Table
     {

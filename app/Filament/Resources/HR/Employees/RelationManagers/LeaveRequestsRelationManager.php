@@ -6,10 +6,17 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class LeaveRequestsRelationManager extends RelationManager
 {
     protected static string $relationship = 'leaveRequests';
+
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Leave Requests');
+    }
 
     public function table(Table $table): Table
     {

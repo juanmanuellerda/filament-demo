@@ -30,16 +30,16 @@ class ListExpenses extends ListRecords
     public function getTabs(): array
     {
         return [
-            null => Tab::make('All'),
-            'draft' => Tab::make('Draft')
+            null => Tab::make(__('All')),
+            'draft' => Tab::make(__('Draft'))
                 ->query(fn ($query) => $query->where('status', ExpenseStatus::Draft)),
-            'submitted' => Tab::make('Submitted')
+            'submitted' => Tab::make(__('Submitted'))
                 ->query(fn ($query) => $query->where('status', ExpenseStatus::Submitted)),
-            'approved' => Tab::make('Approved')
+            'approved' => Tab::make(__('Approved'))
                 ->query(fn ($query) => $query->where('status', ExpenseStatus::Approved)),
-            'rejected' => Tab::make('Rejected')
+            'rejected' => Tab::make(__('Rejected'))
                 ->query(fn ($query) => $query->where('status', ExpenseStatus::Rejected)),
-            'reimbursed' => Tab::make('Reimbursed')
+            'reimbursed' => Tab::make(__('Reimbursed'))
                 ->query(fn ($query) => $query->where('status', ExpenseStatus::Reimbursed)),
         ];
     }

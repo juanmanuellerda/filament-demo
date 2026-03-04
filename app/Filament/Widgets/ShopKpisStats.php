@@ -80,13 +80,13 @@ class ShopKpisStats extends BaseWidget
         $revenueChart = [];
 
         foreach ($months as $month) {
-            $monthKey = $month->format('Y-m');
+            $monthKey = $month->translatedFormat('Y-m');
 
-            $monthOrders = $monthlyOrders->filter(fn (Order $o): bool => $o->created_at?->format('Y-m') === $monthKey);
+            $monthOrders = $monthlyOrders->filter(fn (Order $o): bool => $o->created_at?->translatedFormat('Y-m') === $monthKey);
             $monthOrderCount = $monthOrders->count();
             $monthRevenue = (float) $monthOrders->sum('total_price');
 
-            $monthCustomers = $monthlyCustomers->filter(fn (Customer $c): bool => $c->created_at?->format('Y-m') === $monthKey);
+            $monthCustomers = $monthlyCustomers->filter(fn (Customer $c): bool => $c->created_at?->translatedFormat('Y-m') === $monthKey);
             $monthCustomerCount = $monthCustomers->count();
 
             $monthRepeatCount = $monthCustomerCount > 0

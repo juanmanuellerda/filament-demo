@@ -9,10 +9,17 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class ProductsRelationManager extends RelationManager
 {
     protected static string $relationship = 'products';
+
+    
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Products');
+    }
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -25,7 +32,8 @@ class ProductsRelationManager extends RelationManager
     {
         return ProductResource::table($table)
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                 ->label(__('Add product')),
             ])
             ->recordActions([
                 DeleteAction::make(),

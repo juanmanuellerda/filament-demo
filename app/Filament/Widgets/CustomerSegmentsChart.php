@@ -13,6 +13,11 @@ class CustomerSegmentsChart extends ChartWidget
 
     protected ?string $heading = 'Customer Segments';
 
+    public function getHeading(): string
+    {
+        return __('Customer Segments');
+    }
+
     protected static ?int $sort = 5;
 
     protected function getType(): string
@@ -74,7 +79,7 @@ class CustomerSegmentsChart extends ChartWidget
                     ],
                 ],
             ],
-            'labels' => array_keys($segments),
+            'labels' => array_map(fn ($segments) => __($segments), array_keys($segments)),
         ];
     }
 }

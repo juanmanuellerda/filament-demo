@@ -41,7 +41,7 @@ class UtilizationRateChart extends ChartWidget
                 ->sum('hours');
 
             return [
-                'label' => $start->format('M d'),
+                'label' => $start->translatedFormat('M d'),
                 'utilization' => round(($billableHours / $weeklyCapacity) * 100, 1),
             ];
         });

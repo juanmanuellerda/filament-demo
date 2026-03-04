@@ -17,11 +17,17 @@ use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\ColumnGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class PaymentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'payments';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Payments');
+    }
 
     protected static ?string $recordTitleAttribute = 'reference';
 
@@ -73,10 +79,12 @@ class PaymentsRelationManager extends RelationManager
                 ColumnGroup::make(__('Details'))
                     ->columns([
                         TextColumn::make('reference')
+                             ->label(__('Reference'))
                             ->searchable()
                             ->weight(FontWeight::Medium),
 
                         TextColumn::make('amount')
+                            ->label(__('Amount'))
                             ->sortable()
                             ->money(fn ($record) => $record->currency->value),
                     ]),
@@ -84,10 +92,12 @@ class PaymentsRelationManager extends RelationManager
                 ColumnGroup::make(__('Context'))
                     ->columns([
                         TextColumn::make('provider')
+                            ->label(__('Provider'))
                             ->formatStateUsing(fn ($state) => Str::headline($state))
                             ->sortable(),
 
                         TextColumn::make('method')
+                            ->label(__('Method'))
                             ->formatStateUsing(fn ($state) => Str::headline($state))
                             ->sortable(),
                     ]),
@@ -96,7 +106,8 @@ class PaymentsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                ->label(__('Add payment')),
             ])
             ->recordActions([
                 EditAction::make(),

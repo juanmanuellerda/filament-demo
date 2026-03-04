@@ -18,10 +18,16 @@ use Filament\Schemas\Schema;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class TasksRelationManager extends RelationManager
 {
     protected static string $relationship = 'tasks';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Tasks');
+    }
 
     protected static ?string $recordTitleAttribute = 'title';
 

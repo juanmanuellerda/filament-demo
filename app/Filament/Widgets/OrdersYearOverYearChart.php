@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Models\Shop\Order;
 use Filament\Widgets\ChartWidget;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Carbon;
 
 class OrdersYearOverYearChart extends ChartWidget
@@ -12,6 +13,11 @@ class OrdersYearOverYearChart extends ChartWidget
     use InteractsWithPageFilters;
 
     protected ?string $heading = 'Orders Year-over-Year';
+
+    public function getHeading(): string|Htmlable|null
+    {
+        return __('Orders Year-over-Year');
+    }
 
     protected static ?int $sort = 1;
 
@@ -33,14 +39,14 @@ class OrdersYearOverYearChart extends ChartWidget
         $recentOrders = Order::where('created_at', '>=', $recentStart)
             ->when(filled($orderStatuses), fn ($q) => $q->whereIn('status', $orderStatuses))
             ->get()
-            ->groupBy(fn (Order $order): string => $order->created_at?->format('Y-m') ?? '')
+            ->groupBy(fn (Order $order): string => $order->created_at?->translatedFormat('Y-m') ?? '')
             ->map(fn ($group) => $group->count());
 
         $priorOrders = Order::where('created_at', '>=', $priorStart)
             ->where('created_at', '<', $recentStart)
             ->when(filled($orderStatuses), fn ($q) => $q->whereIn('status', $orderStatuses))
             ->get()
-            ->groupBy(fn (Order $order): string => $order->created_at?->format('Y-m') ?? '')
+            ->groupBy(fn (Order $order): string => $order->created_at?->translatedFormat('Y-m') ?? '')
             ->map(fn ($group) => $group->count());
 
         $recentData = [];
@@ -48,12 +54,12 @@ class OrdersYearOverYearChart extends ChartWidget
         $labels = [];
 
         foreach ($recentMonths as $month) {
-            $labels[] = $month->format('M Y');
-            $recentData[] = $recentOrders->get($month->format('Y-m'), 0);
+            $labels[] = $month->translatedFormat('M Y');
+            $recentData[] = $recentOrders->get($month->translatedFormat('Y-m'), 0);
         }
 
         foreach ($priorMonths as $month) {
-            $priorData[] = $priorOrders->get($month->format('Y-m'), 0);
+            $priorData[] = $priorOrders->get($month->translatedFormat('Y-m'), 0);
         }
 
         return [

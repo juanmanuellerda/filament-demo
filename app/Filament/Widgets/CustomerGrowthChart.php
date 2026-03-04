@@ -13,6 +13,11 @@ class CustomerGrowthChart extends ChartWidget
 
     protected ?string $heading = 'Customer Growth';
 
+    public function getHeading(): string
+    {
+        return __('Customer Growth');
+    }
+
     protected static ?int $sort = 2;
 
     protected function getType(): string
@@ -40,15 +45,15 @@ class CustomerGrowthChart extends ChartWidget
         $customers = Customer::where('created_at', '>=', $startDate)
             ->where('created_at', '<=', $endDate)
             ->get()
-            ->groupBy(fn (Customer $customer): string => $customer->created_at?->format('Y-m') ?? '')
+            ->groupBy(fn (Customer $customer): string => $customer->created_at?->translatedFormat('Y-m') ?? '')
             ->map(fn ($group) => $group->count());
 
         $labels = [];
         $data = [];
 
         foreach ($months as $month) {
-            $labels[] = $month->format('M Y');
-            $data[] = $customers->get($month->format('Y-m'), 0);
+            $labels[] = $month->translatedFormat('M Y');
+            $data[] = $customers->get($month->translatedFormat('Y-m'), 0);
         }
 
         return [

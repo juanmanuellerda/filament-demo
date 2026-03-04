@@ -13,6 +13,11 @@ class OrderValueDistributionChart extends ChartWidget
 
     protected ?string $heading = 'Order Value Distribution';
 
+    public function getHeading(): string
+    {
+        return __('Order Value Distribution');
+    }
+
     protected static ?int $sort = 6;
 
     protected function getType(): string

@@ -17,10 +17,16 @@ use Filament\Schemas\Schema;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class AddressesRelationManager extends RelationManager
 {
     protected static string $relationship = 'addresses';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Addresses');
+    }
 
     protected static ?string $recordTitleAttribute = 'full_address';
 
@@ -69,7 +75,8 @@ class AddressesRelationManager extends RelationManager
             ])
             ->headerActions([
                 AttachAction::make(),
-                CreateAction::make(),
+                CreateAction::make()
+                 ->label(__('Add address')),
             ])
             ->recordActions([
                 EditAction::make(),

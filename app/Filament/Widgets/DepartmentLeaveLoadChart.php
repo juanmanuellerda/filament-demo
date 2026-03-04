@@ -32,9 +32,11 @@ class DepartmentLeaveLoadChart extends ChartWidget
 
         $byDepartment = $leaveRequests
             ->filter(fn (LeaveRequest $lr): bool => $lr->employee?->department !== null)
-            ->groupBy(fn (LeaveRequest $lr): string => (string) $lr->employee?->department?->name)
+            ->groupBy(fn (LeaveRequest $lr): string => (string) __($lr->employee?->department?->name))
             ->map(fn ($group) => round((float) $group->sum('days_requested'), 1))
             ->sortDesc();
+
+            // dd($byDepartment);
 
         return [
             'datasets' => [
@@ -45,7 +47,7 @@ class DepartmentLeaveLoadChart extends ChartWidget
                     'borderColor' => '#8b5cf6',
                 ],
             ],
-            'labels' => $byDepartment->keys()->all(),
+            'labels' => array_map(fn ($byDepartment) => __($byDepartment), $byDepartment->keys()->all()),
         ];
     }
 }
