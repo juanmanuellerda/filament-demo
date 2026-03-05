@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\App\Pages\RegisterTeam;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Auth\Register;
+use App\Http\Middleware\RedirectUserWithoutAuth;
 use App\Models\Team;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -45,6 +46,7 @@ class AppPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                RedirectUserWithoutAuth::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
