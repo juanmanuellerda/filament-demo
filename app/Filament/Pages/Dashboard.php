@@ -13,6 +13,11 @@ class Dashboard extends BaseDashboard
 
     protected static ?string $title = 'Welcome';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('Welcome');
+    }
+
     public function getHeading(): string
     {
         return __('Welcome to the Filament Demo!');
@@ -22,7 +27,7 @@ class Dashboard extends BaseDashboard
     {
         return [
             AccountWidget::class,
-            FilamentInfoWidget::class,
+            // FilamentInfoWidget::class,
             // FeaturesOverview::class,
         ];
     }

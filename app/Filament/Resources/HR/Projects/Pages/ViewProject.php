@@ -21,10 +21,11 @@ class ViewProject extends ViewRecord
     {
         return [
             Action::make('change_status')
+                ->label(__('Change status'))
                 ->icon(Heroicon::ArrowPathRoundedSquare)
                 ->color('primary')
                 ->modalWidth(Width::Medium)
-                ->modalSubmitActionLabel('Save')
+                ->modalSubmitActionLabel(__('Save'))
                 ->stickyModalFooter()
                 ->fillForm(fn (Project $record): array => [
                     'status' => $record->status,
@@ -40,12 +41,13 @@ class ViewProject extends ViewRecord
                     $this->refreshFormData(['status']);
                 }),
             Action::make('put_on_hold')
+                ->label(__('Put on hold'))
                 ->icon(Heroicon::Pause)
                 ->color('warning')
                 ->visible(fn (Project $record): bool => $record->status === ProjectStatus::Active)
                 ->requiresConfirmation()
-                ->modalHeading('Put Project On Hold')
-                ->modalDescription('This will pause all work on this project.')
+                ->modalHeading(__('Put Project On Hold'))
+                ->modalDescription(__('This will pause all work on this project.'))
                 ->modalIcon(Heroicon::ExclamationTriangle)
                 ->modalIconColor('warning')
                 ->action(function (Project $record): void {
@@ -53,11 +55,12 @@ class ViewProject extends ViewRecord
                     $this->refreshFormData(['status']);
 
                     Notification::make()
-                        ->title('Project put on hold')
+                        ->title(__('Project put on hold'))
                         ->warning()
                         ->send();
                 }),
             Action::make('resume')
+                ->label(__('Resume'))
                 ->icon(Heroicon::Play)
                 ->color('success')
                 ->visible(fn (Project $record): bool => $record->status === ProjectStatus::OnHold)
@@ -66,11 +69,12 @@ class ViewProject extends ViewRecord
                     $this->refreshFormData(['status']);
 
                     Notification::make()
-                        ->title('Project resumed')
+                        ->title(__('Project resumed'))
                         ->success()
                         ->send();
                 }),
             Action::make('complete')
+                ->label(__('Complete'))
                 ->icon(Heroicon::CheckCircle)
                 ->color('success')
                 ->visible(fn (Project $record): bool => in_array($record->status, [ProjectStatus::Active, ProjectStatus::OnHold]))
@@ -83,7 +87,7 @@ class ViewProject extends ViewRecord
                     $this->refreshFormData(['status', 'end_date']);
 
                     Notification::make()
-                        ->title('Project completed')
+                        ->title(__('Project completed'))
                         ->success()
                         ->send();
                 }),

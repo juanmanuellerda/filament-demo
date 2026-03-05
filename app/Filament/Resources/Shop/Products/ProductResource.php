@@ -37,7 +37,7 @@ class ProductResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('Shop');
+        return __('Product');
     }
 
     public static function shouldRegisterNavigation(): bool
