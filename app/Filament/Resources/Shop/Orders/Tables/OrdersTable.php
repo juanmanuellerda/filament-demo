@@ -120,6 +120,7 @@ class OrdersTable
                                 ->send();
                         }),
                     Action::make('ship')
+                        ->label(__('Ship'))
                         ->icon(Heroicon::Truck)
                         ->color('success')
                         ->visible(fn (Order $record): bool => $record->status === OrderStatus::Processing)

@@ -22,7 +22,7 @@ class ListLeaveRequests extends ListRecords
     public function getTabs(): array
     {
         return [
-            null => Tab::make(__('All')),
+            '' => Tab::make(__('All')),
             'pending' => Tab::make(__('Pending'))
                 ->query(fn ($query) => $query->where('status', LeaveStatus::Pending)),
             'approved' => Tab::make(__('Approved'))

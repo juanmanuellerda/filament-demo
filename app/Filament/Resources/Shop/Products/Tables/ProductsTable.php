@@ -58,6 +58,7 @@ class ProductsTable
                 TextColumn::make('price')
                     ->label(__('Price'))
                     ->searchable()
+                    ->prefix('$ ')
                     ->sortable(),
 
                 TextColumn::make('sku')
