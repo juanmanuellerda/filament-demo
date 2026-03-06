@@ -22,10 +22,12 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Livewire\Attributes\On;
 
 class OrdersTable
 {
-    public static function configure(Table $table): Table
+
+public static function configure(Table $table): Table
     {
         return $table
             ->columns([
@@ -104,6 +106,7 @@ class OrdersTable
                         return $indicators;
                     }),
             ])
+
             ->recordActions([
                 ActionGroup::make([
                     Action::make('process')
@@ -131,6 +134,17 @@ class OrdersTable
                                 ->label(__('Shipping notes'))
                                 ->rows(3),
                         ])
+                        ->action(function (Order $record, array $data): void {
+                            $record->update([
+                                'status' => OrderStatus::Shipped,
+                                'notes' => $data['notes'] ?? null,
+                            ]);
+                            Notification::make()
+                                ->title(__('Order shipped'))
+                                ->success()
+                                ->send();
+                        })
+                        ->closeModalByEscaping(true)
                         ->extraModalFooterActions([
                             Action::make('ship_and_notify')
                                 ->label(__('Ship & notify customer'))
@@ -140,24 +154,12 @@ class OrdersTable
                                         'status' => OrderStatus::Shipped,
                                         'notes' => $data['notes'] ?? null,
                                     ]);
-
                                     Notification::make()
                                         ->title(__('Order shipped & customer notified'))
                                         ->success()
                                         ->send();
-                                }),
-                        ])
-                        ->action(function (Order $record, array $data): void {
-                            $record->update([
-                                'status' => OrderStatus::Shipped,
-                                'notes' => $data['notes'] ?? null,
-                            ]);
-
-                            Notification::make()
-                                ->title(__('Order shipped'))
-                                ->success()
-                                ->send();
-                        }),
+                                })->after(fn() => redirect()->to('/shop/orders?tab=processing')),
+                        ]),
                     Action::make('deliver')
                         ->label(__('Deliver'))
                         ->icon(Heroicon::CheckBadge)
@@ -171,7 +173,7 @@ class OrdersTable
                                 ->title(__('Order marked as delivered'))
                                 ->success()
                                 ->send();
-                        }),
+                                }),
                     EditAction::make(),
                     Action::make('cancel')
                         ->label(__('Cancel'))
