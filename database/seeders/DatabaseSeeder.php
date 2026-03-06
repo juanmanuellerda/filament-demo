@@ -63,19 +63,19 @@ class DatabaseSeeder extends Seeder
         ));
 
         $users = [
-                [
-                    'name' => 'Mateo',
-                    'email' => 'mateo@gmail.com',
-                    'type' => TypeEnum::EmployeeManagement->value,
-                    'password' => Hash::make('password456'),
-                ],
-                [
-                    'name' => 'Franco',
-                    'email' => 'franco@gmail.com',
-                    'type' => TypeEnum::Blog->value,
-                    'password' => Hash::make('password789'),
-                ],
-            ];
+            [
+                'name' => 'Mateo',
+                'email' => 'mateo@gmail.com',
+                'type' => TypeEnum::EmployeeManagement->value,
+                'password' => Hash::make('password456'),
+            ],
+            [
+                'name' => 'Franco',
+                'email' => 'franco@gmail.com',
+                'type' => TypeEnum::Blog->value,
+                'password' => Hash::make('password789'),
+            ],
+        ];
 
         collect($users)->each(fn ($user) => User::create($user));
 
@@ -455,7 +455,7 @@ class DatabaseSeeder extends Seeder
 
     protected function withProgressBar(int $amount, Closure $createCollectionOfOne): Collection
     {
-        
+
         $progressBar = new ProgressBar($this->command->getOutput(), $amount);
 
         $progressBar->start();
