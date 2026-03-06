@@ -22,12 +22,10 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
-use Livewire\Attributes\On;
 
 class OrdersTable
 {
-
-public static function configure(Table $table): Table
+    public static function configure(Table $table): Table
     {
         return $table
             ->columns([
@@ -158,7 +156,7 @@ public static function configure(Table $table): Table
                                         ->title(__('Order shipped & customer notified'))
                                         ->success()
                                         ->send();
-                                })->after(fn() => redirect()->to('/shop/orders?tab=processing')),
+                                })->after(fn () => redirect()->to('/shop/orders?tab=processing')),
                         ]),
                     Action::make('deliver')
                         ->label(__('Deliver'))
@@ -173,7 +171,7 @@ public static function configure(Table $table): Table
                                 ->title(__('Order marked as delivered'))
                                 ->success()
                                 ->send();
-                                }),
+                        }),
                     EditAction::make(),
                     Action::make('cancel')
                         ->label(__('Cancel'))
