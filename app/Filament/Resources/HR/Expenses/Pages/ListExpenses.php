@@ -30,7 +30,7 @@ class ListExpenses extends ListRecords
     public function getTabs(): array
     {
         return [
-            '' => Tab::make(__('All')),
+            'all' => Tab::make(__('All')),
             'draft' => Tab::make(__('Draft'))
                 ->query(fn ($query) => $query->where('status', ExpenseStatus::Draft)),
             'submitted' => Tab::make(__('Submitted'))

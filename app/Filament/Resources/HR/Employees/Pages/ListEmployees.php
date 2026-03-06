@@ -41,7 +41,7 @@ class ListEmployees extends ListRecords
     public function getTabs(): array
     {
         return [
-            '' => Tab::make(__('All')),
+            'all' => Tab::make(__('All')),
             'active' => Tab::make(__('Active'))
                 ->query(fn ($query) => $query->where('is_active', true)),
             'inactive' => Tab::make(__('Inactive'))
