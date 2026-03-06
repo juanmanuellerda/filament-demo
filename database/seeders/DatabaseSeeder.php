@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\EmploymentType;
+use App\Enums\TypeEnum;
 use App\Filament\Resources\Shop\Orders\OrderResource;
 use App\Models\Address;
 use App\Models\Blog\Author;
@@ -51,13 +52,34 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('public');
 
         // Admin
-        $this->command->warn(PHP_EOL . 'Creating admin user...');
-        $user = $this->withProgressBar(1, fn () => User::factory(1)->create([
-            'name' => 'Demo User',
-            'email' => 'admin@filamentphp.com',
-            'password' => Hash::make('demo.Filament@2021!'),
-        ]));
-        $this->command->info('Admin user created.');
+        $this->command->warn(PHP_EOL . 'Creating users...');
+        $user = $this->withProgressBar(1, fn () => User::factory(1)->create(
+            [
+                'name' => 'Gretel',
+                'email' => 'gretel@gmail.com',
+                'type' => TypeEnum::EcommerceShop->value,
+                'password' => Hash::make('password123'),
+            ]
+        ));
+
+        $users = [
+                [
+                    'name' => 'Mateo',
+                    'email' => 'mateo@gmail.com',
+                    'type' => TypeEnum::EmployeeManagement->value,
+                    'password' => Hash::make('password456'),
+                ],
+                [
+                    'name' => 'Franco',
+                    'email' => 'franco@gmail.com',
+                    'type' => TypeEnum::Blog->value,
+                    'password' => Hash::make('password789'),
+                ],
+            ];
+
+        collect($users)->each(fn ($user) => User::create($user));
+
+        $this->command->info('Users created.');
 
         // Shop
         $this->command->warn(PHP_EOL . 'Creating brands...');
@@ -433,6 +455,7 @@ class DatabaseSeeder extends Seeder
 
     protected function withProgressBar(int $amount, Closure $createCollectionOfOne): Collection
     {
+        
         $progressBar = new ProgressBar($this->command->getOutput(), $amount);
 
         $progressBar->start();

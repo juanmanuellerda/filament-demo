@@ -20,8 +20,17 @@ php artisan serve
 
 Then log in at the URL shown in the terminal:
 
-- **Email:** admin@filamentphp.com
-- **Password:** password
+<!-- - **Email:** admin@filamentphp.com
+- **Password:** password -->
+
+- **Email:** gretel@gmail.com
+- **Password:** password123
+
+- **Email:** mateo@gmail.com
+- **Password:** password456
+
+- **Email:** franco@gmail.com
+- **Password:** password789
 
 ## What's in the box
 
@@ -69,18 +78,18 @@ Employees, departments, projects, tasks, timesheets, leave requests, and expense
 
 Here are some specific things to poke at if you're learning Filament:
 
-| Pattern | Where to find it |
-|---|---|
-| Wizard form | Create a new order |
-| Reactive calculations | Edit an expense's line items |
-| Builder blocks | Edit a project's Plan tab |
-| Action groups with custom actions | Any table row with "..." menu |
-| Slide-over modals | Ship an order |
-| Modal forms with actions | Send email to a customer |
-| Infolist with repeatable entries | View an expense |
-| Sub-navigation | View or edit any post |
-| Conditional field visibility | Change employment type on an employee |
-| Dashboard filters | Shop dashboard date range and customer type |
-| Global search | Press Cmd+K anywhere |
-| Keyboard shortcuts | Cmd+Shift+P to quick-publish a post |
-| Navigation badges | Check sidebar counts on orders, leave requests, and expenses |
+| Pattern                           | Where to find it                                             |
+| --------------------------------- | ------------------------------------------------------------ |
+| Wizard form                       | Create a new order                                           |
+| Reactive calculations             | Edit an expense's line items                                 |
+| Builder blocks                    | Edit a project's Plan tab                                    |
+| Action groups with custom actions | Any table row with "..." menu                                |
+| Slide-over modals                 | Ship an order                                                |
+| Modal forms with actions          | Send email to a customer                                     |
+| Infolist with repeatable entries  | View an expense                                              |
+| Sub-navigation                    | View or edit any post                                        |
+| Conditional field visibility      | Change employment type on an employee                        |
+| Dashboard filters                 | Shop dashboard date range and customer type                  |
+| Global search                     | Press Cmd+K anywhere                                         |
+| Keyboard shortcuts                | Cmd+Shift+P to quick-publish a post                          |
+| Navigation badges                 | Check sidebar counts on orders, leave requests, and expenses |
