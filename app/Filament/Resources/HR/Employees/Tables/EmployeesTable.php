@@ -101,7 +101,7 @@ class EmployeesTable
             ->recordActions([
                 ActionGroup::make([
                     Action::make('view_profile')
-                        ->label('View profile')
+                        ->label(__('View profile'))
                         ->icon(Heroicon::Eye)
                         ->color('primary')
                         ->slideOver()
@@ -139,11 +139,10 @@ class EmployeesTable
                         ->requiresConfirmation()
                         ->action(fn (Employee $record) => $record->update(['is_active' => ! $record->is_active])),
                     Action::make('change_department')
-                        ->label('Change department')
+                        ->label(__('Change department'))
                         ->icon(Heroicon::BuildingOffice2)
                         ->color('primary')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Save'))
                         ->fillForm(fn (Employee $record): array => [
                             'department_id' => $record->department_id,
                         ])

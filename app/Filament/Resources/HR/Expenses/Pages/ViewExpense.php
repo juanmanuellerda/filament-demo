@@ -22,6 +22,7 @@ class ViewExpense extends ViewRecord
     {
         return [
             Action::make('submit')
+                ->label(__('Submit'))
                 ->icon(Heroicon::PaperAirplane)
                 ->color('info')
                 ->visible(fn (Expense $record): bool => $record->status === ExpenseStatus::Draft)
@@ -46,11 +47,12 @@ class ViewExpense extends ViewRecord
                 })
                 ->after(function (Expense $record): void {
                     Notification::make()
-                        ->title("Expense {$record->expense_number} submitted for approval")
+                        ->title(__('Expense :number submitted for approval', ['number' => $record->expense_number]))
                         ->success()
                         ->send();
                 }),
             Action::make('approve')
+                ->label(__('Approve'))
                 ->icon(Heroicon::Check)
                 ->color('success')
                 ->visible(fn (Expense $record): bool => $record->status === ExpenseStatus::Submitted)
@@ -62,7 +64,7 @@ class ViewExpense extends ViewRecord
                     ]);
 
                     Notification::make()
-                        ->title('Expense approved')
+                        ->title(__('Expense approved'))
                         ->success()
                         ->send();
 
@@ -73,11 +75,11 @@ class ViewExpense extends ViewRecord
                 ->color('danger')
                 ->visible(fn (Expense $record): bool => $record->status === ExpenseStatus::Submitted)
                 ->modalWidth(Width::Medium)
-                ->modalSubmitActionLabel('Reject')
+                ->label(__('Reject'))
                 ->schema([
                     Textarea::make('rejection_reason')
                         ->required()
-                        ->label('Reason for rejection'),
+                        ->label(__('Reason for rejection')),
                 ])
                 ->action(function (Expense $record, array $data): void {
                     $record->update([
@@ -86,13 +88,14 @@ class ViewExpense extends ViewRecord
                     ]);
 
                     Notification::make()
-                        ->title('Expense rejected')
+                        ->title(__('Expense rejected'))
                         ->danger()
                         ->send();
 
                     $this->refreshFormData(['status']);
                 }),
             Action::make('reimburse')
+                ->label(__('Reimburse'))
                 ->icon(Heroicon::Banknotes)
                 ->color('primary')
                 ->visible(fn (Expense $record): bool => $record->status === ExpenseStatus::Approved)
@@ -101,7 +104,7 @@ class ViewExpense extends ViewRecord
                     $record->update(['status' => ExpenseStatus::Reimbursed]);
 
                     Notification::make()
-                        ->title('Expense reimbursed')
+                        ->title(__('Expense reimbursed'))
                         ->success()
                         ->send();
 
@@ -111,11 +114,11 @@ class ViewExpense extends ViewRecord
                 ->icon(Heroicon::Flag)
                 ->color('warning')
                 ->modalWidth(Width::Medium)
-                ->modalSubmitActionLabel('Flag')
+                ->label(__('Flag'))
                 ->schema([
                     Textarea::make('flag_reason')
                         ->required()
-                        ->label('Reason for flagging'),
+                        ->label(__('Reason for flagging')),
                 ])
                 ->action(function (Expense $record, array $data): void {
                     $record->update([
@@ -124,7 +127,7 @@ class ViewExpense extends ViewRecord
                     ]);
 
                     Notification::make()
-                        ->title('Expense flagged and returned to draft')
+                        ->title(__('Expense flagged and returned to draft'))
                         ->warning()
                         ->send();
 

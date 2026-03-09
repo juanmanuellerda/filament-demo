@@ -45,6 +45,7 @@ class ExpenseInfolist
                             ->placeholder(__('Not approved'))
                             ->label(__('Approved At')),
                         TextEntry::make('description')
+                            ->label(__('Description'))
                             ->columnSpanFull(),
                         TextEntry::make('notes')
                             ->label(__('Notes'))

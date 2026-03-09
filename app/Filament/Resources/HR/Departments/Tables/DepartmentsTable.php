@@ -60,7 +60,6 @@ class DepartmentsTable
                         ->icon(Heroicon::Banknotes)
                         ->color('success')
                         ->modalWidth(Width::ExtraSmall)
-                        ->modalSubmitActionLabel(__('Save'))
                         ->fillForm(fn (Department $record): array => [
                             'budget' => $record->budget,
                         ])

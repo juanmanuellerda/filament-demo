@@ -70,6 +70,7 @@ class ExpensesTable
                     ViewAction::make(),
                     EditAction::make(),
                     Action::make('approve')
+                        ->label(__('Approve'))
                         ->icon(Heroicon::Check)
                         ->color('success')
                         ->visible(fn (Expense $record): bool => $record->status === ExpenseStatus::Submitted)
@@ -90,7 +91,7 @@ class ExpensesTable
                         ->color('danger')
                         ->visible(fn (Expense $record): bool => $record->status === ExpenseStatus::Submitted)
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Reject'))
+                        ->label(__('Reject'))
                         ->schema([
                             Textarea::make('rejection_reason')
                                 ->required()
@@ -108,6 +109,7 @@ class ExpensesTable
                                 ->send();
                         }),
                     Action::make('submit')
+                        ->label(__('Submit'))
                         ->icon(Heroicon::PaperAirplane)
                         ->color('info')
                         ->visible(fn (Expense $record): bool => $record->status === ExpenseStatus::Draft)
@@ -151,7 +153,7 @@ class ExpensesTable
                         ->icon(Heroicon::Flag)
                         ->color('warning')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Flag'))
+                        ->label(__('Flag'))
                         ->schema([
                             Textarea::make('flag_reason')
                                 ->required()

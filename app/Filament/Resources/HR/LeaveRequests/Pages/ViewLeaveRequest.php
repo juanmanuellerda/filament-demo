@@ -43,7 +43,7 @@ class ViewLeaveRequest extends ViewRecord
                 ->color('danger')
                 ->visible(fn (LeaveRequest $record): bool => $record->status === LeaveStatus::Pending)
                 ->modalWidth(Width::Medium)
-                ->modalSubmitActionLabel('Reject')
+                ->label('Reject')
                 ->schema([
                     Textarea::make('reviewer_notes')
                         ->label('Reason for rejection')

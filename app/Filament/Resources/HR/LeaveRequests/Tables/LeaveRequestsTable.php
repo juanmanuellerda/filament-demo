@@ -92,7 +92,7 @@ class LeaveRequestsTable
                         ->color('danger')
                         ->visible(fn (LeaveRequest $record): bool => $record->status === LeaveStatus::Pending)
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Reject'))
+                        ->label(__('Reject'))
                         ->schema([
                             Textarea::make('reviewer_notes')
                                 ->label(__('Reason for rejection'))
