@@ -30,11 +30,14 @@ class ExpenseResource extends Resource
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedReceiptPercent;
 
-    protected static string | UnitEnum | null $navigationGroup = 'HR';
-
     protected static ?int $navigationSort = 3;
 
     protected static ?string $slug = 'hr/expenses';
+
+    public static function getNavigationGroup(): string | UnitEnum | null
+    {
+        return __('Human Resources');
+    }
 
     public static function getModelLabel(): string
     {

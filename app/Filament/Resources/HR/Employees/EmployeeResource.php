@@ -31,11 +31,14 @@ class EmployeeResource extends Resource
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedIdentification;
 
-    protected static string | UnitEnum | null $navigationGroup = 'HR';
-
     protected static ?int $navigationSort = 0;
 
     protected static ?string $slug = 'hr/employees';
+
+    public static function getNavigationGroup(): string | UnitEnum | null
+    {
+        return __('Human Resources');
+    }
 
     public static function getModelLabel(): string
     {

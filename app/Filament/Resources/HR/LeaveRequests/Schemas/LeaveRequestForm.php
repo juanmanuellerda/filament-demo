@@ -67,6 +67,7 @@ class LeaveRequestForm
                             ->seconds(false),
 
                         TextInput::make('days_requested')
+                            ->label(__('Days requested'))
                             ->numeric()
                             ->step(0.5)
                             ->minValue(0)

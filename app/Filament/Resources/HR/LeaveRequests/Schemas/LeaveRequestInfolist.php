@@ -32,7 +32,7 @@ class LeaveRequestInfolist
                             ->date(),
                         TextEntry::make('days_requested')
                             ->label(__('Days requested'))
-                            ->suffix(' ' . __('days')),
+                            ->suffix(fn ($get) => $get('days_requested') != 1 ? ' '.  __('days') : ' '. __('day')),
                         TextEntry::make('start_time')
                             ->label(__('Start time (half days)'))
                             ->time('H:i')
