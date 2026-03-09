@@ -464,5 +464,7 @@
   "days": "días",
   "day": "día",
   "Days Requested": "Días solicitados",
-  "Note: Approving this request will deduct days from the employee's leave balance.": "Nota: Aprobar esta solicitud deducirá días del saldo de licencia del empleado."
+  "Note: Approving this request will deduct days from the employee's leave balance.": "Nota: Aprobar esta solicitud deducirá días del saldo de licencia del empleado.",
+  "Policy Notice": "Aviso de política",
+  "Expenses over $500 require manager approval. Expenses over $5,000 require VP approval.": "Los gastos superiores a $500 requieren aprobación del gerente. Los gastos superiores a $5,000 requieren aprobación del VP."
 }

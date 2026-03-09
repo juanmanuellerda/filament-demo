@@ -31,10 +31,11 @@ class CreateExpense extends CreateRecord
     protected function getSteps(): array
     {
         return [
-            Step::make('Details')
+            Step::make(__('Details'))
                 ->icon(Heroicon::InformationCircle)
                 ->schema([
                     TextInput::make('expense_number')
+                        ->label(__('Expense Number'))
                         ->default(fn () => 'EXP-' . str_pad((string) random_int(1, 999999), 6, '0', STR_PAD_LEFT))
                         ->disabled()
                         ->dehydrated()
@@ -42,56 +43,64 @@ class CreateExpense extends CreateRecord
                         ->maxLength(255),
 
                     Select::make('employee_id')
+                        ->label(__('Employee'))
                         ->relationship('employee', 'name')
                         ->searchable()
                         ->preload()
                         ->required(),
 
                     Select::make('project_id')
+                        ->label(__('Project'))
                         ->relationship('project', 'name')
                         ->searchable()
                         ->preload(),
 
                     ToggleButtons::make('category')
+                        ->label(__('Category'))
                         ->options(ExpenseCategory::class)
                         ->inline()
                         ->required()
                         ->columnSpanFull(),
 
                     Textarea::make('description')
+                        ->label(__('Description'))
                         ->required()
                         ->maxLength(65535)
                         ->columnSpanFull(),
 
                     TextEntry::make('policy_notice')
-                        ->state('Expenses over $500 require manager approval. Expenses over $5,000 require VP approval.')
+                        ->label(__('Policy Notice'))
+                        ->state(__('Expenses over $500 require manager approval. Expenses over $5,000 require VP approval.'))
                         ->columnSpanFull(),
                 ])
                 ->columns(2),
 
-            Step::make('Line Items')
+            Step::make(__('Line Items'))
                 ->icon(Heroicon::ListBullet)
                 ->schema([
                     Repeater::make('expenseLines')
+                        ->label(__('Line Items'))
                         ->relationship()
                         ->defaultItems(1)
                         ->table([
-                            TableColumn::make('Description'),
-                            TableColumn::make('Quantity')
+                            TableColumn::make(__('Description')),
+                            TableColumn::make(__('Quantity'))
                                 ->width(100),
-                            TableColumn::make('Unit Price')
+                            TableColumn::make(__('Unit Price'))
                                 ->width(120),
-                            TableColumn::make('Amount')
+                            TableColumn::make(__('Amount'))
                                 ->width(120),
-                            TableColumn::make('Date')
+                            TableColumn::make(__('Date'))
                                 ->width(150),
                         ])
                         ->schema([
                             TextInput::make('description')
+                                ->label(__('Description'))
                                 ->required()
                                 ->maxLength(255),
 
                             TextInput::make('quantity')
+                                ->label(__('Quantity'))
                                 ->integer()
                                 ->minValue(1)
                                 ->maxValue(2147483647)
@@ -105,6 +114,7 @@ class CreateExpense extends CreateRecord
                                 }),
 
                             TextInput::make('unit_price')
+                                ->label(__('Unit Price'))
                                 ->numeric()
                                 ->prefix('$')
                                 ->minValue(0)
@@ -118,6 +128,7 @@ class CreateExpense extends CreateRecord
                                 }),
 
                             TextInput::make('amount')
+                                ->label(__('Amount'))
                                 ->numeric()
                                 ->prefix('$')
                                 ->minValue(0)
@@ -126,16 +137,18 @@ class CreateExpense extends CreateRecord
                                 ->dehydrated(),
 
                             DatePicker::make('date')
+                                ->label(__('Date'))
                                 ->required()
                                 ->default(now()),
                         ])
                         ->columnSpanFull(),
                 ]),
 
-            Step::make('Review')
+            Step::make(__('Review'))
                 ->icon(Heroicon::CheckCircle)
                 ->schema([
                     TextInput::make('total_amount')
+                        ->label(__('Total Amount'))
                         ->numeric()
                         ->prefix('$')
                         ->minValue(0)
@@ -144,6 +157,7 @@ class CreateExpense extends CreateRecord
                         ->dehydrated(),
 
                     Select::make('currency')
+                        ->label(__('Currency'))
                         ->required()
                         ->options([
                             'USD' => 'USD',
@@ -154,9 +168,11 @@ class CreateExpense extends CreateRecord
                         ->default('USD'),
 
                     FileUpload::make('receipt_path')
+                        ->label(__('Receipt'))
                         ->directory('expense-receipts'),
 
                     Textarea::make('notes')
+                        ->label(__('Notes'))
                         ->maxLength(65535)
                         ->columnSpanFull(),
                 ])
