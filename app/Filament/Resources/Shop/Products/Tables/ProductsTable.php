@@ -142,7 +142,6 @@ class ProductsTable
                         ->icon(Heroicon::CurrencyDollar)
                         ->color('warning')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Save'))
                         ->modalIcon(Heroicon::CurrencyDollar)
                         ->modalIconColor('warning')
                         ->fillForm(fn (Product $record): array => [
@@ -170,7 +169,6 @@ class ProductsTable
                         ->icon(Heroicon::CubeTransparent)
                         ->color('info')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Save'))
                         ->fillForm(fn (Product $record): array => [
                             'qty' => $record->qty,
                         ])

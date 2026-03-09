@@ -118,7 +118,6 @@ class TasksTable
                         ->icon(Heroicon::CheckCircle)
                         ->color('success')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Complete'))
                         ->visible(fn (Task $record): bool => in_array($record->status, [TaskStatus::InProgress, TaskStatus::InReview]))
                         ->fillForm(fn (Task $record): array => [
                             'actual_hours' => $record->actual_hours,
@@ -148,7 +147,6 @@ class TasksTable
                         ->label(__('Assign'))
                         ->icon(Heroicon::UserPlus)
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Assign'))
                         ->schema([
                             Select::make('assigned_to')
                                 ->label(__('Assigned To'))
@@ -162,7 +160,6 @@ class TasksTable
                         ->label(__('Set Priority'))
                         ->icon(Heroicon::Flag)
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Save'))
                         ->schema([
                             ToggleButtons::make('priority')
                                 ->label(__('Priority'))

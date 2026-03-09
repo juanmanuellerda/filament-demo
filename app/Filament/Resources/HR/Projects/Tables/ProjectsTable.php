@@ -102,7 +102,6 @@ class ProjectsTable
                         ->icon(Heroicon::ArrowPathRoundedSquare)
                         ->color('primary')
                         ->modalWidth(Width::Medium)
-                        ->modalSubmitActionLabel(__('Save'))
                         ->stickyModalFooter()
                         ->fillForm(fn (Project $record): array => [
                             'status' => $record->status,

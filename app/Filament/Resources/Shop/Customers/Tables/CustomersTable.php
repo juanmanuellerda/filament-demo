@@ -48,7 +48,6 @@ class CustomersTable
                     ->icon(Heroicon::Envelope)
                     ->color('info')
                     ->modalWidth(Width::Large)
-                    ->modalSubmitActionLabel(__('Send'))
                     ->fillForm(fn (Customer $record): array => [
                         'to' => $record->email,
                     ])

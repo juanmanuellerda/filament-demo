@@ -26,7 +26,7 @@ class EditCustomer extends EditRecord
                 ->icon(Heroicon::Envelope)
                 ->color('info')
                 ->modalWidth(Width::Large)
-                ->modalSubmitActionLabel('Send')
+                ->label(__('Send email'))
                 ->fillForm(fn (Customer $record): array => [
                     'to' => $record->email,
                 ])

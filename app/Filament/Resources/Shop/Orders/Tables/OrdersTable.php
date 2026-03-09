@@ -126,7 +126,6 @@ class OrdersTable
                         ->color('success')
                         ->visible(fn (Order $record): bool => $record->status === OrderStatus::Processing)
                         ->slideOver()
-                        ->modalSubmitActionLabel(__('Ship'))
                         ->schema([
                             Textarea::make('notes')
                                 ->label(__('Shipping notes'))

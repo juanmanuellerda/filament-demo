@@ -107,7 +107,7 @@ class OrderForm
                 ->createOptionAction(function (Action $action) {
                     return $action
                         ->modalHeading('Create customer')
-                        ->modalSubmitActionLabel('Create customer')
+                        ->label('Create customer')
                         ->modalWidth(Width::Large);
                 }),
 
