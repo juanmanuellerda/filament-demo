@@ -23,14 +23,14 @@ Then log in at the URL shown in the terminal:
 <!-- - **Email:** admin@filamentphp.com
 - **Password:** password -->
 
-- **Email:** gretel@gmail.com
-- **Password:** password123
+- **Email:** shop@gmail.com
+- **Password:** passd123
 
-- **Email:** mateo@gmail.com
-- **Password:** password456
+- **Email:** management@gmail.com
+- **Password:** pass456
 
-- **Email:** franco@gmail.com
-- **Password:** password789
+- **Email:** blog@gmail.com
+- **Password:** pass789
 
 ## What's in the box
 

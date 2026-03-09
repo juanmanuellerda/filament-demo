@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
         $user = $this->withProgressBar(1, fn () => User::factory(1)->create(
             [
                 'name' => 'Gretel',
-                'email' => 'gretel@gmail.com',
+                'email' => 'shop@gmail.com',
                 'type' => TypeEnum::EcommerceShop->value,
                 'password' => Hash::make('password123'),
             ]
@@ -65,13 +65,13 @@ class DatabaseSeeder extends Seeder
         $users = [
             [
                 'name' => 'Mateo',
-                'email' => 'mateo@gmail.com',
+                'email' => 'management@gmail.com',
                 'type' => TypeEnum::EmployeeManagement->value,
                 'password' => Hash::make('password456'),
             ],
             [
                 'name' => 'Franco',
-                'email' => 'franco@gmail.com',
+                'email' => 'blog@gmail.com',
                 'type' => TypeEnum::Blog->value,
                 'password' => Hash::make('password789'),
             ],
