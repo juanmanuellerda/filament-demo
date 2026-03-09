@@ -41,12 +41,15 @@ class Dashboard extends BaseDashboard
         switch ($user) {
             case TypeEnum::EmployeeManagement:
                 $text = __('Welcome to the HR System!');
+
                 break;
             case TypeEnum::EcommerceShop:
                 $text = __('Welcome to Our Online Store!');
+
                 break;
             case TypeEnum::Blog:
                 $text = __('Welcome to Our Blog!');
+
                 break;
             default:
                 $text = __('Welcome!');
