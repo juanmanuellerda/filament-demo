@@ -25,13 +25,16 @@ class TaskResource extends Resource
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Projects';
-
     protected static ?int $navigationSort = 1;
 
     protected static ?string $slug = 'tasks';
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    public static function getNavigationGroup(): string | UnitEnum | null
+    {
+        return __('Projects');
+    }
 
     public static function getModelLabel(): string
     {

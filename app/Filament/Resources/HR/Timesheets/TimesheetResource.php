@@ -24,11 +24,14 @@ class TimesheetResource extends Resource
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedClock;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Projects';
-
     protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'timesheets';
+
+    public static function getNavigationGroup(): string | UnitEnum | null
+    {
+        return __('Projects');
+    }
 
     public static function getModelLabel(): string
     {

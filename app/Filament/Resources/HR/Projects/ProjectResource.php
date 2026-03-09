@@ -32,8 +32,6 @@ class ProjectResource extends Resource
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedFolder;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Projects';
-
     protected static ?int $navigationSort = 0;
 
     protected static ?string $slug = 'projects';
@@ -43,6 +41,11 @@ class ProjectResource extends Resource
     public static function getModelLabel(): string
     {
         return __('Project');
+    }
+
+    public static function getNavigationGroup(): string | UnitEnum | null
+    {
+        return __('Projects');
     }
 
     public static function shouldRegisterNavigation(): bool
