@@ -28,12 +28,12 @@ class ExpenseForm
                     ->columnSpanFull()
                     ->schema([
                         TextInput::make('expense_number')
+                        ->label(__('Expense Number'))
                             ->default(fn () => 'EXP-' . str_pad((string) random_int(1, 999999), 6, '0', STR_PAD_LEFT))
                             ->disabled()
                             ->dehydrated()
                             ->required()
-                            ->maxLength(255)
-                            ->label(__('Expense Number')),
+                            ->maxLength(255),
 
                         Select::make('employee_id')
                             ->relationship('employee', 'name')

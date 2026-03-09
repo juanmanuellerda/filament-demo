@@ -67,13 +67,13 @@ class ProjectsTable
                         : '0%'),
 
                 TextColumn::make('start_date')
-                    ->label(__('Start Date'))
+                    ->label(__('Start date'))
                     ->date()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('end_date')
-                    ->label(__('End Date'))
+                    ->label(__('End date'))
                     ->date()
                     ->sortable()
                     ->toggleable(),
