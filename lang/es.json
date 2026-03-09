@@ -34,7 +34,7 @@
   "Slug": "Slug",
   "Description": "Descripción",
   "Welcome": "Bienvenido",
-  "Welcome to the Filament Demo!": "¡Bienvenido al Demo de Filament!",
+  "Welcome to the Demo!": "¡Bienvenido al Demo!",
   "Repeat Customer Rate": "Tasa de clientes recurrentes",
   "Avg Items / Order": "Promedio de artículos por pedido",
   "Cancellation Rate": "Tasa de cancelación",
@@ -466,5 +466,8 @@
   "Days Requested": "Días solicitados",
   "Note: Approving this request will deduct days from the employee's leave balance.": "Nota: Aprobar esta solicitud deducirá días del saldo de licencia del empleado.",
   "Policy Notice": "Aviso de política",
-  "Expenses over $500 require manager approval. Expenses over $5,000 require VP approval.": "Los gastos superiores a $500 requieren aprobación del gerente. Los gastos superiores a $5,000 requieren aprobación del VP."
+  "Expenses over $500 require manager approval. Expenses over $5,000 require VP approval.": "Los gastos superiores a $500 requieren aprobación del gerente. Los gastos superiores a $5,000 requieren aprobación del VP.",
+  "Welcome to the HR Dashboard!": "¡Bienvenido al panel de gestión de empleados!",
+  "Welcome to Our Blog!": "¡Bienvenido a nuestro blog!",
+  "Welcome to Our Online Store!": "¡Bienvenido a nuestra tienda en línea!"
 }
