@@ -17,9 +17,10 @@ class EditBrand extends EditRecord
     {
         return [
             Action::make('visit_website')
+                ->label(__('Visit website'))
                 ->icon(Heroicon::ArrowTopRightOnSquare)
                 ->color('gray')
-                ->tooltip('Open brand website')
+                ->tooltip(__('Open brand website'))
                 ->url(fn (Brand $record): ?string => $record->website)
                 ->openUrlInNewTab()
                 ->hidden(fn (Brand $record): bool => blank($record->website)),

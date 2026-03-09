@@ -144,7 +144,7 @@
   "Open orders": "Pedidos abiertos",
   "Email address": "Dirección de correo",
   "Birthday": "Fecha de nacimiento",
-  "Created at": "Creado",
+  "Created at": "Creado en",
   "Website": "Sitio web",
   "Open brand website": "Abrir sitio web de la marca",
   "Hide brand": "Ocultar marca",
@@ -456,5 +456,8 @@
   "Reimburse": "Reembolsar",
   "Send email": "Enviar correo",
   "Order Details": "Detalles del pedido",
-  "Order Items": "Elementos del pedido"
+  "Order Items": "Elementos del pedido",
+  "Your brand export has completed and": "Su exportación de marcas se ha completado y",
+  "exported": "exportados",
+  "failed to export": "no se pudo exportar"
 }

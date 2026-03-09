@@ -14,23 +14,26 @@ class BrandExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id')
-                ->label('ID'),
-            ExportColumn::make('name'),
-            ExportColumn::make('slug'),
-            ExportColumn::make('website'),
-            ExportColumn::make('created_at'),
+            ExportColumn::make('id'),
+            ExportColumn::make('name')
+                ->label(__('Name')),
+            ExportColumn::make('slug')
+                ->label(__('Slug')),
+            ExportColumn::make('website')
+                ->label(__('Website')),
+            ExportColumn::make('created_at')
+                ->label(__('Created at')),
             ExportColumn::make('updated_at')
-                ->label('Last modified at'),
+                ->label(__('Last modified at')),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your brand export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $body = __('Your brand export has completed and') . ' ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' ' . __('exported') . '.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';
+            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' ' . __('failed to export') . '.';
         }
 
         return $body;
