@@ -104,6 +104,7 @@ class CommentsRelationManager extends RelationManager
             ])
             ->headerActions([
                 CreateAction::make()
+                    ->label(__('Create Comment'))
                     ->after(function ($record): void {
                         /** @var User $user */
                         $user = auth()->user();
